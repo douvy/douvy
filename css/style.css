@@ -151,7 +151,6 @@ h1,h2,h3,h4,h5,h6 {
   text-decoration: none;
 }
 .hero a { 
-font-family: "VulfMono-Regular", sans-serif; 
 font-style: italic;
 border-bottom: 1px dotted #222;
 }
