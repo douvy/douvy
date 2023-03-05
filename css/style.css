@@ -38,9 +38,9 @@ dark: #222222;
 body {
   font-family: "VulfMono-LightItalic", sans-serif;
   color: #222222;
-  background-color: #86BDFD;
-  background-image: url(../assets/img/gradient.jpg), -webkit-gradient(linear, left top, left bottom, from(#86BDFD), to(#86BDFD));
-  background-image:  background-image: url(../img/gradient.jpg), linear-gradient(180deg, #86BDFD, #86BDFD);
+  background-color: #D8DEE2;
+  background-image: url(../assets/img/gradient.jpg), -webkit-gradient(linear, left top, left bottom, from(#D8DEE2), to(#D8DEE2));
+  background-image:  background-image: url(../img/gradient.jpg), linear-gradient(180deg, #D8DEE2, #D8DEE2);
   background-image: linear-gradient(
   50deg,
   hsl(217deg 98% 75%) 0%,
