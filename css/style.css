@@ -37,7 +37,7 @@ dark: #222222;
 
 body {
   font-family: "VulfMono-LightItalic", sans-serif;
-  color: #222222;
+  color: #000000;
   background-color: #D8DEE2;
   background-image: url(../assets/img/gradient.jpg), -webkit-gradient(linear, left top, left bottom, from(#D8DEE2), to(#D8DEE2));
   background-image:  background-image: url(../img/gradient.jpg), linear-gradient(180deg, #D8DEE2, #D8DEE2);
