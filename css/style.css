@@ -82,7 +82,7 @@ h1,h2,h3,h4,h5,h6 {
   font-family: 'Romana', Domine, sans-serif;
   font-family: "VulfSans-Bold", Domine,sans-serif;
 }
-.project-title a {
+.project-title a, h3 {
   margin-top: 0px;
   font-family: 'Domine', sans-serif;
   font-family: "VulfMono-Regular", sans-serif; 
