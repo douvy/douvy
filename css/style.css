@@ -87,11 +87,11 @@ h1,h2,h3,h4,h5,h6 {
   font-family: 'Domine', sans-serif;
   font-family: "VulfMono-Regular", sans-serif; 
   font-family: "VulfSans-Bold", Domine,sans-serif;
-  letter-spacing: .5px;
+  letter-spacing: .25px;
   margin-bottom: 0px;
   font-weight: 700;
   padding-bottom: 10px;
-  font-size: 30px !important;
+  font-size: 26px !important;
   line-height: 48px;
 }
 .border {
@@ -289,6 +289,3 @@ footer a {
   max-width: 425px;
  }
 }
-
-
-
