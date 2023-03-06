@@ -187,6 +187,9 @@ border-bottom: 1px dotted #222;
   max-width: 410px;
   margin-top: 15px;
 }
+#current-projects img {
+  border: 3px solid #eff8fd;
+}
 #current-projects .home-teaser-list {
   border-top: 1px dotted #222222;
   padding-top: 70px;
