@@ -274,6 +274,17 @@ footer a {
  }
  .mt-10-sm {
   margin-top: 50px;
- }
-  
+ } 
 }
+
+@media (min-width: 768px) {
+  #current-projects p {
+  margin-top: 25px;
+  line-height: 23px;
+  font-size: 14px;
+  max-width: 425px;
+ }
+}
+
+
+
