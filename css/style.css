@@ -237,6 +237,10 @@ footer .twitter {
   display: inline-block;
   float: left;
 }
+footer a {
+  border-bottom: 1px dotted #222;
+  margin-left: 12px;
+}
 @media (max-width: 768px) {
   .hero {
     margin-top: 80px;
