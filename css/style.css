@@ -189,6 +189,7 @@ border-bottom: 1px dotted #222;
 }
 #current-projects img {
   border: 3px solid #eff8fd;
+  border-style: ridge;
 }
 #current-projects .home-teaser-list {
   border-top: 1px dotted #222222;
