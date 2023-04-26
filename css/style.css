@@ -109,10 +109,10 @@ h1,h2,h3,h4,h5,h6 {
   line-height: 48px;
 }
 .border {
-  border:  1px solid rgb(45, 45, 45);
+  border:  1px solid #30363D;
 }
 .border-b {
-  border-color: rgb(45, 45, 45) !important;
+  border-color: #30363D !important;
 }
 .border-none {
 	border: none !important;
@@ -152,15 +152,15 @@ h1,h2,h3,h4,h5,h6 {
   -webkit-transition: all 0.3s ease;
   font-family: "VulfSans-Bold", Domine,sans-serif;
   font-family: "VulfMono-Regular", sans-serif;
-  border: 1px solid rgba(40, 40, 40, 0.30);
+  border: 1px solid #30363D;
   font-weight: 400;
   transition: all 0.3s ease;
 }
 .hero .twitter:hover, .twitter:visited {
   -webkit-transition: all 0.3s ease;
   color: #2f81f7;
-  background: #161B23;
-  border: 1px solid #777;
+  background: #202733;
+  border: 1px solid #30363D;
   transition: all 0.3s ease;
   text-decoration: none;
 }
@@ -208,7 +208,7 @@ border-bottom: 1px dotted #2f81f7;
   margin-top: 15px;
 }
 #current-projects img {
-  border: 1px solid #21262D;
+  border: 1px solid #30363D;
 }
 #current-projects .home-teaser-list {
   border-top: 1px dotted #30363D;
@@ -265,7 +265,7 @@ footer h3 {
   float: left;
 }
 footer a {
-  border-bottom: 1px dotted #222;
+  border-bottom: 1px dotted #30363D;
   margin-left: 12px;
 }
 @media (max-width: 768px) {
