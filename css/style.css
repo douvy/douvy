@@ -96,6 +96,12 @@ h1,h2,h3,h4,h5,h6 {
   font-family: 'Romana', Domine, sans-serif;
   font-family: "VulfSans-Bold", Domine,sans-serif;
 }
+a {
+  transition: .25s;
+}
+a:hover {
+  color: #2f81f7;
+}
 .project-title a, h3 {
   margin-top: 0px;
   font-family: 'Domine', sans-serif;
@@ -192,7 +198,7 @@ border-bottom: 1px dotted #2f81f7;
 }
 .home-project-title {
   color: #222;
-  color: #7d8590;
+  color: #8b929c;
   font-size: 48px;
   line-height: 56px;
   border-right: 1px dotted #30363D;
@@ -249,7 +255,7 @@ footer .twitter {
   color: #222 !important;
 }
 footer h3 {
-  color: #7d8590;
+  color: #8b929c;
 }
 .name h1 {
   max-width: 300px !important;
