@@ -181,7 +181,7 @@ border-bottom: 1px dotted #2f81f7;
 }
 .hero p {
   color: #161813;
-  color: #c2c6ca;
+  color: #d5e1eb;
   margin-top: 20px;
   line-height: 28px;
   font-size: 16px;
@@ -192,7 +192,7 @@ border-bottom: 1px dotted #2f81f7;
 }
 .home-project-title {
   color: #222;
-  color: #e6edf3;
+  color: #7d8590;
   font-size: 48px;
   line-height: 56px;
   border-right: 1px dotted #30363D;
@@ -201,7 +201,7 @@ border-bottom: 1px dotted #2f81f7;
     
 }
 .description {
-  color: #d6cfd2;
+  color: #d5e1eb;
 }
 .home-preview-description {
   max-width: 410px;
