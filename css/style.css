@@ -38,6 +38,7 @@ dark: #222222;
 body {
   font-family: "VulfMono-LightItalic", sans-serif;
   color: #000000;
+  color: #e6edf3;
   background-color: #D8DEE2;
   background-image: url(../assets/img/gradient.jpg), -webkit-gradient(linear, left top, left bottom, from(#D8DEE2), to(#D8DEE2));
   background-image:  background-image: url(../img/gradient.jpg), linear-gradient(180deg, #D8DEE2, #D8DEE2);
@@ -66,6 +67,19 @@ body {
   hsl(202deg 21% 89%) 91%,
   hsl(202deg 35% 93%) 95%,
   hsl(201deg 78% 96%) 100%
+);
+background-image: linear-gradient(
+  45deg,
+  hsl(225deg 67% 2%) 0%,
+  hsl(227deg 73% 4%) 11%,
+  hsl(230deg 68% 5%) 22%,
+  hsl(234deg 59% 7%) 33%,
+  hsl(239deg 52% 8%) 44%,
+  hsl(245deg 53% 9%) 56%,
+  hsl(249deg 54% 10%) 67%,
+  hsl(252deg 56% 11%) 78%,
+  hsl(257deg 58% 12%) 89%,
+  hsl(262deg 61% 12%) 100%
 );
   background-position: 0px 0px, 0px 0px;
   background-size: 100%, auto;
@@ -112,7 +126,7 @@ h1,h2,h3,h4,h5,h6 {
   margin-bottom: 53px;
 }
 .hero em {
-  border-bottom: #3482fd solid 0.2rem;
+  border-bottom: #2f81f7 solid 0.2rem;
   font-style: normal;
 }
 .hero i {
@@ -144,7 +158,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 .hero .twitter:hover, .twitter:visited {
   -webkit-transition: all 0.3s ease;
-  color: #3482fd;
+  color: #2f81f7;
   background: #EDF8F3;
   border: 1px solid rgba(40, 40, 40, 0.30);
   transition: all 0.3s ease;
@@ -160,12 +174,14 @@ border-bottom: 1px dotted #222;
 .hero h1 {
   font-size: 56px;
   color: #161813;
+  color: #e6edf3;
   letter-spacing: 1px;
   line-height: 1.3;
   margin-bottom: 39px;
 }
 .hero p {
   color: #161813;
+  color: #c2c6ca;
   margin-top: 20px;
   line-height: 28px;
   font-size: 16px;
@@ -176,6 +192,7 @@ border-bottom: 1px dotted #222;
 }
 .home-project-title {
   color: #222;
+  color: #e6edf3;
   font-size: 48px;
   line-height: 56px;
   border-right: 1px dotted #222;
@@ -183,13 +200,15 @@ border-bottom: 1px dotted #222;
   margin-right: 40px;
     
 }
+.description {
+  color: #d6cfd2;
+}
 .home-preview-description {
   max-width: 410px;
   margin-top: 15px;
 }
 #current-projects img {
-  border: 3px solid #eff8fd;
-  border-style: ridge;
+  border: 1px solid #21262D;
 }
 #current-projects .home-teaser-list {
   border-top: 1px dotted #222222;
@@ -209,7 +228,7 @@ border-bottom: 1px dotted #222;
   opacity: 1;
 }
 .swiper-container {
-  background: #A3DCC0;
+  background: #21262D;
   max-width: 453px;
   overflow: hidden;
 }
@@ -228,6 +247,9 @@ footer {
 }
 footer .twitter {
   color: #222 !important;
+}
+footer h3 {
+  color: #7d8590;
 }
 .name h1 {
   max-width: 300px !important;
