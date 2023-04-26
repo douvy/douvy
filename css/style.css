@@ -139,7 +139,7 @@ h1,h2,h3,h4,h5,h6 {
   border-radius: 3px;
   float: right;
   display: inline-block;
-  border: 1px solid #222;
+  border: 1px solid #30363D;
   top: 0;
 }
 .hero .twitter {
@@ -159,14 +159,14 @@ h1,h2,h3,h4,h5,h6 {
 .hero .twitter:hover, .twitter:visited {
   -webkit-transition: all 0.3s ease;
   color: #2f81f7;
-  background: #EDF8F3;
-  border: 1px solid rgba(40, 40, 40, 0.30);
+  background: #161B23;
+  border: 1px solid #777;
   transition: all 0.3s ease;
   text-decoration: none;
 }
 .hero a { 
 font-style: italic;
-border-bottom: 1px dotted #222;
+border-bottom: 1px dotted #2f81f7;
 }
 .move {
   margin-left: 3px;
@@ -195,8 +195,8 @@ border-bottom: 1px dotted #222;
   color: #e6edf3;
   font-size: 48px;
   line-height: 56px;
-  border-right: 1px dotted #21262D;
-  border-bottom: 1px dotted #21262D;
+  border-right: 1px dotted #30363D;
+  border-bottom: 1px dotted #30363D;
   margin-right: 40px;
     
 }
@@ -211,7 +211,7 @@ border-bottom: 1px dotted #222;
   border: 1px solid #21262D;
 }
 #current-projects .home-teaser-list {
-  border-top: 1px dotted #21262D;
+  border-top: 1px dotted #30363D;
   padding-top: 70px;
 }
 #current-projects .hero-image-home-link-block {
@@ -235,7 +235,7 @@ border-bottom: 1px dotted #222;
 #project-2nd .home-teaser-list {
   margin-top: 30px;
   border-top: none;
-  border-bottom: 1px dotted #222222;
+  border-bottom: 1px dotted #30363D;
   padding-bottom: 95px;
 }
 #project-2nd img {
