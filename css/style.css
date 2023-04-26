@@ -70,16 +70,16 @@ body {
 );
 background-image: linear-gradient(
   45deg,
-  hsl(225deg 67% 2%) 0%,
-  hsl(227deg 73% 4%) 11%,
-  hsl(230deg 68% 5%) 22%,
-  hsl(234deg 59% 7%) 33%,
-  hsl(239deg 52% 8%) 44%,
-  hsl(245deg 53% 9%) 56%,
-  hsl(249deg 54% 10%) 67%,
-  hsl(252deg 56% 11%) 78%,
-  hsl(257deg 58% 12%) 89%,
-  hsl(262deg 61% 12%) 100%
+  hsl(260deg 63% 7%) 0%,
+  hsl(256deg 61% 7%) 11%,
+  hsl(251deg 60% 7%) 22%,
+  hsl(245deg 58% 6%) 33%,
+  hsl(240deg 58% 6%) 44%,
+  hsl(235deg 64% 5%) 56%,
+  hsl(232deg 69% 5%) 67%,
+  hsl(229deg 72% 4%) 78%,
+  hsl(227deg 73% 3%) 89%,
+  hsl(225deg 67% 2%) 100%
 );
   background-position: 0px 0px, 0px 0px;
   background-size: 100%, auto;
@@ -195,8 +195,8 @@ border-bottom: 1px dotted #222;
   color: #e6edf3;
   font-size: 48px;
   line-height: 56px;
-  border-right: 1px dotted #222;
-  border-bottom: 1px dotted #222;
+  border-right: 1px dotted #21262D;
+  border-bottom: 1px dotted #21262D;
   margin-right: 40px;
     
 }
@@ -211,7 +211,7 @@ border-bottom: 1px dotted #222;
   border: 1px solid #21262D;
 }
 #current-projects .home-teaser-list {
-  border-top: 1px dotted #222222;
+  border-top: 1px dotted #21262D;
   padding-top: 70px;
 }
 #current-projects .hero-image-home-link-block {
@@ -281,6 +281,7 @@ footer a {
   }
   #project-2nd .swiper-container {
     background: #95E9EF;
+    background: #21262D;
  }
  #current-projects .home-teaser-list {
   padding-top: 0px;
