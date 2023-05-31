@@ -251,8 +251,11 @@ footer {
   margin-top: 150px;
   margin-bottom: 40px;
 }
-footer .twitter {
-  color: #222 !important;
+footer a {
+  color: #2f81f7;
+}
+footer a:hover {
+  border-color: #2f81f7;
 }
 footer h3 {
   color: #8b929c;
