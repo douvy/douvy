@@ -150,7 +150,7 @@ a:hover {
 }
 .hero .twitter {
   padding: 0rem 0.6rem;
-  color: #262626;
+  color: #2f81f7;
   text-transform: uppercase;
   letter-spacing: .2px;
   background: rgba(40, 40, 40, 0.15);
@@ -314,6 +314,9 @@ footer a {
  }
  .hero p {
   font-size: 15px;
+}
+.twitter {
+  color: #2f81f7;
 }
 }
 
