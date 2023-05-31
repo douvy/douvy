@@ -70,16 +70,16 @@ body {
 );
 background-image: linear-gradient(
   45deg,
-  hsl(260deg 63% 7%) 0%,
-  hsl(256deg 61% 7%) 11%,
-  hsl(251deg 60% 7%) 22%,
-  hsl(245deg 58% 6%) 33%,
-  hsl(240deg 58% 6%) 44%,
-  hsl(235deg 64% 5%) 56%,
-  hsl(232deg 69% 5%) 67%,
-  hsl(229deg 72% 4%) 78%,
-  hsl(227deg 73% 3%) 89%,
-  hsl(225deg 67% 2%) 100%
+  hsl(213deg 26% 7%) 0%,
+  hsl(213deg 42% 7%) 30%,
+  hsl(214deg 59% 7%) 51%,
+  hsl(215deg 73% 7%) 65%,
+  hsl(217deg 85% 7%) 74%,
+  hsl(219deg 94% 7%) 82%,
+  hsl(222deg 100% 7%) 87%,
+  hsl(226deg 100% 7%) 92%,
+  hsl(229deg 100% 8%) 96%,
+  hsl(233deg 100% 8%) 100%
 );
   background-position: 0px 0px, 0px 0px;
   background-size: 100%, auto;
