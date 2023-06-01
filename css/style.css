@@ -93,29 +93,29 @@ a:hover {
 .puff1 {
   width: 15px;
   height: 15px;
-  animation: animateSmoke 4s ease-in-out infinite; 
-  animation-delay: 1s;
+  animation: animateSmoke 8s ease-in-out infinite; 
+  animation-delay: 4s;
 }
 
 .puff2 {
   width: 10px;
   height: 10px;
-  animation: animateSmoke 2.8s ease-in-out infinite; 
-  animation-delay: 2.5s;
+  animation: animateSmoke 10s ease-in-out infinite; 
+  animation-delay: 5s;
 }
 
 .puff3 {
   width: 20px;
   height: 20px;
-  animation: animateSmoke 3.5s ease-in-out infinite;
-  animation-delay: 4s;
+  animation: animateSmoke 14s ease-in-out infinite;
+  animation-delay: 16s;
 }
 
 .puff4 {
   width: 12px;
   height: 12px;
-  animation: animateSmoke 3.8s ease-in-out infinite;
-  animation-delay: 5s;
+  animation: animateSmoke 15.2s ease-in-out infinite;
+  animation-delay: 20s;
 }
 .puff:nth-child(1) {
   width: 15px;
@@ -246,7 +246,7 @@ a:hover {
 .smoke-screen {
   position: absolute;
   bottom: 0;
-  left: 50%;
+  left: 75%;
   width: 0;
   height: 0;
   background: rgba(139, 119, 101, 0.7); /* denser smoke */
@@ -524,7 +524,8 @@ footer a {
 .giant-smoke {
   animation-duration: 10s; /* Adjust the duration for mobile */
   animation-delay: 7s; /* Adjust the delay for mobile */
-  bottom: -2px; /* Adjust the initial position for mobile */
+  bottom: -18px; /* Adjust the initial position for mobile */
+  left: 95%
 }
 }
 
