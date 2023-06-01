@@ -431,6 +431,12 @@ footer h3 {
 }
 
 /*responsive design*/
+@media (min-width: 769px) and (max-width: 1023px) {
+  .smoke-container {
+    left: 5.25vw;
+    top: 5vw;
+  }
+}
 .intro h1, .intro img {
   float: left;
 }
@@ -516,7 +522,7 @@ footer a {
 
 @media (max-width: 400px) {
   .smoke-container {
-    top: 22.5vw;
+    top: 23vw;
     left: 1vw;
     width: 10px;
     height: 10px;
