@@ -521,6 +521,11 @@ footer a {
 .whirl {
   left: calc(50% + 18px);
 }
+.giant-smoke {
+  animation-duration: 10s; /* Adjust the duration for mobile */
+  animation-delay: 7s; /* Adjust the delay for mobile */
+  bottom: -2px; /* Adjust the initial position for mobile */
+}
 }
 
 @media (max-width: 575px) {
