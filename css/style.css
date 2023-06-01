@@ -93,7 +93,7 @@ a:hover {
   width: 15px;
   height: 15px;
   animation: animateSmoke 4s ease-in-out infinite; 
-  animation-delay: 5s; /* Delay added */
+  animation-delay: 1s; /* Delay added */
   transform-origin: 50% 50%;
   border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
 }
@@ -101,7 +101,7 @@ a:hover {
   width: 10px;
   height: 10px;
   animation: animateSmoke 2.8s ease-in-out infinite; 
-  animation-delay: 6.5s;
+  animation-delay: 2.5s;
   transform-origin: 60% 40%;
   border-radius: 60% 40% 40% 60%/60% 60% 40% 40%;
 }
@@ -109,7 +109,7 @@ a:hover {
   width: 10px;
   height: 10px;
   animation: animateSmoke 3.5s ease-in-out infinite;
-  animation-delay: 8s;
+  animation-delay: 4s;
   transform-origin: 40% 60%;
   border-radius: 40% 60% 60% 40%/40% 40% 60% 60%;
 }
@@ -126,12 +126,12 @@ a:hover {
 }
 .whirl:nth-child(4) {
   animation: animateSmoke 5s ease-in-out infinite, whirlAway 5s ease-in-out infinite;
-  animation-delay: 11s;
+  animation-delay: 7s;
   transform-origin: bottom;
 }
 .whirl:nth-child(5) {
   animation: animateSmoke 5s ease-in-out infinite, whirlAway 5.5s ease-in-out infinite;
-  animation-delay: 14s;
+  animation-delay: 10s;
   transform-origin: bottom;
 }
 @keyframes animateSmoke {
