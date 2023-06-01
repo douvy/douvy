@@ -374,6 +374,7 @@ footer a {
 .whirl {
   left: calc(50% + 18px);
 }
+}
 
 @media (min-width: 768px) {
   #current-projects p {
@@ -382,5 +383,4 @@ footer a {
   font-size: 14px;
   max-width: 425px;
  }
-}
 }
