@@ -264,6 +264,35 @@ a:hover {
   80% { opacity: 0.7; } /* smoke remains visible until 80% progress */
   100% { opacity: 0; transform: translateX(-50%) scale(6); } /* larger expansion */
 }
+.giant-smoke {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  width: 35px;
+  height: 35px;
+  background: rgba(95, 81, 69, 0.9);
+  opacity: 0;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: animateGiantSmokeScreen 10s ease-in-out infinite; /* the same duration as the longest puff/whirl animation */
+  animation-delay: 7s; /* to make it appear at the end of each cycle */
+  filter: blur(10px);
+}
+
+@keyframes animateGiantSmokeScreen {
+  0% { opacity: 0; transform: translateX(-50%) scale(0); bottom: -15px; }
+  30% { opacity: 0.7; }
+  70% { 
+    opacity: 0.7;
+    bottom: 150px;  /* adjust the smoke's rising height */
+    transform: translateX(-50%) scale(6); 
+  }
+  100% { 
+    opacity: 0; 
+    bottom: 150px;  /* maintain the final height */
+    transform: translateX(-50%) scale(6); 
+  }
+}
 
 .project-title a, h3 {
   margin-top: 0px;
