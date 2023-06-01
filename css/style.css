@@ -381,6 +381,8 @@ border-bottom: 1px dotted #2f81f7;
 }
 .description {
   color: #d5e1eb;
+  color: #c4d5e3;
+  font-family: 'Space Grotesk', sans-serif;
 }
 .home-preview-description {
   max-width: 410px;
@@ -400,7 +402,7 @@ border-bottom: 1px dotted #2f81f7;
 #current-projects p {
   margin-top: 25px;
   line-height: 23px;
-  font-size: 14px !important;
+  font-size: 16px !important;
 }
 #automatons, #drips {
   border-radius: 2px;
