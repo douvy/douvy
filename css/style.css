@@ -125,13 +125,13 @@ a:hover {
   border-radius: 50%;
 }
 .whirl:nth-child(4) {
-  animation: animateSmoke 5s ease-in-out infinite, whirlAway 5s ease-in-out infinite;
-  animation-delay: 7s;
+  animation: animateSmoke 5.3s ease-in-out infinite, whirlAway 5.2s ease-in-out infinite;
+  animation-delay: 7.5s;
   transform-origin: bottom;
 }
 .whirl:nth-child(5) {
-  animation: animateSmoke 5s ease-in-out infinite, whirlAway 5.5s ease-in-out infinite;
-  animation-delay: 10s;
+  animation: animateSmoke 4.8s ease-in-out infinite, whirlAway 5.7s ease-in-out infinite;
+  animation-delay: 10.2s;
   transform-origin: bottom;
 }
 @keyframes animateSmoke {
@@ -141,17 +141,18 @@ a:hover {
 }
 @keyframes whirlAway {
   0% { opacity: 0; transform: translateY(0) translateX(0) rotate(0deg); }
-  10% { opacity: .9; transform: translateY(-1px) translateX(1px) rotate(-10deg); }
-  20% { opacity: .5; transform: translateY(-2px) translateX(2px) rotate(-20deg); }
-  30% { opacity: .3; transform: translateY(-3px) translateX(3px) rotate(-30deg); }
-  40% { opacity: .3; transform: translateY(-4px) translateX(4px) rotate(-40deg); }
-  50% { opacity: .2; transform: translateY(-5px) translateX(5px) rotate(-50deg); }
-  60% { opacity: .2; transform: translateY(-6px) translateX(6px) rotate(-40deg); }
-  70% { opacity: .1; transform: translateY(-7px) translateX(7px) rotate(-30deg); }
-  80% { opacity: .1; transform: translateY(-8px) translateX(8px) rotate(-20deg); }
-  90% { opacity: 0.1; transform: translateY(-9px) translateX(9px) rotate(-10deg); }
-  100% { opacity: 0; transform: translateY(-10px) translateX(10px) rotate(0deg); }
+  10% { opacity: .7; transform: translateY(-1px) translateX(1px) rotate(-10deg); }
+  20% { opacity: .4; transform: translateY(-2px) translateX(3px) rotate(-20deg); }
+  30% { opacity: .2; transform: translateY(-3px) translateX(2px) rotate(-30deg); }
+  40% { opacity: .2; transform: translateY(-4px) translateX(4px) rotate(-40deg); }
+  50% { opacity: .1; transform: translateY(-5px) translateX(3px) rotate(-50deg); }
+  60% { opacity: .1; transform: translateY(-6px) translateX(6px) rotate(-40deg); }
+  70% { opacity: .1; transform: translateY(-7px) translateX(5px) rotate(-30deg); }
+  80% { opacity: .1; transform: translateY(-8px) translateX(7px) rotate(-20deg); }
+  90% { opacity: 0; transform: translateY(-9px) translateX(6px) rotate(-10deg); }
+  100% { opacity: 0; transform: translateY(-10px) translateX(8px) rotate(0deg); }
 }
+
 
 .project-title a, h3 {
   margin-top: 0px;
