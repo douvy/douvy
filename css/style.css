@@ -499,7 +499,7 @@ footer a {
 
 @media (max-width: 575px) {
   .smoke-container {
-    top: 13vw;
+    top: 16vw;
     left: .5vw;
     width: 10px;
     height: 10px;
@@ -508,7 +508,7 @@ footer a {
 
 @media (max-width: 400px) {
   .smoke-container {
-    top: 18vw;
+    top: 20vw;
     left: 1vw;
     width: 10px;
     height: 10px;
