@@ -524,8 +524,8 @@ footer a {
 .giant-smoke {
   animation-duration: 10s; /* Adjust the duration for mobile */
   animation-delay: 7s; /* Adjust the delay for mobile */
-  bottom: -18px; /* Adjust the initial position for mobile */
-  left: 95%
+  bottom: -22px; /* Adjust the initial position for mobile */
+  left: 85%
 }
 }
 
