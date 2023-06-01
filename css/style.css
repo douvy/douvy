@@ -40,35 +40,7 @@ body {
   color: #000000;
   color: #e6edf3;
   background-color: #010309;
-  background-image: url(../assets/img/gradient.jpg), -webkit-gradient(linear, left top, left bottom, from(#D8DEE2), to(#D8DEE2));
-  background-image:  background-image: url(../img/gradient.jpg), linear-gradient(180deg, #D8DEE2, #D8DEE2);
   background-image: linear-gradient(
-  50deg,
-  hsl(217deg 98% 75%) 0%,
-  hsl(213deg 98% 76%) 5%,
-  hsl(210deg 98% 77%) 9%,
-  hsl(206deg 97% 78%) 14%,
-  hsl(203deg 97% 79%) 18%,
-  hsl(199deg 96% 79%) 23%,
-  hsl(193deg 88% 78%) 27%,
-  hsl(183deg 73% 76%) 32%,
-  hsl(173deg 75% 75%) 36%,
-  hsl(164deg 83% 75%) 41%,
-  hsl(157deg 92% 76%) 45%,
-  hsl(150deg 100% 76%) 50%,
-  hsl(150deg 82% 76%) 55%,
-  hsl(150deg 64% 75%) 59%,
-  hsl(151deg 46% 75%) 64%,
-  hsl(153deg 29% 74%) 68%,
-  hsl(166deg 12% 73%) 73%,
-  hsl(202deg 7% 75%) 77%,
-  hsl(202deg 10% 80%) 82%,
-  hsl(202deg 14% 84%) 86%,
-  hsl(202deg 21% 89%) 91%,
-  hsl(202deg 35% 93%) 95%,
-  hsl(201deg 78% 96%) 100%
-);
-background-image: linear-gradient(
   45deg,
   hsl(213deg 26% 7%) 0%,
   hsl(213deg 42% 7%) 30%,
@@ -102,6 +74,85 @@ a {
 a:hover {
   color: #2f81f7;
 }
+.smoke-container {
+  position: relative;
+  height: 80px;
+  width: 80px;
+  top: 50px; /* adjust these values to change the smoke's position */
+  left: 50px;
+}
+.puff {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% + 10px);
+  background: rgba(105, 105, 105, 0.5);
+  opacity: 0;
+  transform: scale(0);
+}
+.puff:nth-child(1) {
+  width: 15px;
+  height: 15px;
+  animation: animateSmoke 4s ease-in-out infinite; 
+  animation-delay: 5s; /* Delay added */
+  transform-origin: 50% 50%;
+  border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+}
+.puff:nth-child(2) {
+  width: 10px;
+  height: 10px;
+  animation: animateSmoke 2.8s ease-in-out infinite; 
+  animation-delay: 6.5s;
+  transform-origin: 60% 40%;
+  border-radius: 60% 40% 40% 60%/60% 60% 40% 40%;
+}
+.puff:nth-child(3) {
+  width: 10px;
+  height: 10px;
+  animation: animateSmoke 3.5s ease-in-out infinite;
+  animation-delay: 8s;
+  transform-origin: 40% 60%;
+  border-radius: 40% 60% 60% 40%/40% 40% 60% 60%;
+}
+.whirl {
+  position: absolute;
+  bottom: 0px;
+  left: calc(50% + 13px);
+  width: 2px;
+  height: 20px;
+  background: rgba(105, 105, 105, 0.5);
+  opacity: 0;
+  transform: scale(0);
+  border-radius: 50%;
+}
+.whirl:nth-child(4) {
+  animation: animateSmoke 5s ease-in-out infinite, whirlAway 5s ease-in-out infinite;
+  animation-delay: 11s;
+  transform-origin: bottom;
+}
+.whirl:nth-child(5) {
+  animation: animateSmoke 5s ease-in-out infinite, whirlAway 5.5s ease-in-out infinite;
+  animation-delay: 14s;
+  transform-origin: bottom;
+}
+@keyframes animateSmoke {
+  0% { opacity: 0; transform: scale(0); }
+  30% { opacity: .9; }
+  100% { opacity: 0; transform: scale(2); bottom: 80%; }
+}
+@keyframes whirlAway {
+  0% { opacity: 0; transform: translateY(0) translateX(0) rotate(0deg); }
+  10% { opacity: .9; transform: translateY(-1px) translateX(1px) rotate(-10deg); }
+  20% { opacity: .5; transform: translateY(-2px) translateX(2px) rotate(-20deg); }
+  30% { opacity: .3; transform: translateY(-3px) translateX(3px) rotate(-30deg); }
+  40% { opacity: .3; transform: translateY(-4px) translateX(4px) rotate(-40deg); }
+  50% { opacity: .2; transform: translateY(-5px) translateX(5px) rotate(-50deg); }
+  60% { opacity: .2; transform: translateY(-6px) translateX(6px) rotate(-40deg); }
+  70% { opacity: .1; transform: translateY(-7px) translateX(7px) rotate(-30deg); }
+  80% { opacity: .1; transform: translateY(-8px) translateX(8px) rotate(-20deg); }
+  90% { opacity: 0.1; transform: translateY(-9px) translateX(9px) rotate(-10deg); }
+  100% { opacity: 0; transform: translateY(-10px) translateX(10px) rotate(0deg); }
+}
+
 .project-title a, h3 {
   margin-top: 0px;
   font-family: 'Domine', sans-serif;
@@ -144,7 +195,6 @@ a:hover {
   height: 155px;
   border-radius: 3px;
   float: right;
-  display: inline-block;
   border: 1px solid #30363D;
   top: 0;
 }
@@ -270,7 +320,6 @@ footer h3 {
 
 /*responsive design*/
 .intro h1, .intro img {
-  display: inline-block;
   float: left;
 }
 footer a {
@@ -318,6 +367,12 @@ footer a {
 .twitter {
   color: #2f81f7;
 }
+.smoke-container {
+  top: 15px;
+  left: 40px;
+}
+.whirl {
+  left: calc(50% + 18px);
 }
 
 @media (min-width: 768px) {
@@ -327,4 +382,5 @@ footer a {
   font-size: 14px;
   max-width: 425px;
  }
+}
 }
