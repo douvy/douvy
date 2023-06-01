@@ -376,6 +376,13 @@ footer a {
 }
 }
 
+@media (max-width: 575px) {
+  .smoke-container {
+    top: -15px;
+    right: 240px;
+  }
+}
+
 @media (min-width: 768px) {
   #current-projects p {
   margin-top: 25px;
