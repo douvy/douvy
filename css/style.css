@@ -370,18 +370,15 @@ border-bottom: 1px dotted #2f81f7;
   vertical-align: middle;
 }
 .home-project-title {
-  color: #222;
-  color: #8b929c;
+  color: #c4d5e3;
   font-size: 48px;
   line-height: 56px;
-  border-right: 1px dotted #30363D;
   border-bottom: 1px dotted #30363D;
   margin-right: 40px;
     
 }
 .description {
-  color: #d5e1eb;
-  color: #c4d5e3;
+  color: #8b929c;
   font-family: 'Space Grotesk', sans-serif;
 }
 .home-preview-description {
@@ -433,7 +430,7 @@ footer a:hover {
   border-color: #2f81f7;
 }
 footer h3 {
-  color: #8b929c;
+  color: #c4d5e3;
   font-family: "DegularDisplay-Black", sans-serif;
 }
 .name h1 {
