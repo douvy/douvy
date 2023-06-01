@@ -378,8 +378,8 @@ footer a {
 
 @media (max-width: 575px) {
   .smoke-container {
-    top: 2vw;
-    left: 2vw;
+    top: 0vw;
+    left: 0vw;
     width: 50px;
     height: 50px;
   }
