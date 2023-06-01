@@ -504,6 +504,14 @@ footer a {
     width: 10px;
     height: 10px;
   }
+  .whirl {
+    background: rgba(105, 105, 105, 0.6);
+  }
+  
+  .whirl8, .whirl9, .whirl10 {
+    width: 2px;
+    height: 15px;
+  }
 }
 
 @media (max-width: 400px) {
