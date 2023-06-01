@@ -16,6 +16,11 @@ dark: #222222;
   src:  url(/assets/fonts/DegularDisplay-Black.woff2) format('woff2'),
         url(/assets/fonts/DegularDisplay-Black.woff) format('woff');
 }
+@font-face {
+  font-family: 'OpenSauceSans-Regular';
+  src:  url(/assets/fonts/OpenSauceSans-Regular.woff2) format('woff2'),
+        url(/assets/fonts/OpenSauceSans-Regular.woff) format('woff');
+}
 
 /*global styles*/
 
@@ -376,6 +381,7 @@ border-bottom: 1px dotted #2f81f7;
 }
 .description {
   color: #d5e1eb;
+  font-family: "OpenSauceSans-Regular", sans-serif;
 }
 .home-preview-description {
   max-width: 410px;
