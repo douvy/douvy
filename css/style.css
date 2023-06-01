@@ -78,16 +78,44 @@ a:hover {
   position: relative;
   height: 80px;
   width: 80px;
-  top: 3vw; /* change these values to vw units */
+  top: 3.2vw; /* change these values to vw units */
   left: 3.5vw;
 }
 .puff {
   position: absolute;
   bottom: 0;
   left: calc(50% + 10px);
-  background: rgba(105, 105, 105, 0.5);
+  background: rgba(139, 119, 101, 0.5); /* adjust color here */
   opacity: 0;
   transform: scale(0);
+  filter: blur(2px); /* add blur effect */
+}
+.puff1 {
+  width: 15px;
+  height: 15px;
+  animation: animateSmoke 4s ease-in-out infinite; 
+  animation-delay: 1s;
+}
+
+.puff2 {
+  width: 10px;
+  height: 10px;
+  animation: animateSmoke 2.8s ease-in-out infinite; 
+  animation-delay: 2.5s;
+}
+
+.puff3 {
+  width: 20px;
+  height: 20px;
+  animation: animateSmoke 3.5s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+.puff4 {
+  width: 12px;
+  height: 12px;
+  animation: animateSmoke 3.8s ease-in-out infinite;
+  animation-delay: 5s;
 }
 .puff:nth-child(1) {
   width: 15px;
@@ -119,10 +147,73 @@ a:hover {
   left: calc(50% + 13px);
   width: 2px;
   height: 20px;
-  background: rgba(105, 105, 105, 0.5);
+  background: rgba(139, 119, 101, 0.5); /* adjust color here */
   opacity: 0;
   transform: scale(0);
   border-radius: 50%;
+  filter: blur(1px); /* add blur effect */
+}
+.whirl1 {
+  animation: animateSmoke 5s ease-in-out infinite, whirlAway 5s ease-in-out infinite;
+  animation-delay: 7s;
+  transform-origin: bottom;
+}
+
+.whirl2 {
+  animation: animateSmoke 4.8s ease-in-out infinite, whirlAway 5.7s ease-in-out infinite;
+  animation-delay: 10.2s;
+  transform-origin: bottom;
+}
+
+.whirl3 {
+  animation: animateSmoke 5.5s ease-in-out infinite, whirlAway 6s ease-in-out infinite;
+  animation-delay: 8s;
+  transform-origin: bottom;
+}
+
+.whirl4 {
+  animation: animateSmoke 5.3s ease-in-out infinite, whirlAway 5.5s ease-in-out infinite;
+  animation-delay: 11s;
+  transform-origin: bottom;
+}
+.whirl5 {
+  animation: animateSmoke 5.2s ease-in-out infinite, whirlAway 5.6s ease-in-out infinite;
+  animation-delay: 9s;
+  transform-origin: bottom;
+}
+
+.whirl6 {
+  animation: animateSmoke 5.1s ease-in-out infinite, whirlAway 5.9s ease-in-out infinite;
+  animation-delay: 12s;
+  transform-origin: bottom;
+}
+
+.whirl7 {
+  animation: animateSmoke 5.4s ease-in-out infinite, whirlAway 5.3s ease-in-out infinite;
+  animation-delay: 13s;
+  transform-origin: bottom;
+}
+.whirl8 {
+  width: 3px;
+  height: 22px;
+  animation: animateSmoke 5.1s ease-in-out infinite, whirlAway 5.2s ease-in-out infinite;
+  animation-delay: 3.5s;
+  transform-origin: bottom;
+}
+
+.whirl9 {
+  width: 2.5px;
+  height: 18px;
+  animation: animateSmoke 5s ease-in-out infinite, whirlAway 5.4s ease-in-out infinite;
+  animation-delay: 6s;
+  transform-origin: bottom;
+}
+.whirl10 {
+  width: 2.8px;
+  height: 20px;
+  animation: animateSmoke 5.3s ease-in-out infinite, whirlAway 5.6s ease-in-out infinite;
+  animation-delay: 7.5s;
+  transform-origin: bottom;
 }
 .whirl:nth-child(4) {
   animation: animateSmoke 5.3s ease-in-out infinite, whirlAway 5.2s ease-in-out infinite;
@@ -152,7 +243,27 @@ a:hover {
   90% { opacity: 0; transform: translateY(-9px) translateX(6px) rotate(-10deg); }
   100% { opacity: 0; transform: translateY(-10px) translateX(8px) rotate(0deg); }
 }
+.smoke-screen {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(139, 119, 101, 0.7); /* denser smoke */
+  opacity: 0;
+  border-radius: 50%;
+  transform: translateX(-50%); /* center the smoke */
+  animation: animateSmokeScreen 10s ease-in-out forwards;
+  animation-delay: 14s; /* adjust delay to desired time */
+  filter: blur(20px); /* more blur for the smoke screen */
+}
 
+@keyframes animateSmokeScreen {
+  0% { opacity: 0; transform: translateX(-50%) scale(0); }
+  30% { opacity: 0.7; } /* smoke is fully visible at 30% progress */
+  80% { opacity: 0.7; } /* smoke remains visible until 80% progress */
+  100% { opacity: 0; transform: translateX(-50%) scale(6); } /* larger expansion */
+}
 
 .project-title a, h3 {
   margin-top: 0px;
@@ -388,7 +499,7 @@ footer a {
 
 @media (max-width: 575px) {
   .smoke-container {
-    top: 17vw;
+    top: 13vw;
     left: .5vw;
     width: 10px;
     height: 10px;
