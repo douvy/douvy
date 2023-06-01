@@ -1,21 +1,10 @@
 /* theme colors
 dark: #222222;
 */
-
-@font-face {
-   font-family: 'Romana';
-   src: url(../assets/fonts/Romana-BT-Roman.woff2) format('woff2'),
-        url(../assets/fonts/Romana-BT-Roman.woff) format('woff');
-}
 @font-face {
    font-family: 'VulfMono-LightItalic';
    src: url(/assets/fonts/VulfMono-LightItalic.woff2) format('woff2'),
         url(/assets/fonts/VulfMono-LightItalic.woff) format('woff');
-}
-@font-face {
-   font-family: 'VulfSans-Bold';
-   src: url(/assets/fonts/VulfSans-Bold.woff2) format('woff2'),
-        url(/assets/fonts/VulfSans-Bold.woff) format('woff');
 }
 @font-face {
    font-family: 'VulfMono-Regular';
@@ -23,14 +12,9 @@ dark: #222222;
         url(/assets/fonts/VulfMono-Regular.woff) format('woff');
 }
 @font-face {
-   font-family: 'VulfMono-Black';
-   src: url(/assets/fonts/VulfMono-Black.woff2) format('woff2'),
-        url(/assets/fonts/VulfMono-Black.woff) format('woff');
-}
-@font-face {
-  font-family: 'Cheee';
-  src:  url('/assets/fonts/Cheee-Wowie.woff2') format('woff2'),
-        url('/assets/fonts/Cheee-Wowie.woff') format('woff');
+  font-family: 'DegularDisplay-Black';
+  src:  url(/assets/fonts/DegularDisplay-Black.woff2) format('woff2'),
+        url(/assets/fonts/DegularDisplay-Black.woff) format('woff');
 }
 
 /*global styles*/
@@ -59,14 +43,10 @@ body {
   background-attachment: scroll, scroll;
   font-size: 12px;
 }
-section a {
-  color: #1eed88;
-}
 h1,h2,h3,h4,h5,h6 {
   color: #222222;
   font-weight: 700;
-  font-family: 'Romana', Domine, sans-serif;
-  font-family: "VulfSans-Bold", Domine,sans-serif;
+  font-family: "DegularDisplay-Black", sans-serif;
 }
 a {
   transition: .25s;
@@ -296,14 +276,12 @@ a:hover {
 
 .project-title a, h3 {
   margin-top: 0px;
-  font-family: 'Domine', sans-serif;
-  font-family: "VulfMono-Regular", sans-serif; 
-  font-family: "VulfSans-Bold", Domine,sans-serif;
-  letter-spacing: .25px;
+  font-family: "DegularDisplay-Black", sans-serif;
+  letter-spacing: 1.5px;
   margin-bottom: 0px;
   font-weight: 700;
   padding-bottom: 10px;
-  font-size: 26px !important;
+  font-size: 32px !important;
   line-height: 48px;
 }
 .border {
@@ -347,7 +325,6 @@ a:hover {
   background: rgba(40, 40, 40, 0.15);
   border-radius: 3px;
   -webkit-transition: all 0.3s ease;
-  font-family: "VulfSans-Bold", Domine,sans-serif;
   font-family: "VulfMono-Regular", sans-serif;
   border: 1px solid #30363D;
   font-weight: 400;
@@ -369,10 +346,10 @@ border-bottom: 1px dotted #2f81f7;
   margin-left: 3px;
 }
 .hero h1 {
-  font-size: 55px;
+  font-size: 57px;
   color: #161813;
   color: #e6edf3;
-  letter-spacing: 1px;
+  letter-spacing: 3.25px;
   line-height: 1.3;
   margin-bottom: 39px;
 }
@@ -450,6 +427,7 @@ footer a:hover {
 }
 footer h3 {
   color: #8b929c;
+  font-family: "DegularDisplay-Black", sans-serif;
 }
 .name h1 {
   max-width: 300px !important;
