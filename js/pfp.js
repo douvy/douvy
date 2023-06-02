@@ -2,9 +2,7 @@ var normalImage = "assets/img/pfp.jpg";
 var blinkingImage = "assets/img/pfp-blink.jpg";
 var bloodshotImage = "assets/img/pfp-bloodshot.jpg";
 var initialImage = "assets/img/pfp-bluntless.jpg";  // initial image
-
 var imgElement = document.getElementById("pfp");
-
 var durations = [150, 200, 250];
 var isBloodshot = false;
 var startTime = Date.now();
@@ -12,11 +10,11 @@ var startTime = Date.now();
 // Set initial image
 imgElement.src = initialImage;
 
-// Change to normal image after 5 seconds
+// Change to normal image after 3 seconds
 setTimeout(function() {
     imgElement.src = normalImage;
     startTime = Date.now();  // reset the start time
-}, 5000);
+}, 3000);
 
 setInterval(function() {
     var currentTime = Date.now();
