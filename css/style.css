@@ -250,7 +250,7 @@ a:hover {
   border-radius: 50%;
   transform: translateX(-50%);
   animation: animateGiantSmokeScreen 10s ease-in-out infinite; /* the same duration as the longest puff/whirl animation */
-  animation-delay: 6s; /* to make it appear at the end of each cycle */
+  animation-delay: 7s; /* to make it appear at the end of each cycle */
   filter: blur(10px);
 }
 
@@ -280,32 +280,40 @@ a:hover {
   opacity: 0;
   transform: translateX(-50%) scale(0);
   animation: animateSmokeRing 10s ease-in-out infinite; /* adjust the duration to your liking */
-  animation-delay: 14s; /* adjust the delay to your liking */
+  animation-delay: 15s; /* adjust the delay to your liking */
   filter: blur(2px);
 }
 
 @keyframes animateSmokeRing {
   0% {
       opacity: 0;
-      transform: translateX(-50%) scale(0);
+      transform: translate(-60%, 0) scale(0);
       bottom: 0;
   }
   30% {
       opacity: 0.7;
   }
   50% {
-      transform: translateX(-50%) scale(2);
+      transform: translate(-80%, 0) scale(2);
       bottom: 100px;  /* adjust the smoke's rising height */
   }
   70% {
       opacity: 0.3;
+      transform: translate(-100%, 0) scale(2.5); /* slightly increase scale here */
+  }
+  90% {
+      opacity: 0;
+      transform: translate(-100%, 0) scale(3);
+      bottom: 200px;  /* maintain the final height */
   }
   100% {
       opacity: 0;
-      transform: translateX(-50%) scale(3);
+      transform: translate(-100%, 0) scale(3);
       bottom: 200px;  /* maintain the final height */
   }
 }
+
+
 
 .project-title a, h3 {
   margin-top: 0px;
