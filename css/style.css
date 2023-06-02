@@ -630,15 +630,6 @@ footer a {
   }
 }
 
-@media (max-width: 428px) {
-  .smoke-container {
-    top: 18.5vw;
-    left: 1vw;
-    width: 10px;
-    height: 10px;
-  }
-}
-
 @media (min-width: 429px) and (max-width: 767px) {
   #blunt-tip {
     position: absolute;
@@ -656,10 +647,42 @@ footer a {
  }
 }
 
-@media (min-width: 300px) and (max-width: 428px) {
+@media (min-width: 300px) and (max-width: 380px) {
   #blunt-tip {
     position: absolute;
-    bottom: -13px; 
-    left: 25px; 
+    bottom: -2px; 
+    left: 24px; 
+  }
+  .smoke-container {
+    top: 21.5vw;
+    left: 1vw;
+    width: 10px;
+    height: 10px;
+  }
+}
+@media (min-width: 380px) and (max-width: 415px) {
+  #blunt-tip {
+    position: absolute;
+    bottom: 2px; 
+    left: 24px; 
+  }
+  .smoke-container {
+    top: 21.5vw;
+    left: 1vw;
+    width: 10px;
+    height: 10px;
+  }
+}
+@media (min-width: 415px) and (max-width: 429px) {
+  #blunt-tip {
+    position: absolute;
+    bottom: 3px; 
+    left: 24px; 
+  }
+  .smoke-container {
+    top: 19vw;
+    left: 1vw;
+    width: 10px;
+    height: 10px;
   }
 }
