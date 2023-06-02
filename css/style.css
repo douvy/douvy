@@ -1,7 +1,8 @@
 @font-face {
-   font-family: 'VulfMono-LightItalic';
-   src: url(/assets/fonts/VulfMono-LightItalic.woff2) format('woff2'),
-        url(/assets/fonts/VulfMono-LightItalic.woff) format('woff');
+  font-family: 'VulfMono-LightItalic';
+  src: url(/assets/fonts/VulfMono-LightItalic.woff2) format('woff2'),
+       url(/assets/fonts/VulfMono-LightItalic.woff) format('woff');
+  font-display: swap;
 }
 @font-face {
    font-family: 'VulfMono-Regular';
