@@ -16,7 +16,7 @@
 
 /*global styles*/
 body {
-  font-family: "VulfMono-LightItalic", "Courier New", Courier, monospace;
+  font-family: "VulfMono-LightItalic", serif;
   color: #e6edf3;
   background-color: #010309;
   background-image: linear-gradient(
@@ -491,7 +491,7 @@ border-bottom: 1px dotted #2f81f7;
   opacity: 1;
 }
 .swiper-container {
-  background: #21262D;
+  background: transparent;
   max-width: 453px;
   overflow: hidden;
 }
