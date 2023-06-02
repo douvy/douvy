@@ -312,6 +312,35 @@ a:hover {
       bottom: 200px;  /* maintain the final height */
   }
 }
+#ash {
+  position: absolute;
+  bottom: 0%; /* Adjust according to your layout */
+  left: 68%; /* Adjust according to your layout */
+  width: 3px;
+  height: 3px;
+  background-color: #808080;
+  border-radius: 50%;
+  opacity: 0; /* Make the ash invisible at first */
+  animation: ashFall 8s linear infinite; /* Adjust the duration and timing to your liking */
+  animation-delay: 12s; /* This is the delay before the animation starts */
+}
+
+@keyframes ashFall {
+  0% {
+    transform: translateY(0);
+    opacity: 0; /* Start the animation with the ash invisible */
+  }
+  10% {
+    opacity: 1; /* Make the ash visible as it starts to fall */
+  }
+  70% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(200px); /* Adjust the fall height to your liking */
+    opacity: 0;
+  }
+}
 
 
 
@@ -580,6 +609,9 @@ footer a {
     left: 1vw;
     width: 10px;
     height: 10px;
+  }
+  #ash {
+    left: 100%;
   }
 }
 
