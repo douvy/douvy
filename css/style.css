@@ -341,6 +341,35 @@ a:hover {
     opacity: 0;
   }
 }
+#blunt-tip {
+  position: absolute;
+  bottom: -4px; /* Adjust the position according to your layout */
+  left: 68%; /* Adjust the position according to your layout */
+  width: 5px;
+  height: 5px;
+  background-color: rgba(255, 69, 0, 0.7); /* Adjust the color and opacity for the glow */
+  border-radius: 50%;
+  opacity: 0;
+  transform: translateX(-50%) translateY(-50%) scale(0);
+  box-shadow: 0 0 10px 3px rgba(255, 69, 0, 0.7); /* Add a subtle glow effect */
+  animation: animateGlow 7s ease-in-out infinite; /* Adjust the duration to your liking */
+  animation-delay: 8s; /* Adjust the delay to your liking */
+}
+
+@keyframes animateGlow {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-50%) scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-50%) scale(0);
+  }
+}
 
 
 
@@ -570,10 +599,18 @@ footer a {
   left: calc(50% + 18px);
 }
 .giant-smoke {
-  animation-duration: 10s; /* Adjust the duration for mobile */
-  animation-delay: 7s; /* Adjust the delay for mobile */
-  bottom: -22px; /* Adjust the initial position for mobile */
+  animation-duration: 10s;
+  animation-delay: 7s;
+  bottom: -22px;
   left: 85%
+}
+#blunt-tip {
+  position: absolute;
+  bottom: -3px; 
+  left: 26px; 
+}
+#ash {
+  left: 26px;
 }
 }
 
@@ -610,10 +647,10 @@ footer a {
     width: 10px;
     height: 10px;
   }
-  #ash {
-    left: 100%;
-  }
 }
+
+
+
 
 @media (min-width: 768px) {
   #current-projects p {
