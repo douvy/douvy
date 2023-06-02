@@ -655,3 +655,11 @@ footer a {
   max-width: 425px;
  }
 }
+
+@media (min-width: 300px) and (max-width: 428px) {
+  #blunt-tip {
+    position: absolute;
+    bottom: -13px; 
+    left: 25px; 
+  }
+}
