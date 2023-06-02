@@ -1,8 +1,7 @@
 @font-face {
-  font-family: 'VulfMono-LightItalic';
-  src: url(/assets/fonts/VulfMono-LightItalic.woff2) format('woff2'),
-       url(/assets/fonts/VulfMono-LightItalic.woff) format('woff');
-  font-display: swap;
+   font-family: 'VulfMono-LightItalic';
+   src: url(/assets/fonts/VulfMono-LightItalic.woff2) format('woff2'),
+        url(/assets/fonts/VulfMono-LightItalic.woff) format('woff');
 }
 @font-face {
    font-family: 'VulfMono-Regular';
@@ -17,7 +16,7 @@
 
 /*global styles*/
 body {
-  font-family: "VulfMono-LightItalic", Calibri, serif;
+  font-family: "VulfMono-LightItalic", Havanna;
   color: #e6edf3;
   background-color: #010309;
   background-image: linear-gradient(
