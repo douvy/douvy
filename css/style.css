@@ -16,7 +16,7 @@
 
 /*global styles*/
 body {
-  font-family: "VulfMono-LightItalic", Monaco;
+  font-family: "VulfMono-LightItalic", Lucida Console;
   color: #e6edf3;
   background-color: #010309;
   background-image: linear-gradient(
