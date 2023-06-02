@@ -16,7 +16,7 @@
 
 /*global styles*/
 body {
-  font-family: "VulfMono-LightItalic", serif;
+  font-family: "VulfMono-LightItalic", Calibri, serif;
   color: #e6edf3;
   background-color: #010309;
   background-image: linear-gradient(
