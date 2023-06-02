@@ -69,34 +69,34 @@ a:hover {
   width: 15px;
   height: 15px;
   animation: animateSmoke 8s ease-in-out infinite; 
-  animation-delay: 9s;
+  animation-delay: 8s;
 }
 
 .puff2 {
   width: 10px;
   height: 10px;
   animation: animateSmoke 10s ease-in-out infinite; 
-  animation-delay: 14s;
+  animation-delay: 13s;
 }
 
 .puff3 {
   width: 20px;
   height: 20px;
   animation: animateSmoke 14s ease-in-out infinite;
-  animation-delay: 21s;
+  animation-delay: 20s;
 }
 
 .puff4 {
   width: 12px;
   height: 12px;
   animation: animateSmoke 15.2s ease-in-out infinite;
-  animation-delay: 25s;
+  animation-delay: 24s;
 }
 .puff:nth-child(1) {
   width: 15px;
   height: 15px;
   animation: animateSmoke 4s ease-in-out infinite; 
-  animation-delay: 6s; /* Delay added */
+  animation-delay: 5s; /* Delay added */
   transform-origin: 50% 50%;
   border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
 }
@@ -104,7 +104,7 @@ a:hover {
   width: 10px;
   height: 10px;
   animation: animateSmoke 2.8s ease-in-out infinite; 
-  animation-delay: 7.5s;
+  animation-delay: 6.5s;
   transform-origin: 60% 40%;
   border-radius: 60% 40% 40% 60%/60% 60% 40% 40%;
 }
@@ -112,7 +112,7 @@ a:hover {
   width: 10px;
   height: 10px;
   animation: animateSmoke 3.5s ease-in-out infinite;
-  animation-delay: 9s;
+  animation-delay: 8s;
   transform-origin: 40% 60%;
   border-radius: 40% 60% 60% 40%/40% 40% 60% 60%;
 }
@@ -130,49 +130,49 @@ a:hover {
 }
 .whirl1 {
   animation: animateSmoke 5s ease-in-out infinite, whirlAway 5s ease-in-out infinite;
-  animation-delay: 12s;
+  animation-delay: 11s;
   transform-origin: bottom;
 }
 
 .whirl2 {
   animation: animateSmoke 4.8s ease-in-out infinite, whirlAway 5.7s ease-in-out infinite;
-  animation-delay: 15.2s;
+  animation-delay: 14.2s;
   transform-origin: bottom;
 }
 
 .whirl3 {
   animation: animateSmoke 5.5s ease-in-out infinite, whirlAway 6s ease-in-out infinite;
-  animation-delay: 13s;
+  animation-delay: 12s;
   transform-origin: bottom;
 }
 
 .whirl4 {
   animation: animateSmoke 5.3s ease-in-out infinite, whirlAway 5.5s ease-in-out infinite;
-  animation-delay: 16s;
+  animation-delay: 15s;
   transform-origin: bottom;
 }
 .whirl5 {
   animation: animateSmoke 5.2s ease-in-out infinite, whirlAway 5.6s ease-in-out infinite;
-  animation-delay: 14s;
+  animation-delay: 13s;
   transform-origin: bottom;
 }
 
 .whirl6 {
   animation: animateSmoke 5.1s ease-in-out infinite, whirlAway 5.9s ease-in-out infinite;
-  animation-delay: 17s;
+  animation-delay: 16s;
   transform-origin: bottom;
 }
 
 .whirl7 {
   animation: animateSmoke 5.4s ease-in-out infinite, whirlAway 5.3s ease-in-out infinite;
-  animation-delay: 18s;
+  animation-delay: 17s;
   transform-origin: bottom;
 }
 .whirl8 {
   width: 3px;
   height: 22px;
   animation: animateSmoke 5.1s ease-in-out infinite, whirlAway 5.2s ease-in-out infinite;
-  animation-delay: 8.5s;
+  animation-delay: 7.5s;
   transform-origin: bottom;
 }
 
@@ -180,24 +180,24 @@ a:hover {
   width: 2.5px;
   height: 18px;
   animation: animateSmoke 5s ease-in-out infinite, whirlAway 5.4s ease-in-out infinite;
-  animation-delay: 11s;
+  animation-delay: 10s;
   transform-origin: bottom;
 }
 .whirl10 {
   width: 2.8px;
   height: 20px;
   animation: animateSmoke 5.3s ease-in-out infinite, whirlAway 5.6s ease-in-out infinite;
-  animation-delay: 12.5s;
+  animation-delay: 11.5s;
   transform-origin: bottom;
 }
 .whirl:nth-child(4) {
   animation: animateSmoke 5.3s ease-in-out infinite, whirlAway 5.2s ease-in-out infinite;
-  animation-delay: 12.5s;
+  animation-delay: 11.5s;
   transform-origin: bottom;
 }
 .whirl:nth-child(5) {
   animation: animateSmoke 4.8s ease-in-out infinite, whirlAway 5.7s ease-in-out infinite;
-  animation-delay: 15.2s;
+  animation-delay: 14.2s;
   transform-origin: bottom;
 }
 @keyframes animateSmoke {
@@ -250,7 +250,7 @@ a:hover {
   border-radius: 50%;
   transform: translateX(-50%);
   animation: animateGiantSmokeScreen 10s ease-in-out infinite; /* the same duration as the longest puff/whirl animation */
-  animation-delay: 7s; /* to make it appear at the end of each cycle */
+  animation-delay: 6s; /* to make it appear at the end of each cycle */
   filter: blur(10px);
 }
 
@@ -266,6 +266,44 @@ a:hover {
     opacity: 0; 
     bottom: 150px;  /* maintain the final height */
     transform: translateX(-50%) scale(6); 
+  }
+}
+/* CSS */
+.smoke-ring {
+  position: absolute;
+  bottom: 0;
+  left: 55%;
+  width: 20px;
+  height: 20px;
+  border: thin solid rgba(139, 119, 101, 0.5);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translateX(-50%) scale(0);
+  animation: animateSmokeRing 10s ease-in-out infinite; /* adjust the duration to your liking */
+  animation-delay: 14s; /* adjust the delay to your liking */
+  filter: blur(2px);
+}
+
+@keyframes animateSmokeRing {
+  0% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0);
+      bottom: 0;
+  }
+  30% {
+      opacity: 0.7;
+  }
+  50% {
+      transform: translateX(-50%) scale(2);
+      bottom: 100px;  /* adjust the smoke's rising height */
+  }
+  70% {
+      opacity: 0.3;
+  }
+  100% {
+      opacity: 0;
+      transform: translateX(-50%) scale(3);
+      bottom: 200px;  /* maintain the final height */
   }
 }
 
