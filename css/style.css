@@ -50,11 +50,14 @@ a:hover {
  color: #2f81f7;
 }
 .smoke-container {
- position: relative;
- height: 80px;
- width: 80px;
- top: 3.2vw;
- left: 3.5vw;
+  position: relative;
+  display: flex; /* Make this a flex container */
+  justify-content: center; /* Center children horizontally */
+  align-items: flex-start; /* Align children at the top */
+  height: 80px;
+  width: 80px;
+  top: 3.2vw;
+  left: 3.5vw;;
 }
 .puff {
  position: absolute;
@@ -336,18 +339,19 @@ a:hover {
  }
 }
 #blunt-tip {
- position: absolute;
- bottom: -4px;
- left: 68%;
- width: 5px;
- height: 5px;
- background-color: rgba(255, 69, 0, 0.7);
- border-radius: 50%;
- opacity: 0;
- transform: translateX(-50%) translateY(-50%) scale(0);
- box-shadow: 0 0 10px 3px rgba(255, 69, 0, 0.7); /* Add a subtle glow effect */
- animation: animateGlow 7s ease-in-out infinite; /* Adjust the duration to your liking */
- animation-delay: 8s; /* Adjust the delay to your liking */
+  position: absolute;
+  bottom: -3px;
+  left: calc(50% + 17px);
+  width: 4px;
+  height: 4px;
+  background-color: rgba(255, 69, 0, 0.7);
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 0 0 10px 3px rgba(255, 69, 0, 0.7); 
+  animation: animateGlow 7s ease-in-out infinite; 
+  animation-delay: 8s;
+  transform: scale(0);
+  filter: blur(2px);
 }
 @keyframes animateGlow {
  0% {
@@ -594,28 +598,14 @@ footer {
  bottom: -22px;
  left: 85%
 }
-#blunt-tip {
- position: absolute;
- bottom: -3px; 
- left: 26px; 
-}
 #ash {
  left: 26px;
 }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 640px) {
  .smoke-container {
-   top: 7vw;
-   left: 5.25vw;
-   width: 10px;
-   height: 10px;
- }
-}
-
-@media (max-width: 575px) {
- .smoke-container {
-   top: 16vw;
+   top: 16.5vw;
    left: .5vw;
    width: 10px;
    height: 10px;
@@ -631,36 +621,13 @@ footer {
 }
 
 @media (max-width: 428px) {
-  #blunt-tip {
-    position: absolute;
-    bottom: 2px; 
-    left: 24px; 
-  }
   .smoke-container {
-    top: 19vw;
-    left: 1vw;
+    top: 18.25vw;
+    left: 1.25vw;
     width: 10px;
     height: 10px;
   }
 }
-
-@media (min-width: 429px) and (max-width: 575px) {
- #blunt-tip {
-   position: absolute;
-   bottom: fixed;
-   top: 0%; 
-   margin-left: 0px; 
- }
-}
-
-@media (min-width: 575px) and (max-width: 767px) {
-  #blunt-tip {
-    position: absolute;
-    bottom: fixed;
-    top: 88%; 
-    margin-left: 32px; 
-  }
- }
 
 @media (min-width: 768px) {
  #current-projects p {
@@ -671,10 +638,30 @@ footer {
 }
 }
 
-@media (min-width: 429px) and (max-width: 767px) {
-  #blunt-tip {
-    position: absolute;
-    bottom: -13px; 
-    left: 26px; 
+ @media (min-width: 768px) and (max-width: 1064px) {
+  .smoke-container {
+    left: 6.25vw;
+    top: 5.75vw;
+  }
+ }
+
+ @media (min-width: 1024px) and (max-width: 1280px) {
+  .smoke-container {
+    left: 4.25vw;
+    top: 4.5vw;
+  }
+ }
+
+ @media (min-width: 640px) and (max-width: 768px) {
+  .smoke-container {
+    left: 5.5vw;
+    top: 1vw;
+  }
+ }
+
+ @media (min-width: 429px) and (max-width: 640px) {
+  .smoke-container {
+    left: .75vw;
+    top: 13vw;
   }
  }
