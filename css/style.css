@@ -319,23 +319,28 @@ a:hover {
  border-radius: 50%;
  opacity: 0; /* Make the ash invisible at first */
  animation: ashFall 8s linear infinite; /* Adjust the duration and timing to your liking */
- animation-delay: 12s; /* This is the delay before the animation starts */
+ animation-delay: 7s; /* This is the delay before the animation starts */
 }
 
 @keyframes ashFall {
  0% {
    transform: translateY(0);
    opacity: 0; /* Start the animation with the ash invisible */
+   border-radius: 50%; /* Begin with a round shape */
  }
  10% {
-   opacity: 1; /* Make the ash visible as it starts to fall */
+   opacity: 0; /* Make the ash visible as it starts to fall */
+   border-radius: 60% 40%; /* Change the shape */
  }
  70% {
-   opacity: 0.7;
+   opacity: 0.8;
+   transform: scale(0.7); /* Reduce the size of the ash */
+   border-radius: 50% 50%; /* Change the shape */
  }
  100% {
-   transform: translateY(200px); /* Adjust the fall height to your liking */
+  transform: scale(0.5) translateY(200px);
    opacity: 0;
+   border-radius: 70% 30%; /* Change the shape at the end */
  }
 }
 #blunt-tip {
