@@ -49,15 +49,14 @@ a {
 a:hover {
  color: #2f81f7;
 }
+.intro {
+  position: relative;  /* ensure your intro class has position: relative; */
+}
+
 .smoke-container {
-  position: relative;
-  display: flex; /* Make this a flex container */
-  justify-content: center; /* Center children horizontally */
-  align-items: flex-start; /* Align children at the top */
-  height: 80px;
-  width: 80px;
-  top: 3.2vw;
-  left: 3.5vw;;
+  position: absolute;  /* remove this if you have it in your CSS, as it's now handled by Tailwind */
+  bottom: 7px;        /* remove this if you have it in your CSS, as it's now handled by Tailwind */
+  left: 2px;          /* remove this if you have it in your CSS, as it's now handled by Tailwind */
 }
 .puff {
  position: absolute;
@@ -499,12 +498,6 @@ footer h3 {
 }
 
 /*responsive design*/
-@media (min-width: 769px) and (max-width: 1023px) {
- .smoke-container {
-   left: 5.25vw;
-   top: 5vw;
- }
-}
 .intro h1, .intro img {
  float: left;
 }
@@ -513,6 +506,10 @@ footer a {
  margin-left: 12px;
 }
 @media (max-width: 768px) {
+  .smoke-container {
+    bottom: 20px !important;  
+    left: 0px !important;
+  }
  .hero {
    margin-top: 80px;
  }
@@ -553,10 +550,6 @@ footer {
 .twitter {
  color: #2f81f7;
 }
-.smoke-container {
- top: 15px;
- left: 40px;
-}
 .whirl {
  left: calc(50% + 18px);
 }
@@ -572,12 +565,6 @@ footer {
 }
 
 @media (max-width: 640px) {
- .smoke-container {
-   top: 16.5vw;
-   left: .5vw;
-   width: 10px;
-   height: 10px;
- }
  .whirl {
    background: rgba(105, 105, 105, 0.6);
  }
@@ -588,14 +575,6 @@ footer {
  }
 }
 
-@media (max-width: 428px) {
-  .smoke-container {
-    top: 18.25vw;
-    left: 1.25vw;
-    width: 10px;
-    height: 10px;
-  }
-}
 
 @media (min-width: 768px) {
  #current-projects p {
@@ -606,84 +585,13 @@ footer {
 }
 }
 
- @media (min-width: 768px) and (max-width: 827px) {
-  .smoke-container {
-    left: 6.25vw;
-    top: 5.75vw;
-  }
- }
-
- @media (min-width: 827px) and (max-width: 1064px) {
-  .smoke-container {
-    left: 5.25vw;
-    top: 5.25vw;
-  }
- }
-
- @media (min-width: 1700px) {
-  .smoke-container {
-    left: 3vw;
-    top: 2.5vw;
-  }
- }
-
-
- @media (min-width: 1024px) and (max-width: 1280px) {
-  .smoke-container {
-    left: 4.25vw;
-    top: 4vw;
-  }
- }
-
  @media (min-width: 640px) and (max-width: 768px) {
-  .smoke-container {
-    left: 5.5vw;
-    top: 1vw;
-  }
   #ash {
     left: 55px;
    }
  }
 
- @media (min-width: 429px) and (max-width: 450px) {
-  .smoke-container {
-    left: 1vw;
-    top: 18vw;
-  }
- }
-
- @media (min-width: 450px) and (max-width: 500px) {
-  .smoke-container {
-    left: 1vw;
-    top: 16.5vw;
-  }
- }
-
- @media (min-width: 500px) and (max-width: 550px) {
-  .smoke-container {
-    left: 1vw;
-    top: 15.5vw;
-  }
- }
-
-
- @media (min-width: 550px) and (max-width: 600px) {
-  .smoke-container {
-    left: 1vw;
-    top: 13.5vw;
-  }
- }
-
- @media (min-width: 600px) and (max-width: 640px) {
-  .smoke-container {
-    left: 1vw;
-    top: 12.5vw;
-  }
- }
-
- @media (max-width: 350px) {
-  .smoke-container {
-    left: 1vw;
-    top: 22.5vw;
-  }
- }
+ .hero-image {
+  position: relative;
+  float: right;
+}
