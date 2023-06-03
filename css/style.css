@@ -68,19 +68,12 @@ a:hover {
  transform: scale(0);
  filter: blur(2px);
 }
-.puff1 {
- width: 15px;
- height: 15px;
- animation: animateSmoke 8s ease-in-out infinite; 
- animation-delay: 4s;
+ .puff1 {
+  width: 15px;
+  height: 15px;
+  animation: animateSmoke 3s ease-in-out infinite;  /* Decrease duration to make animation faster */
+  animation-delay: 3s;
 }
-.puff2 {
- width: 10px;
- height: 10px;
- animation: animateSmoke 10s ease-in-out infinite; 
- animation-delay: 7s;
-}
-
 
 .whirl {
  position: absolute;
@@ -163,9 +156,13 @@ a:hover {
  transform-origin: bottom;
 }
 @keyframes animateSmoke {
- 0% { opacity: 0; transform: scale(0); }
- 30% { opacity: .9; }
- 100% { opacity: 0; transform: scale(2); bottom: 80%; }
+  0% { opacity: 0; transform: scale(0); }
+  30% { opacity: .9; }
+  100% { 
+    opacity: 0; 
+    transform: scale(2) translateX(-9.9px);  /* move puff to left while scaling */
+    bottom: 100%;  /* Make puff go higher */
+  }
 }
 @keyframes whirlAway {
  0% { opacity: 0; transform: translateY(0) translateX(0) rotate(0deg); }
@@ -242,7 +239,7 @@ a:hover {
  opacity: 0;
  transform: translateX(-50%) scale(0);
  animation: animateSmokeRing 10s ease-in-out infinite; /* adjust the duration to your liking */
- animation-delay: 15s;
+ animation-delay: 13s;
  filter: blur(2px);
 }
 
