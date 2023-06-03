@@ -272,16 +272,16 @@ a:hover {
  }
 }
 #ash {
- position: absolute;
- bottom: 0%;
- left: 68%;
- width: 3px;
- height: 3px;
- background-color: #808080;
- border-radius: 50%;
- opacity: 0; /* Make the ash invisible at first */
- animation: ashFall 8s linear infinite; /* Adjust the duration and timing to your liking */
- animation-delay: 7s; /* This is the delay before the animation starts */
+  position: absolute;
+  bottom: -3px; 
+  left: calc(50% + 17px); 
+  width: 3px;
+  height: 3px;
+  background-color: #909090;
+  border-radius: 50%;
+  opacity: 0; 
+  animation: ashFall 8s linear infinite; 
+  animation-delay: 7s;
 }
 
 @keyframes ashFall {
@@ -559,9 +559,6 @@ footer {
  bottom: -22px;
  left: 85%
 }
-#ash {
- left: 26px;
-}
 }
 
 @media (max-width: 640px) {
@@ -584,12 +581,6 @@ footer {
  max-width: 425px;
 }
 }
-
- @media (min-width: 640px) and (max-width: 768px) {
-  #ash {
-    left: 55px;
-   }
- }
 
  .hero-image {
   position: relative;
