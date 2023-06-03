@@ -95,7 +95,7 @@ a:hover {
 
 .whirl2 {
  animation: animateSmoke 4.8s ease-in-out infinite, whirlAway 5.7s ease-in-out infinite;
- animation-delay: 12.2s;
+ animation-delay: 3.5s;
  transform-origin: bottom;
 }
 .whirl3 {
@@ -165,18 +165,19 @@ a:hover {
   }
 }
 @keyframes whirlAway {
- 0% { opacity: 0; transform: translateY(0) translateX(0) rotate(0deg); }
- 10% { opacity: .7; transform: translateY(-1px) translateX(1px) rotate(-10deg); }
- 20% { opacity: .4; transform: translateY(-2px) translateX(3px) rotate(-20deg); }
- 30% { opacity: .2; transform: translateY(-3px) translateX(2px) rotate(-30deg); }
- 40% { opacity: .2; transform: translateY(-4px) translateX(4px) rotate(-40deg); }
- 50% { opacity: .1; transform: translateY(-5px) translateX(3px) rotate(-50deg); }
- 60% { opacity: .1; transform: translateY(-6px) translateX(6px) rotate(-40deg); }
- 70% { opacity: .1; transform: translateY(-7px) translateX(5px) rotate(-30deg); }
- 80% { opacity: .1; transform: translateY(-8px) translateX(7px) rotate(-20deg); }
- 90% { opacity: 0; transform: translateY(-9px) translateX(6px) rotate(-10deg); }
- 100% { opacity: 0; transform: translateY(-10px) translateX(8px) rotate(0deg); }
-}
+  0% { opacity: 0; transform: translateY(0) translateX(0) rotate(0deg); }
+  10% { opacity: .7; transform: translateY(-0.5px) translateX(0.5px) rotate(-5deg); }
+  20% { opacity: .4; transform: translateY(-1px) translateX(1.5px) rotate(-10deg); }
+  30% { opacity: .2; transform: translateY(-1.5px) translateX(1px) rotate(-15deg); }
+  40% { opacity: .2; transform: translateY(-2px) translateX(2px) rotate(-20deg); }
+  50% { opacity: .1; transform: translateY(-2.5px) translateX(1.5px) rotate(-25deg); }
+  60% { opacity: .1; transform: translateY(-3px) translateX(3px) rotate(-20deg); }
+  70% { opacity: .1; transform: translateY(-3.5px) translateX(2.5px) rotate(-15deg); }
+  80% { opacity: .1; transform: translateY(-4px) translateX(3.5px) rotate(-10deg); }
+  90% { opacity: 0; transform: translateY(-4.5px) translateX(3px) rotate(-5deg); }
+  100% { opacity: 0; transform: translateY(-5px) translateX(4px) rotate(0deg); }
+ }
+ 
 .smoke-screen {
  position: absolute;
  bottom: 0;
@@ -202,8 +203,8 @@ a:hover {
  position: absolute;
  bottom: -15px;
  left: 60%;
- width: 25px;
- height: 25px;
+ width: 20px;
+ height: 20px;
  background: rgba(95, 81, 69, 0.9);
  opacity: 0;
  border-radius: 50%;
