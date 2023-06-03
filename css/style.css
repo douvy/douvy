@@ -532,7 +532,7 @@ footer a {
 }
 .home-project-title {
  margin-right: 0;
- margin-top: 40px;
+ margin-top: 20px;
 }
 #current-projects .hero-image-home-link-block {
  margin-left: 0;
@@ -606,17 +606,32 @@ footer {
 }
 }
 
- @media (min-width: 768px) and (max-width: 1064px) {
+ @media (min-width: 768px) and (max-width: 827px) {
   .smoke-container {
     left: 6.25vw;
     top: 5.75vw;
   }
  }
 
+ @media (min-width: 827px) and (max-width: 1064px) {
+  .smoke-container {
+    left: 5.25vw;
+    top: 5.25vw;
+  }
+ }
+
+ @media (min-width: 1700px) {
+  .smoke-container {
+    left: 3vw;
+    top: 2.5vw;
+  }
+ }
+
+
  @media (min-width: 1024px) and (max-width: 1280px) {
   .smoke-container {
     left: 4.25vw;
-    top: 4.5vw;
+    top: 4vw;
   }
  }
 
@@ -625,11 +640,50 @@ footer {
     left: 5.5vw;
     top: 1vw;
   }
+  #ash {
+    left: 55px;
+   }
  }
 
- @media (min-width: 429px) and (max-width: 640px) {
+ @media (min-width: 429px) and (max-width: 450px) {
   .smoke-container {
     left: 1vw;
     top: 18vw;
+  }
+ }
+
+ @media (min-width: 450px) and (max-width: 500px) {
+  .smoke-container {
+    left: 1vw;
+    top: 16.5vw;
+  }
+ }
+
+ @media (min-width: 500px) and (max-width: 550px) {
+  .smoke-container {
+    left: 1vw;
+    top: 15.5vw;
+  }
+ }
+
+
+ @media (min-width: 550px) and (max-width: 600px) {
+  .smoke-container {
+    left: 1vw;
+    top: 13.5vw;
+  }
+ }
+
+ @media (min-width: 600px) and (max-width: 640px) {
+  .smoke-container {
+    left: 1vw;
+    top: 12.5vw;
+  }
+ }
+
+ @media (max-width: 350px) {
+  .smoke-container {
+    left: 1vw;
+    top: 22.5vw;
   }
  }
