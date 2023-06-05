@@ -560,7 +560,6 @@ footer {
  left: 85%
 }
 }
-
 @media (max-width: 640px) {
  .whirl {
    background: rgba(105, 105, 105, 0.6);
@@ -571,8 +570,6 @@ footer {
    height: 15px;
  }
 }
-
-
 @media (min-width: 768px) {
  #current-projects p {
  margin-top: 25px;
@@ -581,7 +578,6 @@ footer {
  max-width: 425px;
 }
 }
-
  .hero-image {
   position: relative;
   float: right;
