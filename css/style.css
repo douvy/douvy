@@ -52,7 +52,6 @@ a:hover {
 .intro {
   position: relative;  /* ensure your intro class has position: relative; */
 }
-
 .smoke-container {
   position: absolute;  /* remove this if you have it in your CSS, as it's now handled by Tailwind */
   bottom: 7px;        /* remove this if you have it in your CSS, as it's now handled by Tailwind */
