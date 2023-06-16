@@ -495,6 +495,11 @@ footer h3 {
  float: right !important;
  margin-right: 10px;
 }
+#gallery img {
+    border: 2px solid #fff;
+    border-radius: 24px;
+    box-shadow: 11px 11px 48px rgba(0, 0, 0, .12);
+}
 
 /*responsive design*/
 .intro h1, .intro img {
@@ -510,7 +515,7 @@ footer a {
     left: 0px !important;
   }
  .hero {
-   margin-top: 80px;
+   margin-top: 110px;
  }
  .hero h1 {
    font-size: 39px;
