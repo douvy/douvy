@@ -465,13 +465,13 @@ border-bottom: 1px dotted #2f81f7;
  max-width: 453px;
  overflow: hidden;
 }
-#project-2nd .home-teaser-list {
+#project-last .home-teaser-list {
  margin-top: 30px;
  border-top: none;
  border-bottom: 1px dotted #30363D;
  padding-bottom: 95px;
 }
-#project-2nd img {
+#project-last img {
  border-radius: 2px;
 }
 footer {
