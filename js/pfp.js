@@ -19,75 +19,90 @@ document.addEventListener('DOMContentLoaded', function() {
     const normalSrc = 'assets/img/milady-no-bg.png';
     const blinkSrc = 'assets/img/milady-blink.png'; 
     const mouthOpenSrc = 'assets/img/milady-mouth-open.png';
+    const glassesSrc = 'assets/img/milady-glasses.png';
+    const glassesBlinkSrc = 'assets/img/milady-glasses-blink.png';
     
     // Preload all images for smooth transitions
-    const preloadImages = [normalSrc, blinkSrc, mouthOpenSrc].map(src => {
+    const preloadImages = [
+        normalSrc, blinkSrc, mouthOpenSrc, glassesSrc, glassesBlinkSrc
+    ].map(src => {
         const img = new Image();
         img.src = src;
         return img;
     });
     
-    // Set up transitions for animations - make the slide smoother
+    // Set up transitions for animations
     pfp.style.transition = "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)";
     
-    // Animation flags
-    let isBlinking = false;
-    let isMouthMoving = false;
-    let isSliding = false;
-    let currentSrc = normalSrc;
+    // Animation state
+    const state = {
+        isBlinking: false,
+        isMouthMoving: false,
+        isSliding: false,
+        hasGlasses: false,
+        currentSrc: normalSrc,
+        slideCount: 0,
+        hasDoneMouthMovement: false // Track if mouth has already moved once
+    };
     
     // Function to update the image source with proper state tracking
     function updateImage(newSrc) {
-        if (currentSrc !== newSrc) {
+        if (state.currentSrc !== newSrc) {
             pfp.src = newSrc;
-            currentSrc = newSrc;
+            state.currentSrc = newSrc;
         }
     }
     
-    // Blink function - operates independently
+    // Blink function
     function blink() {
-        if (isBlinking) return;
+        if (state.isBlinking || state.isSliding) return;
         
-        isBlinking = true;
+        state.isBlinking = true;
         
-        // Save the current state to return to
-        const prevSrc = currentSrc;
+        // Choose the right blink image based on glasses state
+        if (state.hasGlasses) {
+            updateImage(glassesBlinkSrc);
+        } else {
+            updateImage(blinkSrc);
+        }
         
-        // Swap to blink image
-        updateImage(blinkSrc);
-        
-        // Swap back after 250ms for a slower blink
+        // Swap back after 250ms
         setTimeout(() => {
-            // Return to previous state (either normal or mouth open)
-            updateImage(prevSrc);
-            isBlinking = false;
+            // Always return to glasses version if glasses have been added
+            if (state.hasGlasses) {
+                updateImage(glassesSrc);
+            } else {
+                updateImage(normalSrc);
+            }
+            state.isBlinking = false;
         }, 250);
     }
     
-    // Mouth movement animation - independent from blink
+    // Mouth movement animation - only happens once
     function moveMouth() {
-        if (isMouthMoving || isSliding) return;
+        // Skip if mouth has already moved once or other animations are happening
+        if (state.hasDoneMouthMovement || state.isMouthMoving || state.isSliding || state.hasGlasses) return;
         
-        isMouthMoving = true;
+        state.isMouthMoving = true;
         
-        // Switch to mouth open immediately
+        // Switch to mouth open
         updateImage(mouthOpenSrc);
         
         // Keep mouth open for 800ms
         setTimeout(() => {
-            // Switch back to normal
             updateImage(normalSrc);
-            isMouthMoving = false;
+            state.isMouthMoving = false;
+            state.hasDoneMouthMovement = true; // Mark that mouth has moved once
         }, 800);
     }
     
-    // Improved slide animation with more subtle, natural movement like Mario going into a pipe
+    // Slide animation
     function slideDown() {
-        if (isSliding) return;
+        if (state.isSliding) return;
         
-        isSliding = true;
+        state.isSliding = true;
         
-        // Use a more natural easing for the slide down effect
+        // Use a natural easing for the slide down effect
         pfp.style.transition = "transform 0.8s cubic-bezier(0.42, 0, 0.58, 1)";
         
         // Slide down smoothly
@@ -99,6 +114,17 @@ document.addEventListener('DOMContentLoaded', function() {
             pfp.style.transition = "none";
             pfp.style.transform = "translateY(-100%)";
             
+            // Increment slide count
+            state.slideCount++;
+            
+            // Update glasses state on first slide
+            if (state.slideCount === 1) {
+                state.hasGlasses = true;
+            }
+            
+            // Always use glasses image when reappearing
+            updateImage(glassesSrc);
+            
             // Force browser reflow to ensure the transition reset takes effect
             pfp.offsetHeight;
             
@@ -109,48 +135,33 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 pfp.style.transform = "translateY(0)";
                 
-                // Animation complete - ensure we don't trigger another animation too soon
+                // Animation complete
                 setTimeout(() => {
-                    isSliding = false;
+                    state.isSliding = false;
                 }, 700);
             }, 50);
         }, 800);
     }
     
-    // Set up the animation timings
+    // Animation timing setup
     
-    // Changed: Blink precisely every 3 seconds as requested (instead of 3.5)
+    // Blink precisely every 3 seconds
     setInterval(blink, 3000);
     
-    // Mouth movement every exactly 6 seconds as requested
-    function startMouthMovements() {
-        // First mouth movement after 5 seconds
-        setTimeout(() => {
-            moveMouth();
-            // Then every 6 seconds exactly after that
-            setInterval(moveMouth, 6000);
-        }, 5000);
-    }
+    // Mouth movement happens only once
+    setTimeout(moveMouth, 5000);
     
-    // Start the first slide exactly at 7.5 seconds, then every 7.5 seconds after that
-    // Fixed: Made sure the next slide only happens after the animation is fully complete
+    // Start the first slide at 7.5 seconds, then every 7.5 seconds
     function startSlideAnimations() {
-        // First slide after exactly 7.5 seconds
         setTimeout(() => {
-            // Create a custom interval that ensures each animation completes before starting the next
             function scheduleNextSlide() {
                 slideDown();
-                
-                // Schedule the next slide after exactly 7.5 seconds
                 setTimeout(scheduleNextSlide, 7500);
             }
-            
-            // Start the cycle
             scheduleNextSlide();
         }, 7500);
     }
     
     // Start animations
-    startMouthMovements();
     startSlideAnimations();
 });
