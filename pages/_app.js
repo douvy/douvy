@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <link rel="icon" href="/assets/img/favicon.png" />
+        <link rel="icon" href="/img/favicon.png" />
       </Head>
       <Component {...pageProps} />
     </>

@@ -55,8 +55,8 @@ export default function Home() {
                     <ProjectSlider 
                       id="dgenesis"
                       images={[
-                        { src: "/assets/img/automatons.jpg", id: "automatons", alt: "automatons" },
-                        { src: "/assets/img/drips.jpg", id: "drips", alt: "drips" }
+                        { src: "/img/automatons.jpg", id: "automatons", alt: "automatons" },
+                        { src: "/img/drips.jpg", id: "drips", alt: "drips" }
                       ]} 
                     />
                   </div>
@@ -86,8 +86,8 @@ export default function Home() {
                     <ProjectSlider 
                       id="btctooling"
                       images={[
-                        { src: "/assets/img/btc-tooling.jpg", id: "btc-tooling", alt: "BTC Tooling" },
-                        { src: "/assets/img/btc-tooling-1.jpg", id: "btc-tooling-alt", alt: "BTC Tooling" }
+                        { src: "/img/btc-tooling.jpg", id: "btc-tooling", alt: "BTC Tooling" },
+                        { src: "/img/btc-tooling-1.jpg", id: "btc-tooling-alt", alt: "BTC Tooling" }
                       ]} 
                     />
                   </div>
@@ -117,8 +117,8 @@ export default function Home() {
                     <ProjectSlider 
                       id="cantoscan"
                       images={[
-                        { src: "/assets/img/cantoscan.jpg", id: "cantoscan", alt: "cantoscan" },
-                        { src: "/assets/img/cantoscan-1.jpg", id: "cantoscan-1", alt: "cantoscan" }
+                        { src: "/img/cantoscan.jpg", id: "cantoscan", alt: "cantoscan" },
+                        { src: "/img/cantoscan-1.jpg", id: "cantoscan-1", alt: "cantoscan" }
                       ]} 
                     />
                   </div>
@@ -148,8 +148,8 @@ export default function Home() {
                     <ProjectSlider 
                       id="shishi"
                       images={[
-                        { src: "/assets/img/shishi.jpg", id: "shishi", alt: "shishi" },
-                        { src: "/assets/img/shishi-1.jpg", id: "shishi-alt", alt: "shishi" }
+                        { src: "/img/shishi.jpg", id: "shishi", alt: "shishi" },
+                        { src: "/img/shishi-1.jpg", id: "shishi-alt", alt: "shishi" }
                       ]} 
                     />
                   </div>

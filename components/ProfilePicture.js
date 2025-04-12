@@ -15,7 +15,7 @@ export default function ProfilePicture() {
     const heroImage = heroImageRef.current;
     
     // Fix container styling
-    heroImage.style.backgroundImage = "url('/assets/img/milady-bg.jpg')";
+    heroImage.style.backgroundImage = "url('/img/milady-bg.jpg')";
     heroImage.style.backgroundSize = "cover";
     heroImage.style.backgroundPosition = "center";
     heroImage.style.position = "relative";
@@ -27,11 +27,11 @@ export default function ProfilePicture() {
     pfp.style.boxShadow = "none";
     
     // Image sources - using img directory as specified
-    const normalSrc = '/assets/img/milady-no-bg.png';
-    const blinkSrc = '/assets/img/milady-blink.png'; 
-    const mouthOpenSrc = '/assets/img/milady-mouth-open.png';
-    const glassesSrc = '/assets/img/milady-glasses.png';
-    const glassesBlinkSrc = '/assets/img/milady-glasses-blink.png';
+    const normalSrc = '/img/milady-no-bg.png';
+    const blinkSrc = '/img/milady-blink.png'; 
+    const mouthOpenSrc = '/img/milady-mouth-open.png';
+    const glassesSrc = '/img/milady-glasses.png';
+    const glassesBlinkSrc = '/img/milady-glasses-blink.png';
     
     // Preload all images for smooth transitions
     const preloadImages = [
@@ -198,7 +198,7 @@ export default function ProfilePicture() {
       <img 
         id="pfp" 
         ref={pfpRef}
-        src={isClient ? "/assets/img/milady-no-bg.png" : "/assets/img/milady-no-bg.png"} 
+        src={isClient ? "/img/milady-no-bg.png" : "/img/milady-no-bg.png"} 
         alt="pfp" 
         className="w-full h-auto"
       />

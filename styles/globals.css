@@ -5,8 +5,8 @@
 /* Custom fonts */
 @font-face {
   font-family: 'DegularDisplay';
-  src: url('/assets/fonts/DegularDisplay-Black.woff2') format('woff2'),
-       url('/assets/fonts/DegularDisplay-Black.woff') format('woff');
+  src: url('/fonts/DegularDisplay-Black.woff2') format('woff2'),
+       url('/fonts/DegularDisplay-Black.woff') format('woff');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -14,8 +14,8 @@
 
 @font-face {
   font-family: 'VulfMono';
-  src: url('/assets/fonts/VulfMono-Regular.woff2') format('woff2'),
-       url('/assets/fonts/VulfMono-Regular.woff') format('woff');
+  src: url('/fonts/VulfMono-Regular.woff2') format('woff2'),
+       url('/fonts/VulfMono-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -23,8 +23,8 @@
 
 @font-face {
   font-family: 'VulfMono';
-  src: url('/assets/fonts/VulfMono-LightItalic.woff2') format('woff2'),
-       url('/assets/fonts/VulfMono-LightItalic.woff') format('woff');
+  src: url('/fonts/VulfMono-LightItalic.woff2') format('woff2'),
+       url('/fonts/VulfMono-LightItalic.woff') format('woff');
   font-weight: 300;
   font-style: italic;
   font-display: swap;
