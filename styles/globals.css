@@ -32,6 +32,13 @@
 
 /* Original CSS styles */
 /*global styles*/
+html {
+  background-color: #0B1119;
+}
+html, body {
+  height: 100%;
+  overscroll-behavior: none; /* Prevents bounce/overscroll */
+}
 body {
   font-family: "VulfMono", Courier;
   font-weight: 300;
