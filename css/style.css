@@ -146,28 +146,28 @@ border-bottom: 1px dotted #2f81f7;
  max-width: 410px;
  margin-top: 15px;
 }
-#current-projects img {
+#portfolio img {
  border: 1px solid #30363D;
 }
-#current-projects .home-teaser-list {
+#portfolio .home-teaser-list {
  border-top: 1px dotted #30363D;
  padding-top: 70px;
 }
-#current-projects .hero-image-home-link-block {
+#portfolio .hero-image-home-link-block {
  max-width: 450px;
  margin-left: 0;
 }
 @media (min-width: 768px) {
-  #current-projects .grid.md\:grid-cols-2 {
+  #portfolio .grid.md\:grid-cols-2 {
     gap: 4rem;
   }
 }
-#current-projects p {
+#portfolio p {
  margin-top: 25px;
  line-height: 26px;
  font-size: 16px !important;
 }
-#current-projects .project-preview-item {
+#portfolio .project-preview-item {
  padding: 0;
  margin-left: 8px;
 }
@@ -289,14 +289,14 @@ footer a {
    background: #95E9EF;
    background: #21262D;
 }
-#current-projects .home-teaser-list {
+#portfolio .home-teaser-list {
  padding-top: 0px;
 }
 .home-project-title {
  margin-right: 0;
  margin-top: 20px;
 }
-#current-projects .hero-image-home-link-block {
+#portfolio .hero-image-home-link-block {
  margin-left: 0;
  margin-right: 0;
  margin-top: 30px;
@@ -335,7 +335,7 @@ footer {
  }
 }
 @media (min-width: 768px) {
- #current-projects p {
+ #portfolio p {
  margin-top: 25px;
  line-height: 26px;
  font-size: 16px; /* Matching mobile size */
