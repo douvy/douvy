@@ -36,6 +36,20 @@
 </div>
 <!--/.nav-->
 
+<!-- Scroll indicator with click to scroll functionality -->
+<div class="scroll-indicator" role="button" tabindex="0" aria-label="Scroll to portfolio section">
+    <a href="#current-projects" class="scroll-link">
+        <div class="scroll-arrow"></div>
+    </a>
+</div>
+
+<script>
+    // Immediate script to hide scroll indicator on scroll
+    window.addEventListener('scroll', function() {
+        document.querySelector('.scroll-indicator').style.display = 'none';
+    }, {once: true}); // Only trigger once
+</script>
+
 <!--hero--> 
 <div class="hero">
     <div class="flex flex-col items-center">

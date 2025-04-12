@@ -169,4 +169,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start all animations
     scheduleMouthMovements();
     startGlassesAnimation();
+    
+    // Hide scroll indicator immediately when user starts scrolling
+    document.addEventListener('DOMContentLoaded', function() {
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        
+        if (scrollIndicator) {
+            // Hide immediately on first scroll
+            window.addEventListener('scroll', function hideOnScroll() {
+                scrollIndicator.style.display = 'none';
+                // Remove the event listener once it's hidden
+                window.removeEventListener('scroll', hideOnScroll);
+            });
+        }
+    });
 });

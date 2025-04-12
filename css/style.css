@@ -213,6 +213,52 @@ footer h3 {
  float: right !important;
  margin-right: 10px;
 }
+
+/* Elegant scroll indicator - hidden on mobile */
+.scroll-indicator {
+ position: fixed;
+ bottom: 25px; /* Moved 15px lower */
+ left: 50%;
+ transform: translateX(-50%);
+ text-align: center;
+ z-index: 10;
+ opacity: 0.4;
+ animation: fadeInOut 2s infinite alternate;
+ transition: opacity 0.5s ease;
+ display: none; /* Hidden by default */
+ cursor: pointer;
+}
+
+.scroll-link {
+ display: block;
+ padding: 10px;
+}
+
+/* Enable smooth scrolling for the whole page */
+html {
+ scroll-behavior: smooth;
+}
+
+/* Only show on desktop */
+@media (min-width: 768px) {
+  .scroll-indicator {
+    display: block;
+  }
+}
+.scroll-arrow {
+ position: relative;
+ display: inline-block;
+ width: 16px;
+ height: 16px;
+ border-right: 1.5px solid #2f81f7;
+ border-bottom: 1.5px solid #2f81f7;
+ transform: rotate(45deg);
+}
+@keyframes fadeInOut {
+ 0% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
+ 100% { opacity: 0.5; transform: translateX(-50%) translateY(8px); }
+}
+
 #gallery img {
     border: 2px solid #fff;
     border-radius: 24px;
