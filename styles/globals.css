@@ -384,3 +384,7 @@ footer a {
   position: relative;
   float: right;
 }
+#pfp img {
+  border: none !important;
+  outline: none !important;
+}

@@ -30,6 +30,7 @@ export default function ProfilePicture() {
     heroImage.style.backgroundPosition = "center";
     heroImage.style.position = "relative";
     heroImage.style.overflow = "hidden"; // Hide content outside container
+    pfp.style.outline = "none"; // Remove any outline/border during animation
     
     // Image sources - using img directory as specified
     const normalSrc = '/img/milady-no-bg.png';
@@ -192,7 +193,11 @@ export default function ProfilePicture() {
         ref={pfpRef}
         id="pfp" 
         className="relative w-[180px] h-[180px] float-right"
-        style={{ transition: "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)" }}
+        style={{ 
+          transition: "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)",
+          outline: "none",
+          border: "none" 
+        }}
       >
         <Image 
           src={currentSrc}
