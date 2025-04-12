@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         hasGlasses: false,
         currentSrc: normalSrc,
         slideCount: 0,
-        hasDoneMouthMovement: false // Track if mouth has already moved once
+        mouthMoveCount: 0 // Track number of mouth movements
     };
     
     // Function to update the image source with proper state tracking
@@ -78,21 +78,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 250);
     }
     
-    // Mouth movement animation - only happens once
+    // Mouth movement animation
     function moveMouth() {
-        // Skip if mouth has already moved once or other animations are happening
-        if (state.hasDoneMouthMovement || state.isMouthMoving || state.isSliding || state.hasGlasses) return;
+        // Skip if animations are happening
+        if (state.isMouthMoving || state.isSliding) return;
         
         state.isMouthMoving = true;
+        state.mouthMoveCount++;
         
-        // Switch to mouth open
+        // Switch to mouth open (always use normal mouth, even with glasses)
+        const currentImage = state.hasGlasses ? glassesSrc : normalSrc;
         updateImage(mouthOpenSrc);
         
         // Keep mouth open for 800ms
         setTimeout(() => {
-            updateImage(normalSrc);
+            // Return to proper state
+            updateImage(currentImage);
             state.isMouthMoving = false;
-            state.hasDoneMouthMovement = true; // Mark that mouth has moved once
         }, 800);
     }
     
@@ -148,20 +150,34 @@ document.addEventListener('DOMContentLoaded', function() {
     // Blink precisely every 3 seconds
     setInterval(blink, 3000);
     
-    // Mouth movement happens only once
-    setTimeout(moveMouth, 5000);
-    
-    // Start the first slide at 7.5 seconds, then every 7.5 seconds
-    function startSlideAnimations() {
-        setTimeout(() => {
-            function scheduleNextSlide() {
-                slideDown();
-                setTimeout(scheduleNextSlide, 7500);
-            }
-            scheduleNextSlide();
-        }, 7500);
+    // Schedule multiple mouth movements
+    function scheduleMouthMovements() {
+        // First mouth movement at 5 seconds
+        setTimeout(moveMouth, 5000);
+        
+        // Second mouth movement at 25 seconds
+        setTimeout(moveMouth, 25000);
+        
+        // Additional mouth movement at 40 seconds
+        setTimeout(moveMouth, 40000);
     }
     
-    // Start animations
+    // Start the first slide at 15 seconds, then wait much longer (20 seconds) between glasses animations
+    function startSlideAnimations() {
+        setTimeout(() => {
+            slideDown();
+            
+            // Schedule subsequent slides with longer intervals (20 seconds)
+            setTimeout(() => {
+                slideDown();
+                
+                // After that, repeat every 20 seconds
+                setInterval(slideDown, 20000);
+            }, 20000);
+        }, 15000);
+    }
+    
+    // Start all animations
+    scheduleMouthMovements();
     startSlideAnimations();
 });
