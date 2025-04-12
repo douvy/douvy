@@ -1,6 +1,7 @@
 import '../styles/globals.css';
 import Head from 'next/head';
 import { useEffect } from 'react';
+import { Analytics } from "@vercel/analytics/react";
 
 function MyApp({ Component, pageProps }) {
   // Use priority loading for only the top-fold content
@@ -49,6 +50,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/img/favicon.png" />
       </Head>
       <Component {...pageProps} />
+      <Analytics />
     </>
   );
 }
