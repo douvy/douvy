@@ -1,21 +1,29 @@
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import ScrollIndicator from '../components/ScrollIndicator';
 import ProfilePicture from '../components/ProfilePicture';
-import ProjectSlider from '../components/ProjectSlider';
+
+// Dynamic import with loading priority for below-the-fold content
+const ProjectSlider = dynamic(() => import('../components/ProjectSlider'), {
+  ssr: false,
+  loading: () => <div className="w-full h-[280px] bg-gray-800 animate-pulse"></div>
+});
 
 export default function Home() {
   return (
     <>
       <Head>
         <title>douvy</title>
+        <link rel="preload" as="style" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+        <link rel="preload" as="font" href="/fonts/DegularDisplay-Black.woff2" crossOrigin="" />
       </Head>
       
       <Nav />
       <ScrollIndicator />
       
-      {/* Hero Section */}
+      {/* Hero Section - High Priority Content */}
       <div className="hero">
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
