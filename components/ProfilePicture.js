@@ -1,7 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+
+// Pre-load these images at build time
+const imageProps = {
+  width: 180,
+  height: 180,
+  priority: true,
+  quality: 95
+};
 
 export default function ProfilePicture() {
   const [isClient, setIsClient] = useState(false);
+  const [currentSrc, setCurrentSrc] = useState('/img/milady-no-bg.png');
   const pfpRef = useRef(null);
   const heroImageRef = useRef(null);
 
@@ -21,29 +31,12 @@ export default function ProfilePicture() {
     heroImage.style.position = "relative";
     heroImage.style.overflow = "hidden"; // Hide content outside container
     
-    // Remove any borders that might be causing lines
-    pfp.style.border = "none";
-    pfp.style.outline = "none";
-    pfp.style.boxShadow = "none";
-    
     // Image sources - using img directory as specified
     const normalSrc = '/img/milady-no-bg.png';
     const blinkSrc = '/img/milady-blink.png'; 
     const mouthOpenSrc = '/img/milady-mouth-open.png';
     const glassesSrc = '/img/milady-glasses.png';
     const glassesBlinkSrc = '/img/milady-glasses-blink.png';
-    
-    // Preload all images for smooth transitions
-    const preloadImages = [
-        normalSrc, blinkSrc, mouthOpenSrc, glassesSrc, glassesBlinkSrc
-    ].map(src => {
-        const img = new Image();
-        img.src = src;
-        return img;
-    });
-    
-    // Set up transitions for animations
-    pfp.style.transition = "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)";
     
     // Animation state
     const state = {
@@ -59,7 +52,7 @@ export default function ProfilePicture() {
     // Function to update the image source with proper state tracking
     function updateImage(newSrc) {
         if (state.currentSrc !== newSrc) {
-            pfp.src = newSrc;
+            setCurrentSrc(newSrc);
             state.currentSrc = newSrc;
         }
     }
@@ -195,13 +188,21 @@ export default function ProfilePicture() {
 
   return (
     <div className="hero-image relative" ref={heroImageRef}>
-      <img 
-        id="pfp" 
+      <div 
         ref={pfpRef}
-        src={isClient ? "/img/milady-no-bg.png" : "/img/milady-no-bg.png"} 
-        alt="pfp" 
-        className="w-full h-auto"
-      />
+        id="pfp" 
+        className="relative w-[180px] h-[180px] float-right"
+        style={{ transition: "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)" }}
+      >
+        <Image 
+          src={currentSrc}
+          alt="douvy profile" 
+          fill
+          sizes="180px"
+          priority={true}
+          quality={95}
+        />
+      </div>
     </div>
   );
 }

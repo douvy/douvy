@@ -9,7 +9,7 @@
        url('/fonts/DegularDisplay-Black.woff') format('woff');
   font-weight: 900;
   font-style: normal;
-  font-display: swap;
+  font-display: block; /* Use block to prevent FOUT */
 }
 
 @font-face {
@@ -18,7 +18,7 @@
        url('/fonts/VulfMono-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -27,7 +27,7 @@
        url('/fonts/VulfMono-LightItalic.woff') format('woff');
   font-weight: 300;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 /* Original CSS styles */
