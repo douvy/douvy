@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Get the profile picture element
     const pfp = document.getElementById('pfp');
+    
+    // Exit if pfp element is not found (for pages without the animation)
+    if (!pfp) return;
+    
     const heroImage = document.querySelector('.hero-image');
     
     // Fix container styling
@@ -170,17 +174,5 @@ document.addEventListener('DOMContentLoaded', function() {
     scheduleMouthMovements();
     startGlassesAnimation();
     
-    // Hide scroll indicator immediately when user starts scrolling
-    document.addEventListener('DOMContentLoaded', function() {
-        const scrollIndicator = document.querySelector('.scroll-indicator');
-        
-        if (scrollIndicator) {
-            // Hide immediately on first scroll
-            window.addEventListener('scroll', function hideOnScroll() {
-                scrollIndicator.style.display = 'none';
-                // Remove the event listener once it's hidden
-                window.removeEventListener('scroll', hideOnScroll);
-            });
-        }
-    });
+    // Scroll indicator is now handled by inline script for faster execution
 });

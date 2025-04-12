@@ -112,14 +112,12 @@ border-bottom: 1px dotted #2f81f7;
 }
 .hero h1 {
  font-size: 57px;
- color: #161813;
  color: #f8fafc;
  letter-spacing: 3.25px;
  line-height: 1.3;
  margin-bottom: 39px;
 }
 .hero p {
- color: #161813;
  color: #d5e1eb;
  margin-top: 32px;
  line-height: 32px;
@@ -133,7 +131,6 @@ border-bottom: 1px dotted #2f81f7;
  vertical-align: middle;
 }
 .home-project-title {
- color: #222;
  color: #d5e1eb;
  font-size: 48px;
  line-height: 56px;
@@ -266,8 +263,11 @@ html {
 }
 
 /*responsive design*/
-.intro h1, .intro img {
- float: left;
+/* Float styles for responsive layout */
+@media (max-width: 767px) {
+  .intro h1, .intro img {
+    float: left;
+  }
 }
 footer a {
  border-bottom: 1px dotted #30363D;
@@ -341,7 +341,7 @@ footer {
  #current-projects p {
  margin-top: 25px;
  line-height: 26px;
- font-size: 14px;
+ font-size: 16px; /* Matching mobile size */
  max-width: 425px;
 }
 }
