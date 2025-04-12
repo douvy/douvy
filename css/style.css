@@ -263,11 +263,8 @@ html {
 }
 
 /*responsive design*/
-/* Float styles for responsive layout */
-@media (max-width: 767px) {
-  .intro h1, .intro img {
-    float: left;
-  }
+.intro h1, .intro img {
+  float: left;
 }
 footer a {
  border-bottom: 1px dotted #30363D;
