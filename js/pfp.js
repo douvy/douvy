@@ -78,22 +78,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 250);
     }
     
-    // Mouth movement animation
+    // Mouth movement animation - only happens before glasses appear
     function moveMouth() {
-        // Skip if animations are happening
-        if (state.isMouthMoving || state.isSliding) return;
+        // Skip if animations are happening or glasses are already on
+        if (state.isMouthMoving || state.isSliding || state.hasGlasses) return;
         
         state.isMouthMoving = true;
         state.mouthMoveCount++;
         
-        // Switch to mouth open (always use normal mouth, even with glasses)
-        const currentImage = state.hasGlasses ? glassesSrc : normalSrc;
+        // Switch to mouth open (only happens without glasses)
         updateImage(mouthOpenSrc);
         
         // Keep mouth open for 800ms
         setTimeout(() => {
-            // Return to proper state
-            updateImage(currentImage);
+            // Return to normal state
+            updateImage(normalSrc);
             state.isMouthMoving = false;
         }, 800);
     }
@@ -150,34 +149,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Blink precisely every 3 seconds
     setInterval(blink, 3000);
     
-    // Schedule multiple mouth movements
+    // Schedule mouth movements - only before glasses appear
     function scheduleMouthMovements() {
         // First mouth movement at 5 seconds
         setTimeout(moveMouth, 5000);
         
-        // Second mouth movement at 25 seconds
-        setTimeout(moveMouth, 25000);
-        
-        // Additional mouth movement at 40 seconds
-        setTimeout(moveMouth, 40000);
+        // Second mouth movement at 10 seconds (before sunglasses appear at 15s)
+        setTimeout(moveMouth, 10000);
     }
     
-    // Start the first slide at 15 seconds, then wait much longer (20 seconds) between glasses animations
-    function startSlideAnimations() {
+    // Start the glasses slide animation once at 15 seconds
+    function startGlassesAnimation() {
         setTimeout(() => {
+            // Just do the slide animation once to add glasses
             slideDown();
-            
-            // Schedule subsequent slides with longer intervals (20 seconds)
-            setTimeout(() => {
-                slideDown();
-                
-                // After that, repeat every 20 seconds
-                setInterval(slideDown, 20000);
-            }, 20000);
         }, 15000);
     }
     
     // Start all animations
     scheduleMouthMovements();
-    startSlideAnimations();
+    startGlassesAnimation();
 });
