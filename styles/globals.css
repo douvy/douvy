@@ -45,10 +45,9 @@ body {
   font-style: normal;
   color: #e6edf3;
   background-color: #0B1119;
-  background: linear-gradient(to bottom, #0B1119, #121E2F);
-  background-size: 100%, auto;
-  background-repeat: no-repeat, repeat;
-  background-attachment: scroll, scroll;
+  background: linear-gradient(to bottom, #0B1119 0%, #0B1119 40%, #0F172A 100%);
+  background-size: 100% 200vh;
+  background-repeat: no-repeat;
   font-size: 12px;
 }
 h1,h2,h3,h4,h5,h6 {
@@ -76,10 +75,10 @@ a:hover {
   line-height: 48px;
 }
 .border {
-  border:  1px solid #30363D;
+  border:  1px solid #3b434b;
 }
 .border-b {
-  border-color: #30363D !important;
+  border-color: #3b434b !important;
 }
 .border-none {
   border: none !important;
@@ -105,7 +104,7 @@ a:hover {
   height: 180px;
   border-radius: 3px;
   float: right;
-  border: 1px solid #30363D;
+  border: 1px solid #3b434b;
   top: 0;
 }
 .hero .twitter {
@@ -119,14 +118,14 @@ a:hover {
   font-family: "VulfMono", sans-serif;
   font-weight: 400;
   font-style: normal;
-  border: 1px solid #30363D;
+  border: 1px solid #3b434b;
   transition: all 0.3s ease;
 }
 .hero .twitter:hover, .twitter:visited {
   -webkit-transition: all 0.3s ease;
   color: #2f81f7;
   background: #202733;
-  border: 1px solid #30363D;
+  border: 1px solid #3b434b;
   transition: all 0.3s ease;
   text-decoration: none;
 }
@@ -162,7 +161,7 @@ a:hover {
   color: #d5e1eb;
   font-size: 48px;
   line-height: 56px;
-  border-bottom: 1px dotted #30363D;
+  border-bottom: 1px dotted #3b434b;
   margin-right: 40px;
     
 }
@@ -175,10 +174,10 @@ a:hover {
   margin-top: 15px;
 }
 #portfolio img {
-  border: 1px solid #30363D;
+  border: 1px solid #3b434b;
 }
 #portfolio .home-teaser-list {
-  border-top: 1px dotted #30363D;
+  border-top: 1px dotted #3b434b;
   padding-top: 70px;
 }
 #portfolio .hero-image-home-link-block {
@@ -228,7 +227,7 @@ a:hover {
 #project-last .home-teaser-list {
   margin-top: 30px;
   border-top: none;
-  border-bottom: 1px dotted #30363D;
+  border-bottom: 1px dotted #3b434b;
   padding-bottom: 95px;
 }
 #project-last img {
@@ -236,7 +235,7 @@ a:hover {
 }
 footer {
   margin-top: 150px;
-  margin-bottom: 40px;
+  margin-bottom: 80px;
 }
 footer a {
   color: #2f81f7;
@@ -312,8 +311,9 @@ html {
   float: left;
 }
 footer a {
-  border-bottom: 1px dotted #30363D;
+  border-bottom: 1px dotted #3b434b;
   margin-left: 12px;
+  font-style: italic;
 }
 @media (max-width: 768px) {
   .smoke-container {

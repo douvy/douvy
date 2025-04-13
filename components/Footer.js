@@ -18,6 +18,7 @@ export default function Footer() {
           </li>
         </ul>
       </div>
+      <div className="pb-20"></div>
     </footer>
   );
 }
