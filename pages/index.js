@@ -55,7 +55,7 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="project-description">
-                      <p className="description">Community-owned generative art.</p>
+                      <p className="description">Co-founded project featuring community-owned generative art that sold out in two hours.</p>
                       <p className="description">First L2 bridgeable NFT on Arbitrum.</p>
                     </div>
                   </div>
@@ -87,7 +87,7 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="project-description">
-                      <p className="description">A Bitcoin dashboard providing real-time price data, chart, market summary, orderbook, Twitter/X insights and halving countdown data.</p>
+                      <p className="description">A Bitcoin dashboard providing real-time price data, a chart, market summary, orderbook, Twitter/X insights and halving countdown data.</p>
                     </div>
                   </div>
                   <div className="hero-image-home-link-block inline-block">
@@ -118,7 +118,7 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="project-description">
-                      <p className="description">Custom-built Canto blockchain explorer with optimized indexing for real-time transaction, address, and smart contract data. Engineered in two weeks, selected as Grand Prize winner of Canto Hackathon Ch.1, S5.</p>
+                      <p className="description">Custom-built blockchain explorer with optimized indexing for real-time transaction, address, and smart contract data. Engineered in two weeks, selected as Grand Prize winner of Canto Hackathon Ch.1, S5.</p>
                     </div>
                   </div>
                   <div className="hero-image-home-link-block inline-block">
