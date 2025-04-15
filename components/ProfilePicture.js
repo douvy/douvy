@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
+import NextImage from 'next/image';
 
 // Pre-load these images at build time
 const imageProps = {
@@ -9,17 +9,34 @@ const imageProps = {
   quality: 95
 };
 
+// Define all avatar image sources
+const normalSrc = '/img/milady-no-bg.png';
+const blinkSrc = '/img/milady-blink.png'; 
+const mouthOpenSrc = '/img/milady-mouth-open.png';
+const glassesSrc = '/img/milady-glasses.png';
+const glassesBlinkSrc = '/img/milady-glasses-blink.png';
+
 export default function ProfilePicture() {
   const [isClient, setIsClient] = useState(false);
-  const [currentSrc, setCurrentSrc] = useState('/img/milady-no-bg.png');
+  const [currentSrc, setCurrentSrc] = useState(normalSrc);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   const pfpRef = useRef(null);
   const heroImageRef = useRef(null);
 
+  // Preload all images we'll need for animation
   useEffect(() => {
+    // Only run in browser environment
     setIsClient(true);
     
-    // Exit if pfp element is not found (for pages without the animation)
-    if (!pfpRef.current) return;
+    // Set images loaded to true immediately
+    // We'll rely on Next.js Image priority to handle preloading
+    setImagesLoaded(true);
+  }, []);
+
+  // Start animation only after images are loaded
+  useEffect(() => {
+    // Don't start animations until all images are loaded and the component is mounted
+    if (!isClient || !imagesLoaded || !pfpRef.current) return;
     
     const pfp = pfpRef.current;
     const heroImage = heroImageRef.current;
@@ -31,13 +48,6 @@ export default function ProfilePicture() {
     heroImage.style.position = "relative";
     heroImage.style.overflow = "hidden"; // Hide content outside container
     pfp.style.outline = "none"; // Remove any outline/border during animation
-    
-    // Image sources - using img directory as specified
-    const normalSrc = '/img/milady-no-bg.png';
-    const blinkSrc = '/img/milady-blink.png'; 
-    const mouthOpenSrc = '/img/milady-mouth-open.png';
-    const glassesSrc = '/img/milady-glasses.png';
-    const glassesBlinkSrc = '/img/milady-glasses-blink.png';
     
     // Animation state
     const state = {
@@ -149,61 +159,67 @@ export default function ProfilePicture() {
         }, 800);
     }
     
-    // Animation timing setup
-    
-    // Blink precisely every 3 seconds
-    const blinkInterval = setInterval(blink, 3000);
-    
-    // Schedule mouth movements - only before glasses appear
-    function scheduleMouthMovements() {
-        // First mouth movement at 5 seconds
-        const firstMouthMoveTimeout = setTimeout(moveMouth, 5000);
-        
-        // Second mouth movement at 10 seconds (before sunglasses appear at 15s)
-        const secondMouthMoveTimeout = setTimeout(moveMouth, 10000);
-        
-        return [firstMouthMoveTimeout, secondMouthMoveTimeout];
-    }
-    
-    // Start the glasses slide animation once at 15 seconds
-    function startGlassesAnimation() {
-        const glassesTimeout = setTimeout(() => {
-            // Just do the slide animation once to add glasses
-            slideDown();
-        }, 15000);
-        
-        return glassesTimeout;
-    }
-    
-    // Start all animations
-    const mouthTimeouts = scheduleMouthMovements();
-    const glassesTimeout = startGlassesAnimation();
+    // Add slight delay before starting animations
+    const startAnimationsTimeout = setTimeout(() => {
+      // Blink precisely every 3 seconds
+      const blinkInterval = setInterval(blink, 3000);
+      
+      // Schedule mouth movements - only before glasses appear
+      function scheduleMouthMovements() {
+          // First mouth movement at 5 seconds
+          const firstMouthMoveTimeout = setTimeout(moveMouth, 5000);
+          
+          // Second mouth movement at 10 seconds (before sunglasses appear at 15s)
+          const secondMouthMoveTimeout = setTimeout(moveMouth, 10000);
+          
+          return [firstMouthMoveTimeout, secondMouthMoveTimeout];
+      }
+      
+      // Start the glasses slide animation once at 15 seconds
+      function startGlassesAnimation() {
+          const glassesTimeout = setTimeout(() => {
+              // Just do the slide animation once to add glasses
+              slideDown();
+          }, 15000);
+          
+          return glassesTimeout;
+      }
+      
+      // Start all animations
+      const mouthTimeouts = scheduleMouthMovements();
+      const glassesTimeout = startGlassesAnimation();
+      
+      // Return cleanup function
+      return () => {
+        clearInterval(blinkInterval);
+        mouthTimeouts.forEach(timeout => clearTimeout(timeout));
+        clearTimeout(glassesTimeout);
+      };
+    }, 500); // Add 500ms delay to ensure everything is ready
     
     // Clean up on unmount
     return () => {
-      clearInterval(blinkInterval);
-      mouthTimeouts.forEach(timeout => clearTimeout(timeout));
-      clearTimeout(glassesTimeout);
+      clearTimeout(startAnimationsTimeout);
     };
-  }, []);
+  }, [isClient, imagesLoaded]); // Only run when both isClient and imagesLoaded become true
 
   return (
     <div className="hero-image relative" ref={heroImageRef}>
       <div 
         ref={pfpRef}
         id="pfp" 
-        className="relative w-[180px] h-[180px] float-right"
+        className="relative w-[180px] h-[180px] float-right sm:w-[120px] sm:h-[120px] md:w-[180px] md:h-[180px]"
         style={{ 
           transition: "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)",
           outline: "none",
-          border: "none" 
+          border: "none"
         }}
       >
-        <Image 
+        <NextImage 
           src={currentSrc}
           alt="douvy profile" 
           fill
-          sizes="180px"
+          sizes="(max-width: 768px) 120px, 180px"
           priority={true}
           quality={95}
         />
