@@ -74,6 +74,37 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Zaar Flip */}
+        <div className="flex flex-col items-center">
+          <div className="w-full md:w-10/12 lg:w-8/12 px-4">
+            <div className="mt-10 sm:mt-24 w-dyn-list">
+              <div className="project-preview-item w-dyn-item">
+                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+                  <div className="inline-block">
+                    <div className="grid">
+                      <div className="project-title">
+                        <h3 className="home-project-title"><a href="https://flip.zaar.gg/zaar-flip" target="_blank" rel="noreferrer">Zaar Flip</a></h3>
+                      </div>
+                    </div>
+                    <div className="project-description">
+                      <p className="description">Designed the first game on Zaar Chain featuring provably fair coin flipping with a twist. Set odds from picking coin count and minimum wins needed. Includes Turbo Flip for auto-flipping and "Be The House" staking feature. Built with React and NextJS.</p>
+                    </div>
+                  </div>
+                  <div className="hero-image-home-link-block inline-block">
+                    <ProjectSlider 
+                      id="zaarflip"
+                      images={[
+                        { src: "/img/zaar-flip.jpg", id: "zaar-flip", alt: "Zaar Flip" },
+                        { src: "/img/zaar-flip-1.jpg", id: "zaar-flip-1", alt: "Zaar Flip" }
+                      ]} 
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* BTC Tooling */}
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
