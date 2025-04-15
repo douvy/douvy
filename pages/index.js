@@ -87,7 +87,7 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="project-description">
-                      <p className="description">Designed the first game on Zaar Chain featuring provably fair coin flipping with a twist. Set odds from picking coin count and minimum wins needed. Includes Turbo Flip for auto-flipping and "Be The House" staking feature. Built with React Next.js, TypeScript.</p>
+                      <p className="description">Designed the first game on Zaar Chain featuring provably fair coin flipping with a twist. Set odds from picking coin count and minimum wins needed. Includes Turbo Flip for auto-flipping and "Be The House" staking feature. Built with React, Next.js, TypeScript.</p>
                     </div>
                   </div>
                   <div className="hero-image-home-link-block inline-block">
