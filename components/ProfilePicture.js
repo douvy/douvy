@@ -17,18 +17,28 @@ const glassesSrc = '/img/milady-glasses.png';
 const glassesBlinkSrc = '/img/milady-glasses-blink.png';
 
 // NEVER touch background image after it loads - it causes glitches
-// Just preload avatar images for animation
-if (typeof window !== 'undefined') {
-  [normalSrc, blinkSrc, mouthOpenSrc, glassesSrc, glassesBlinkSrc].forEach(src => {
-    const img = new window.Image();
-    img.src = src;
+// Create a preloader that tracks image loading status
+const preloadImages = () => {
+  if (typeof window === 'undefined') return Promise.resolve();
+  
+  // Create a promise for each image to track when it's fully loaded
+  const imagePromises = [normalSrc, blinkSrc, mouthOpenSrc, glassesSrc, glassesBlinkSrc].map(src => {
+    return new Promise((resolve, reject) => {
+      const img = new window.Image();
+      img.onload = () => resolve(src);
+      img.onerror = () => reject(`Failed to load ${src}`);
+      img.src = src;
+    });
   });
-}
+  
+  return Promise.all(imagePromises);
+};
 
 export default function ProfilePicture() {
   const [currentSrc, setCurrentSrc] = useState(normalSrc);
   const [isLoaded, setIsLoaded] = useState(false);
   const [animationsStarted, setAnimationsStarted] = useState(false);
+  const [imagesPreloaded, setImagesPreloaded] = useState(false);
   const pfpRef = useRef(null);
   const heroImageRef = useRef(null);
   
@@ -42,9 +52,25 @@ export default function ProfilePicture() {
     mouthMoveCount: 0
   });
   
+  // First, preload all animation images 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    preloadImages()
+      .then(() => {
+        setImagesPreloaded(true);
+        console.log('All animation images preloaded successfully');
+      })
+      .catch(err => {
+        console.error('Error preloading images:', err);
+        // Still set as true so animations can eventually start
+        setImagesPreloaded(true);
+      });
+  }, []);
+
   // Start animation after everything is fully loaded
   useEffect(() => {
-    if (!isLoaded || animationsStarted) return;
+    if (!isLoaded || !imagesPreloaded || animationsStarted) return;
     
     // Add a small delay before starting animations to ensure
     // everything is fully loaded and rendered
@@ -80,12 +106,7 @@ export default function ProfilePicture() {
         }, 200);
       }
       
-      // Mouth movement animation - preload the mouth open image before first use
-      // This is the key fix - ensure mouthOpenSrc is loaded before first use
-      if (typeof window !== 'undefined') {
-        const mouthImg = new window.Image();
-        mouthImg.src = mouthOpenSrc;
-      }
+      // No need for additional preloading here as we already preloaded everything
       
       function moveMouth() {
         if (stateRef.current.isMouthMoving || stateRef.current.isSliding || stateRef.current.hasGlasses) return;
@@ -162,12 +183,12 @@ export default function ProfilePicture() {
         clearTimeout(secondMouthTimeout);
         clearTimeout(glassesTimeout);
       };
-    }, 1000); // Extended from 500 to 1000ms for more loading time
+    }, 2000); // Extended to 2000ms to ensure everything is fully loaded and browser has time to render
     
     return () => {
       clearTimeout(startupDelay);
     };
-  }, [isLoaded, animationsStarted]);
+  }, [isLoaded, imagesPreloaded, animationsStarted]);
 
   return (
     <div 
