@@ -50,11 +50,14 @@ export default function Document() {
           as="image"
           fetchPriority="high"
         />
+        {/* Background image has maximum priority - it should NEVER be changed during animations */}
         <link
           rel="preload"
           href="/img/milady-bg.jpg"
           as="image"
           fetchPriority="high"
+          importance="high"
+          crossOrigin="anonymous"
         />
         <link
           rel="preload"

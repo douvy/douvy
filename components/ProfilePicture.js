@@ -8,13 +8,9 @@ const mouthOpenSrc = '/img/milady-mouth-open.png';
 const glassesSrc = '/img/milady-glasses.png';
 const glassesBlinkSrc = '/img/milady-glasses-blink.png';
 
-// Preload all images on page load
+// NEVER touch background image after it loads - it causes glitches
+// Just preload avatar images for animation
 if (typeof window !== 'undefined') {
-  // Preload background image with high priority
-  const bgPreload = new Image();
-  bgPreload.src = '/img/milady-bg.jpg';
-  
-  // Preload avatar images in background
   [normalSrc, blinkSrc, mouthOpenSrc, glassesSrc, glassesBlinkSrc].forEach(src => {
     const img = new Image();
     img.src = src;
@@ -169,9 +165,12 @@ export default function ProfilePicture() {
       className="hero-image relative" 
       ref={heroImageRef}
       style={{
-        // Set solid bg color first, then add image
-        background: "#0B1119 url('/img/milady-bg.jpg') no-repeat center center",
+        // NEVER CHANGE THIS - Fixed background that never gets touched during animations
+        backgroundImage: "url('/img/milady-bg.jpg')",
+        backgroundColor: "#0B1119",
         backgroundSize: "cover",
+        backgroundPosition: "center center",
+        backgroundRepeat: "no-repeat",
         position: "relative",
         overflow: "hidden",
       }}
