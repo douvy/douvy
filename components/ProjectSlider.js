@@ -39,11 +39,15 @@ export default function ProjectSlider({ images, id }) {
       <div className="swiper-wrapper">
         {images.map((image, index) => (
           <div className="swiper-slide" key={index}>
-            <img 
+            <Image 
               src={image.src} 
               id={image.id || `${id}-${index}`}
               alt={image.alt || `Project Image ${index + 1}`}
               className="w-full h-auto"
+              width={450}
+              height={280}
+              priority={index === 0} // Only prioritize first image in each slider
+              quality={90}
             />
           </div>
         ))}

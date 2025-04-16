@@ -20,33 +20,65 @@ export default function ProfilePicture() {
   const [isClient, setIsClient] = useState(false);
   const [currentSrc, setCurrentSrc] = useState(normalSrc);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [readyForAnimation, setReadyForAnimation] = useState(false);
   const pfpRef = useRef(null);
   const heroImageRef = useRef(null);
-
-  // Preload all images we'll need for animation
+  const imageLoadedCount = useRef(0);
+  
+  // Preload all images manually before starting animations
   useEffect(() => {
-    // Only run in browser environment
-    setIsClient(true);
+    const imagesToPreload = [
+      normalSrc,
+      blinkSrc,
+      mouthOpenSrc,
+      glassesSrc,
+      glassesBlinkSrc,
+      '/img/milady-bg.jpg'
+    ];
     
-    // Set images loaded to true immediately
-    // We'll rely on Next.js Image priority to handle preloading
-    setImagesLoaded(true);
+    // Only run in browser environment
+    if (typeof window !== 'undefined') {
+      setIsClient(true);
+      
+      // Create a promise for each image to load
+      const imagePromises = imagesToPreload.map(src => {
+        return new Promise((resolve) => {
+          const img = new window.Image();
+          img.onload = () => {
+            imageLoadedCount.current += 1;
+            resolve();
+          };
+          img.onerror = () => {
+            // Even if it fails, we'll continue
+            imageLoadedCount.current += 1;
+            resolve();
+          };
+          img.src = src;
+        });
+      });
+      
+      // When all images are loaded, set imagesLoaded to true
+      Promise.all(imagePromises)
+        .then(() => {
+          setImagesLoaded(true);
+          // Add additional delay for mobile
+          const isMobile = window.innerWidth <= 768;
+          setTimeout(() => {
+            setReadyForAnimation(true);
+          }, isMobile ? 1000 : 300);
+        });
+    }
   }, []);
 
-  // Start animation only after images are loaded
+  // Start animation only after images are loaded and we're ready
   useEffect(() => {
-    // Don't start animations until all images are loaded and the component is mounted
-    if (!isClient || !imagesLoaded || !pfpRef.current) return;
+    // Don't start animations until all images are loaded, we're ready, and the component is mounted
+    if (!isClient || !imagesLoaded || !readyForAnimation || !pfpRef.current) return;
     
     const pfp = pfpRef.current;
     const heroImage = heroImageRef.current;
     
-    // Fix container styling
-    heroImage.style.backgroundImage = "url('/img/milady-bg.jpg')";
-    heroImage.style.backgroundSize = "cover";
-    heroImage.style.backgroundPosition = "center";
-    heroImage.style.position = "relative";
-    heroImage.style.overflow = "hidden"; // Hide content outside container
+    // Fix container styling for the pfp element only
     pfp.style.outline = "none"; // Remove any outline/border during animation
     
     // Animation state
@@ -201,18 +233,30 @@ export default function ProfilePicture() {
     return () => {
       clearTimeout(startAnimationsTimeout);
     };
-  }, [isClient, imagesLoaded]); // Only run when both isClient and imagesLoaded become true
+  }, [isClient, imagesLoaded, readyForAnimation]); // Only run when all conditions are met
 
   return (
-    <div className="hero-image relative" ref={heroImageRef}>
+    <div 
+      className="hero-image relative" 
+      ref={heroImageRef}
+      style={{
+        backgroundImage: "url('/img/milady-bg.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        position: "relative",
+        overflow: "hidden" // Hide content outside container
+      }}
+    >
       <div 
         ref={pfpRef}
         id="pfp" 
         className="relative w-[180px] h-[180px] float-right sm:w-[120px] sm:h-[120px] md:w-[180px] md:h-[180px]"
         style={{ 
-          transition: "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)",
+          transition: readyForAnimation ? "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)" : "none",
           outline: "none",
-          border: "none"
+          border: "none",
+          opacity: imagesLoaded ? 1 : 0, // Hide until images are loaded
+          transform: "translateY(0)" // Ensure starting position is correct
         }}
       >
         <NextImage 
@@ -222,6 +266,12 @@ export default function ProfilePicture() {
           sizes="(max-width: 768px) 120px, 180px"
           priority={true}
           quality={95}
+          onLoadingComplete={() => {
+            // Ensure the initial image is loaded
+            if (!imagesLoaded) {
+              setImagesLoaded(true);
+            }
+          }}
         />
       </div>
     </div>
