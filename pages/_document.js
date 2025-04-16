@@ -46,7 +46,31 @@ export default function Document() {
         />
         <link
           rel="preload"
+          href="/img/milady-blink.png"
+          as="image"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
           href="/img/milady-bg.jpg"
+          as="image"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          href="/img/milady-mouth-open.png"
+          as="image"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          href="/img/milady-glasses.png"
+          as="image"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          href="/img/milady-glasses-blink.png"
           as="image"
           fetchPriority="high"
         />

@@ -100,10 +100,13 @@ export default function ProfilePicture() {
         }
     }
     
-    // Blink function
+    // No cache needed
+    
+    // Optimized blink function
     function blink() {
         if (state.isBlinking || state.isSliding) return;
         
+        // Prevent any background flashing by ensuring images are in cache
         state.isBlinking = true;
         
         // Choose the right blink image based on glasses state
@@ -230,7 +233,7 @@ export default function ProfilePicture() {
         mouthTimeouts.forEach(timeout => clearTimeout(timeout));
         clearTimeout(glassesTimeout);
       };
-    }, 300); // Reduce initial delay for more immediate animation start
+    }, 1000); // Increase initial delay to ensure all images are fully loaded
     
     // Clean up on unmount
     return () => {
@@ -243,11 +246,11 @@ export default function ProfilePicture() {
       className="hero-image relative" 
       ref={heroImageRef}
       style={{
-        backgroundImage: "url('/img/milady-bg.jpg')",
+        background: "#0B1119 url('/img/milady-bg.jpg') no-repeat center center",
         backgroundSize: "cover",
-        backgroundPosition: "center",
         position: "relative",
-        overflow: "hidden" // Hide content outside container
+        overflow: "hidden", // Hide content outside container
+        willChange: "auto" // Don't optimize background as it causes flashing
       }}
     >
       <div 
@@ -258,9 +261,9 @@ export default function ProfilePicture() {
           transition: readyForAnimation ? "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)" : "none",
           outline: "none",
           border: "none",
-          opacity: imagesLoaded ? 1 : 0, // Hide until images are loaded
+          opacity: readyForAnimation ? 1 : 0, // Don't show until completely ready to animate
           transform: "translateY(0)", // Ensure starting position is correct
-          willChange: "transform, opacity", // Optimize for animation performance
+          willChange: "transform", // Only optimize transform, not opacity
           backfaceVisibility: "hidden", // Prevent flickering
           WebkitBackfaceVisibility: "hidden"
         }}
