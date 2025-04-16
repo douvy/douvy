@@ -80,7 +80,13 @@ export default function ProfilePicture() {
         }, 200);
       }
       
-      // Mouth movement animation
+      // Mouth movement animation - preload the mouth open image before first use
+      // This is the key fix - ensure mouthOpenSrc is loaded before first use
+      if (typeof window !== 'undefined') {
+        const mouthImg = new window.Image();
+        mouthImg.src = mouthOpenSrc;
+      }
+      
       function moveMouth() {
         if (stateRef.current.isMouthMoving || stateRef.current.isSliding || stateRef.current.hasGlasses) return;
         
@@ -140,14 +146,9 @@ export default function ProfilePicture() {
       // Then set interval for exactly 3.5 seconds
       const blinkInterval = setInterval(blink, 3500);
       
-      // Schedule mouth movements
-      const firstMouthTimeout = setTimeout(() => {
-        moveMouth();
-      }, 5000);
-      
-      const secondMouthTimeout = setTimeout(() => {
-        moveMouth();
-      }, 10000);
+      // Schedule mouth movements with extra delay for first one (giving browser time to settle)
+      const firstMouthTimeout = setTimeout(moveMouth, 6000); // Increased from 5000 to 6000
+      const secondMouthTimeout = setTimeout(moveMouth, 10000);
       
       // Glasses animation
       const glassesTimeout = setTimeout(() => {
@@ -161,7 +162,7 @@ export default function ProfilePicture() {
         clearTimeout(secondMouthTimeout);
         clearTimeout(glassesTimeout);
       };
-    }, 500); // Shorter initial delay so first blink happens quickly
+    }, 1000); // Extended from 500 to 1000ms for more loading time
     
     return () => {
       clearTimeout(startupDelay);
@@ -187,9 +188,7 @@ export default function ProfilePicture() {
         style={{ 
           outline: "none",
           border: "none",
-          transform: "translateY(0)", // Ensure starting position is correct
-          position: "relative", // Create stacking context for the avatar
-          zIndex: 2 // Keep avatar above any background
+          transform: "translateY(0)" // Ensure starting position is correct
         }}
       >
         <Image 
