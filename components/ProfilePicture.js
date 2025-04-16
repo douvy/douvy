@@ -1,5 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import NextImage from 'next/image';
+import Image from 'next/image';
+
+// Pre-load these images at build time
+const imageProps = {
+  width: 180,
+  height: 180,
+  priority: true,
+  quality: 95
+};
 
 // Define all avatar image sources - declared outside component to prevent re-creation
 const normalSrc = '/img/milady-no-bg.png';
@@ -12,7 +20,7 @@ const glassesBlinkSrc = '/img/milady-glasses-blink.png';
 // Just preload avatar images for animation
 if (typeof window !== 'undefined') {
   [normalSrc, blinkSrc, mouthOpenSrc, glassesSrc, glassesBlinkSrc].forEach(src => {
-    const img = new Image();
+    const img = new window.Image();
     img.src = src;
   });
 }
@@ -165,14 +173,11 @@ export default function ProfilePicture() {
       className="hero-image relative" 
       ref={heroImageRef}
       style={{
-        // NEVER CHANGE THIS - Fixed background that never gets touched during animations
         backgroundImage: "url('/img/milady-bg.jpg')",
-        backgroundColor: "#0B1119",
         backgroundSize: "cover",
         backgroundPosition: "center center",
-        backgroundRepeat: "no-repeat",
         position: "relative",
-        overflow: "hidden",
+        overflow: "hidden"
       }}
     >
       <div 
@@ -182,12 +187,12 @@ export default function ProfilePicture() {
         style={{ 
           outline: "none",
           border: "none",
-          // Add transform property here to prevent layout shifts
-          transform: "translateY(0)"
+          transform: "translateY(0)", // Ensure starting position is correct
+          position: "relative", // Create stacking context for the avatar
+          zIndex: 2 // Keep avatar above any background
         }}
       >
-        {/* Use onLoadingComplete to ensure we start animations after images are ready */}
-        <NextImage 
+        <Image 
           src={currentSrc}
           alt="douvy profile" 
           fill
