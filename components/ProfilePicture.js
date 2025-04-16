@@ -113,7 +113,7 @@ export default function ProfilePicture() {
             updateImage(blinkSrc);
         }
         
-        // Swap back after 250ms
+        // Swap back after 200ms - slight reduction for more natural feel
         setTimeout(() => {
             // Always return to glasses version if glasses have been added
             if (state.hasGlasses) {
@@ -122,7 +122,7 @@ export default function ProfilePicture() {
                 updateImage(normalSrc);
             }
             state.isBlinking = false;
-        }, 250);
+        }, 200);
     }
     
     // Mouth movement animation - only happens before glasses appear
@@ -193,7 +193,10 @@ export default function ProfilePicture() {
     
     // Add slight delay before starting animations
     const startAnimationsTimeout = setTimeout(() => {
-      // Blink precisely every 3 seconds
+      // Initial blink within first second
+      setTimeout(blink, 800);
+      
+      // Then continue regular blinks every 3 seconds
       const blinkInterval = setInterval(blink, 3000);
       
       // Schedule mouth movements - only before glasses appear
@@ -227,7 +230,7 @@ export default function ProfilePicture() {
         mouthTimeouts.forEach(timeout => clearTimeout(timeout));
         clearTimeout(glassesTimeout);
       };
-    }, 500); // Add 500ms delay to ensure everything is ready
+    }, 300); // Reduce initial delay for more immediate animation start
     
     // Clean up on unmount
     return () => {
@@ -256,7 +259,10 @@ export default function ProfilePicture() {
           outline: "none",
           border: "none",
           opacity: imagesLoaded ? 1 : 0, // Hide until images are loaded
-          transform: "translateY(0)" // Ensure starting position is correct
+          transform: "translateY(0)", // Ensure starting position is correct
+          willChange: "transform, opacity", // Optimize for animation performance
+          backfaceVisibility: "hidden", // Prevent flickering
+          WebkitBackfaceVisibility: "hidden"
         }}
       >
         <NextImage 
