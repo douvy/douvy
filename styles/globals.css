@@ -167,6 +167,9 @@ a:hover {
   max-width: 410px;
   margin-top: 15px;
 }
+.portfolio-border {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
 #portfolio img {
   border: 1px solid #3b434b;
 }

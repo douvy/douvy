@@ -60,13 +60,15 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="hero-image-home-link-block inline-block">
-                    <ProjectSlider 
-                      id="dgenesis"
-                      images={[
-                        { src: "/img/automatons.jpg", id: "automatons", alt: "automatons" },
-                        { src: "/img/drips.jpg", id: "drips", alt: "drips" }
-                      ]} 
-                    />
+                    <div className="w-full border border-gray-200 rounded-sm p-1 portfolio-border">
+                      <ProjectSlider 
+                        id="dgenesis"
+                        images={[
+                          { src: "/img/automatons.jpg", id: "automatons", alt: "automatons" },
+                          { src: "/img/drips.jpg", id: "drips", alt: "drips" }
+                        ]} 
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -91,13 +93,15 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="hero-image-home-link-block inline-block">
-                    <ProjectSlider 
-                      id="zaarflip"
-                      images={[
-                        { src: "/img/zaar-flip.jpg", id: "zaar-flip", alt: "Zaar Flip" },
-                        { src: "/img/zaar-flip-1.jpg", id: "zaar-flip-1", alt: "Zaar Flip" }
-                      ]} 
-                    />
+                    <div className="w-full border border-gray-200 rounded-sm p-1 portfolio-border">
+                      <ProjectSlider 
+                        id="zaarflip"
+                        images={[
+                          { src: "/img/zaar-flip.jpg", id: "zaar-flip", alt: "Zaar Flip" },
+                          { src: "/img/zaar-flip-1.jpg", id: "zaar-flip-1", alt: "Zaar Flip" }
+                        ]} 
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -122,13 +126,15 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="hero-image-home-link-block inline-block">
-                    <ProjectSlider 
-                      id="btctooling"
-                      images={[
-                        { src: "/img/btc-tooling.jpg", id: "btc-tooling", alt: "BTC Tooling" },
-                        { src: "/img/btc-tooling-1.jpg", id: "btc-tooling-alt", alt: "BTC Tooling" }
-                      ]} 
-                    />
+                    <div className="w-full border border-gray-200 rounded-sm p-1 portfolio-border">
+                      <ProjectSlider 
+                        id="btctooling"
+                        images={[
+                          { src: "/img/btc-tooling.jpg", id: "btc-tooling", alt: "BTC Tooling" },
+                          { src: "/img/btc-tooling-1.jpg", id: "btc-tooling-alt", alt: "BTC Tooling" }
+                        ]} 
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -153,13 +159,15 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="hero-image-home-link-block inline-block">
-                    <ProjectSlider 
-                      id="cantoscan"
-                      images={[
-                        { src: "/img/cantoscan.jpg", id: "cantoscan", alt: "cantoscan" },
-                        { src: "/img/cantoscan-1.jpg", id: "cantoscan-1", alt: "cantoscan" }
-                      ]} 
-                    />
+                    <div className="w-full border border-gray-200 rounded-sm p-1 portfolio-border">
+                      <ProjectSlider 
+                        id="cantoscan"
+                        images={[
+                          { src: "/img/cantoscan.jpg", id: "cantoscan", alt: "cantoscan" },
+                          { src: "/img/cantoscan-1.jpg", id: "cantoscan-1", alt: "cantoscan" }
+                        ]} 
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -184,13 +192,15 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="hero-image-home-link-block inline-block">
-                    <ProjectSlider 
-                      id="shishi"
-                      images={[
-                        { src: "/img/shishi.jpg", id: "shishi", alt: "shishi" },
-                        { src: "/img/shishi-1.jpg", id: "shishi-alt", alt: "shishi" }
-                      ]} 
-                    />
+                    <div className="w-full border border-gray-200 rounded-sm p-1 portfolio-border">
+                      <ProjectSlider 
+                        id="shishi"
+                        images={[
+                          { src: "/img/shishi.jpg", id: "shishi", alt: "shishi" },
+                          { src: "/img/shishi-1.jpg", id: "shishi-alt", alt: "shishi" }
+                        ]} 
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
