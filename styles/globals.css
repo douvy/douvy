@@ -32,9 +32,6 @@
 
 /* Original CSS styles */
 /*global styles*/
-html {
-  background-color: #0B1119;
-}
 html, body {
   height: 100%;
   overscroll-behavior: none; /* Prevents bounce/overscroll */
@@ -44,10 +41,7 @@ body {
   font-weight: 300;
   font-style: normal;
   color: #e6edf3;
-  background-color: #0B1119;
-  background: linear-gradient(to bottom, #0B1119 0%, #0B1119 40%, #0F172A 100%);
-  background-size: 100% 200vh;
-  background-repeat: no-repeat;
+  background-color: #0c1118;
   font-size: 12px;
 }
 h1,h2,h3,h4,h5,h6 {

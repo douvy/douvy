@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
-    <Html lang="en" style={{ backgroundColor: "#0B1119" }}>
+    <Html lang="en">
       <Head>
         <meta charSet="utf-8" />
         <meta 
@@ -94,7 +94,7 @@ export default function Document() {
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" />
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
       </Head>
-      <body style={{ minHeight: "100vh", backgroundColor: "#0B1119" }}>
+      <body style={{ minHeight: "100vh" }}>
         <Main />
         <NextScript />
       </body>
