@@ -47,7 +47,7 @@ export default function Home() {
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
             <div className="home-teaser-list w-dyn-list">
               <div className="project-preview-item w-dyn-item">
-                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title mt-10-sm">
@@ -77,9 +77,9 @@ export default function Home() {
         {/* Zaar Flip */}
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-            <div className="mt-10 sm:mt-24 w-dyn-list">
+            <div className="mt-16 sm:mt-24 w-dyn-list">
               <div className="project-preview-item w-dyn-item">
-                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
@@ -108,9 +108,9 @@ export default function Home() {
         {/* BTC Tooling */}
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-            <div className="mt-10 sm:mt-24 w-dyn-list">
+            <div className="mt-16 sm:mt-24 w-dyn-list">
               <div className="project-preview-item w-dyn-item">
-                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
@@ -139,9 +139,9 @@ export default function Home() {
         {/* Cantoscan */}
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-            <div className="mt-10 sm:mt-24 w-dyn-list">
+            <div className="mt-16 sm:mt-24 w-dyn-list">
               <div className="project-preview-item w-dyn-item">
-                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
@@ -170,9 +170,9 @@ export default function Home() {
         {/* Shishi */}
         <div className="flex flex-col items-center" id="project-last">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-            <div className="home-teaser-list w-dyn-list">
+            <div className="home-teaser-list mt-16 sm:mt-24 w-dyn-list">
               <div className="project-preview-item w-dyn-item">
-                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">

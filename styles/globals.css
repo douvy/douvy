@@ -180,9 +180,18 @@ a:hover {
   border-top: 1px dotted #3b434b;
   padding-top: 70px;
 }
+
+@media (max-width: 768px) {
+  .home-teaser-list {
+    padding-top: 12px;
+  }
+}
 #portfolio .hero-image-home-link-block {
   max-width: 450px;
   margin-left: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 @media (min-width: 768px) {
   #portfolio .grid.md\:grid-cols-2 {
@@ -228,7 +237,14 @@ a:hover {
   margin-top: 30px;
   border-top: none;
   border-bottom: 1px dotted #3b434b;
-  padding-bottom: 95px;
+  padding-bottom: 120px;
+}
+
+@media (max-width: 768px) {
+  #project-last .home-teaser-list {
+    margin-top: 64px !important; /* Match the mt-16 utility class */
+    padding-bottom: 90px; /* Increase bottom padding */
+  }
 }
 #project-last img {
   border-radius: 2px;
@@ -337,6 +353,10 @@ footer a {
   #portfolio .home-teaser-list {
     padding-top: 0px;
   }
+  /* First item in portfolio should have a small top margin */
+  #portfolio > div:first-child .home-teaser-list {
+    margin-top: 0px;
+  }
   .home-project-title {
     margin-right: 0;
     margin-top: 20px;
@@ -351,7 +371,7 @@ footer a {
     margin-bottom: 20px;
   }
   .mt-10-sm {
-    margin-top: 50px;
+    margin-top: 40px;
   }
   .hero p {
     font-size: 15px;
