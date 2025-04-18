@@ -1,14 +1,16 @@
-import Head from 'next/head';
-import dynamic from 'next/dynamic';
-import Nav from '../components/Nav';
-import Footer from '../components/Footer';
-import ScrollIndicator from '../components/ScrollIndicator';
-import ProfilePicture from '../components/ProfilePicture';
+import Head from "next/head";
+import dynamic from "next/dynamic";
+import Nav from "../components/Nav";
+import Footer from "../components/Footer";
+import ScrollIndicator from "../components/ScrollIndicator";
+import ProfilePicture from "../components/ProfilePicture";
 
 // Dynamic import with loading priority for below-the-fold content
-const ProjectSlider = dynamic(() => import('../components/ProjectSlider'), {
+const ProjectSlider = dynamic(() => import("../components/ProjectSlider"), {
   ssr: false,
-  loading: () => <div className="w-full h-[280px] bg-gray-800 animate-pulse"></div>
+  loading: () => (
+    <div className="w-full h-[280px] bg-gray-800 animate-pulse"></div>
+  ),
 });
 
 export default function Home() {
@@ -16,30 +18,64 @@ export default function Home() {
     <>
       <Head>
         <title>douvy</title>
-        <link rel="preload" as="style" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-        <link rel="preload" as="font" href="/fonts/DegularDisplay-Black.woff2" crossOrigin="" />
+        <link
+          rel="preload"
+          as="style"
+          href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        />
+        <link
+          rel="preload"
+          as="font"
+          href="/fonts/DegularDisplay-Black.woff2"
+          crossOrigin=""
+        />
       </Head>
-      
+
       <Nav />
       <ScrollIndicator />
-      
+
       {/* Hero Section - High Priority Content */}
       <div className="hero">
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
             <div className="intro relative">
-              <h1 className="name">hello<span className="move">,</span><br/>I'm <em>douvy</em>.</h1>
+              <h1 className="name">
+                hello<span className="move">,</span>
+                <br />
+                I'm <em>douvy</em>.
+              </h1>
               <ProfilePicture />
               <div className="clear-both"></div>
-              <p>I'm a Frontend Design Architect with 7+ years in crypto who serves as the essential 'designer in the room,' visualizing blockchain concepts and creating intuitive interfaces that prevent broken product development. We can continue to build protocols that are better solutions than financial institutions.</p>
-              <p>Actively involved in crypto through trading multiple market cycles, learning, exploring, and posting on crypto twitter.</p>
+              <p>
+                I'm a Frontend Design Architect with 7+ years in crypto who
+                serves as the essential 'designer in the room,' visualizing
+                blockchain concepts and creating intuitive interfaces that
+                prevent broken product development. We can continue to build
+                protocols that are better solutions than financial institutions.
+              </p>
+              <p>
+                Actively involved in crypto through trading multiple market
+                cycles, learning, exploring, and posting on crypto twitter.
+              </p>
               <p>I enjoy time with family, technology, guitar, and sports.</p>
-              <p>Reach me on <a href="https://twitter.com/douvy_" target="_blank" rel="noreferrer" className="twitter"><i className="fab fa-twitter"></i></a> to connect.</p><br/>
+              <p>
+                Reach me on{" "}
+                <a
+                  href="https://twitter.com/douvy_"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="twitter"
+                >
+                  <i className="fab fa-twitter"></i>
+                </a>{" "}
+                to connect.
+              </p>
+              <br />
             </div>
           </div>
         </div>
       </div>
-      
+
       {/* Portfolio Section */}
       <div id="portfolio" className="section-style">
         {/* dGenesis */}
@@ -51,22 +87,39 @@ export default function Home() {
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title mt-10-sm">
-                        <h3 className="home-project-title"><a href="https://dgenesis.io/" target="_blank" rel="noreferrer">dGenesis</a></h3>
+                        <h3 className="home-project-title">
+                          <a
+                            href="https://dgenesis.io/"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            dGenesis
+                          </a>
+                        </h3>
                       </div>
                     </div>
                     <div className="project-description">
-                      <p className="description">Co-founded project featuring community-owned generative art that sold out in two hours.</p>
-                      <p className="description">First L2 bridgeable NFT on Arbitrum.</p>
+                      <p className="description">
+                        Co-founded project featuring community-owned generative
+                        art that sold out in two hours.
+                      </p>
+                      <p className="description">
+                        First L2 bridgeable NFT on Arbitrum.
+                      </p>
                     </div>
                   </div>
                   <div className="hero-image-home-link-block inline-block">
-                    <div className="w-full border border-gray-200 rounded-sm p-1 portfolio-border">
-                      <ProjectSlider 
+                    <div className="w-full rounded-sm p-1 image-container">
+                      <ProjectSlider
                         id="dgenesis"
                         images={[
-                          { src: "/img/automatons.jpg", id: "automatons", alt: "automatons" },
-                          { src: "/img/drips.jpg", id: "drips", alt: "drips" }
-                        ]} 
+                          {
+                            src: "/img/automatons.jpg",
+                            id: "automatons",
+                            alt: "automatons",
+                          },
+                          { src: "/img/drips.jpg", id: "drips", alt: "drips" },
+                        ]}
                       />
                     </div>
                   </div>
@@ -85,21 +138,43 @@ export default function Home() {
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title"><a href="https://flip.zaar.gg/zaar-flip" target="_blank" rel="noreferrer">Zaar Flip</a></h3>
+                        <h3 className="home-project-title">
+                          <a
+                            href="https://flip.zaar.gg/zaar-flip"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Zaar Flip
+                          </a>
+                        </h3>
                       </div>
                     </div>
                     <div className="project-description">
-                      <p className="description">Designed the first game on Zaar Chain featuring provably fair coin flipping with a twist. Set odds from picking coin count and min. wins needed. Includes Turbo Flip for auto-flipping and "Be The House" staking feature. Built with React, Next.js, TypeScript.</p>
+                      <p className="description">
+                        Designed the first game on Zaar Chain featuring provably
+                        fair coin flipping with a twist. Set odds from picking
+                        coin count and min. wins needed. Includes Turbo Flip for
+                        auto-flipping and "Be The House" staking feature. Built
+                        with React, Next.js, TypeScript.
+                      </p>
                     </div>
                   </div>
                   <div className="hero-image-home-link-block inline-block">
-                    <div className="w-full border border-gray-200 rounded-sm p-1 portfolio-border">
-                      <ProjectSlider 
+                    <div className="w-full rounded-sm p-1 image-container">
+                      <ProjectSlider
                         id="zaarflip"
                         images={[
-                          { src: "/img/zaar-flip.jpg", id: "zaar-flip", alt: "Zaar Flip" },
-                          { src: "/img/zaar-flip-1.jpg", id: "zaar-flip-1", alt: "Zaar Flip" }
-                        ]} 
+                          {
+                            src: "/img/zaar-flip.jpg",
+                            id: "zaar-flip",
+                            alt: "Zaar Flip",
+                          },
+                          {
+                            src: "/img/zaar-flip-1.jpg",
+                            id: "zaar-flip-1",
+                            alt: "Zaar Flip",
+                          },
+                        ]}
                       />
                     </div>
                   </div>
@@ -118,21 +193,43 @@ export default function Home() {
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title"><a href="https://btctooling.com/" target="_blank" rel="noreferrer">BTC Tooling</a></h3>
+                        <h3 className="home-project-title">
+                          <a
+                            href="https://btctooling.com/"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            BTC Tooling
+                          </a>
+                        </h3>
                       </div>
                     </div>
                     <div className="project-description">
-                      <p className="description">A Bitcoin dashboard providing real-time price data, a chart, market summary, orderbook, Twitter/X insights and halving countdown data. Built with React, Next.js, TypeScript using CoinGecko and Blockchain.info APIs with WebSockets for real-time updates.</p>
+                      <p className="description">
+                        A Bitcoin dashboard providing real-time price data, a
+                        chart, market summary, orderbook, Twitter/X insights and
+                        halving countdown data. Built with React, Next.js,
+                        TypeScript using CoinGecko and Blockchain.info APIs with
+                        WebSockets for real-time updates.
+                      </p>
                     </div>
                   </div>
                   <div className="hero-image-home-link-block inline-block">
-                    <div className="w-full border border-gray-200 rounded-sm p-1 portfolio-border">
-                      <ProjectSlider 
+                    <div className="w-full rounded-sm p-1 image-container">
+                      <ProjectSlider
                         id="btctooling"
                         images={[
-                          { src: "/img/btc-tooling.jpg", id: "btc-tooling", alt: "BTC Tooling" },
-                          { src: "/img/btc-tooling-1.jpg", id: "btc-tooling-alt", alt: "BTC Tooling" }
-                        ]} 
+                          {
+                            src: "/img/btc-tooling.jpg",
+                            id: "btc-tooling",
+                            alt: "BTC Tooling",
+                          },
+                          {
+                            src: "/img/btc-tooling-1.jpg",
+                            id: "btc-tooling-alt",
+                            alt: "BTC Tooling",
+                          },
+                        ]}
                       />
                     </div>
                   </div>
@@ -141,7 +238,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        
+
         {/* Cantoscan */}
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
@@ -155,17 +252,30 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="project-description">
-                      <p className="description">Custom-built blockchain explorer with optimized indexing for real-time transaction, address, and smart contract data. Engineered in two weeks, selected as Grand Prize winner of Canto Hackathon Ch.1, S5.</p>
+                      <p className="description">
+                        Custom-built blockchain explorer with optimized indexing
+                        for real-time transaction, address, and smart contract
+                        data. Engineered in two weeks, selected as Grand Prize
+                        winner of Canto Hackathon Ch.1, S5.
+                      </p>
                     </div>
                   </div>
                   <div className="hero-image-home-link-block inline-block">
-                    <div className="w-full border border-gray-200 rounded-sm p-1 portfolio-border">
-                      <ProjectSlider 
+                    <div className="w-full rounded-sm p-1 image-container">
+                      <ProjectSlider
                         id="cantoscan"
                         images={[
-                          { src: "/img/cantoscan.jpg", id: "cantoscan", alt: "cantoscan" },
-                          { src: "/img/cantoscan-1.jpg", id: "cantoscan-1", alt: "cantoscan" }
-                        ]} 
+                          {
+                            src: "/img/cantoscan.jpg",
+                            id: "cantoscan",
+                            alt: "cantoscan",
+                          },
+                          {
+                            src: "/img/cantoscan-1.jpg",
+                            id: "cantoscan-1",
+                            alt: "cantoscan",
+                          },
+                        ]}
                       />
                     </div>
                   </div>
@@ -184,21 +294,43 @@ export default function Home() {
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title"><a href="https://shishi520.io/" target="_blank" rel="noreferrer">Shishi</a></h3>
+                        <h3 className="home-project-title">
+                          <a
+                            href="https://shishi520.io/"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Shishi
+                          </a>
+                        </h3>
                       </div>
                     </div>
                     <div className="project-description">
-                      <p className="description">Designed and built website for NFT collection in a neochibi aesthetic with randomized traits inspired by net art and fashion trends. Y2K Fashion-Inspired Digital Dolls feature an interactive tool that allows users to customize and swap outfits.</p>
+                      <p className="description">
+                        Designed and built website for NFT collection in a
+                        neochibi aesthetic with randomized traits inspired by
+                        net art and fashion trends. Y2K Fashion-Inspired Digital
+                        Dolls feature an interactive tool that allows users to
+                        customize and swap outfits.
+                      </p>
                     </div>
                   </div>
                   <div className="hero-image-home-link-block inline-block">
-                    <div className="w-full border border-gray-200 rounded-sm p-1 portfolio-border">
-                      <ProjectSlider 
+                    <div className="w-full rounded-sm p-1 image-container">
+                      <ProjectSlider
                         id="shishi"
                         images={[
-                          { src: "/img/shishi.jpg", id: "shishi", alt: "shishi" },
-                          { src: "/img/shishi-1.jpg", id: "shishi-alt", alt: "shishi" }
-                        ]} 
+                          {
+                            src: "/img/shishi.jpg",
+                            id: "shishi",
+                            alt: "shishi",
+                          },
+                          {
+                            src: "/img/shishi-1.jpg",
+                            id: "shishi-alt",
+                            alt: "shishi",
+                          },
+                        ]}
                       />
                     </div>
                   </div>
@@ -208,7 +340,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      
+
       <Footer />
     </>
   );
