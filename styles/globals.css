@@ -201,7 +201,8 @@ h3 {
         padding-top: 12px;
     }
     .home-project-title {
-        padding-bottom: 20px;
+        padding-bottom: 12px;
+        margin-bottom: -8px;
     }
 }
 #portfolio .hero-image-home-link-block {
@@ -320,8 +321,24 @@ footer h3 {
 
 @media (max-width: 480px) {
     .name {
-        font-size: 35px !important;
-        margin-right: 15px;
+        font-size: 32px !important;
+        margin-right: 10px;
+        line-height: 1.2 !important;
+    }
+    
+    /* Ensure "I'm douvy" stays on same line */
+    .name br {
+        display: none;
+    }
+    
+    #pfp {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    
+    .hero img {
+        width: 100px !important;
+        height: 100px !important;
     }
 }
 .intro img {
@@ -408,7 +425,7 @@ footer a {
         font-size: 39px;
         line-height: 1.3;
     }
-    
+
     /* Ensure proper layout for name and image on small screens */
     .flex.flex-row.items-start {
         display: flex !important;
