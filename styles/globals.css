@@ -326,9 +326,10 @@ footer h3 {
         line-height: 1.2 !important;
     }
     
-    /* Ensure "I'm douvy" stays on same line */
-    .name br {
-        display: none;
+    /* Keep line break but ensure proper positioning */
+    .name {
+        float: left;
+        clear: left;
     }
     
     #pfp {
