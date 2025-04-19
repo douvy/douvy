@@ -39,12 +39,49 @@ export default function Home() {
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
             <div className="intro relative">
+              <div className="relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out float-right md:mt-[-20px] mt-[-35px]">
+                {/* Diagonal stripe pattern background that covers the entire border area */}
+                <div className="absolute inset-0 -z-1 pointer-events-none">
+                  <svg
+                    className="w-full h-full"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <pattern
+                        id="diagonal-pattern-profile"
+                        width="4"
+                        height="4"
+                        patternUnits="userSpaceOnUse"
+                        patternTransform="rotate(45)"
+                      >
+                        <line
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="4"
+                          stroke="#3B82F6"
+                          strokeWidth="1.5"
+                          opacity="0.35"
+                        ></line>
+                      </pattern>
+                    </defs>
+                    <rect
+                      width="100%"
+                      height="100%"
+                      fill="url(#diagonal-pattern-profile)"
+                    ></rect>
+                  </svg>
+                </div>
+                {/* Content container with ProfilePicture */}
+                <div className="relative z-10 border dark:border-gray-600/40 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out">
+                  <ProfilePicture />
+                </div>
+              </div>
               <h1 className="name">
                 hello<span className="move">,</span>
                 <br />
                 I'm <em>douvy</em>.
               </h1>
-              <ProfilePicture />
               <div className="clear-both"></div>
               <p>
                 I'm a Frontend Design Architect with 7+ years in crypto who
@@ -108,17 +145,54 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-                  <div className="hero-image-home-link-block inline-block">
-                    <div className="w-full rounded-sm p-1 image-container">
+                  <div className="mr-3 sm:mr-0 mt-8 sm:mt-0 relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                    {/* Diagonal stripe pattern background that covers the entire border area */}
+                    <div className="absolute inset-0 -z-1 pointer-events-none">
+                      <svg
+                        className="w-full h-full"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <defs>
+                          <pattern
+                            id="diagonal-pattern"
+                            width="4"
+                            height="4"
+                            patternUnits="userSpaceOnUse"
+                            patternTransform="rotate(45)"
+                          >
+                            <line
+                              x1="0"
+                              y1="0"
+                              x2="0"
+                              y2="4"
+                              stroke="#3B82F6"
+                              strokeWidth="1.5"
+                              opacity="0.35"
+                            ></line>
+                          </pattern>
+                        </defs>
+                        <rect
+                          width="100%"
+                          height="100%"
+                          fill="url(#diagonal-pattern)"
+                        ></rect>
+                      </svg>
+                    </div>
+                    {/* Content container with ProjectSlider */}
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-clip transition-colors duration-300 ease-in-out">
                       <ProjectSlider
-                        id="dgenesis"
+                        id="zaarflip"
                         images={[
                           {
                             src: "/img/automatons.jpg",
                             id: "automatons",
                             alt: "automatons",
                           },
-                          { src: "/img/drips.jpg", id: "drips", alt: "drips" },
+                          {
+                            src: "/img/drips.jpg",
+                            id: "drips",
+                            alt: "drips",
+                          },
                         ]}
                       />
                     </div>
@@ -159,8 +233,41 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-                  <div className="hero-image-home-link-block inline-block">
-                    <div className="w-full rounded-sm p-1 image-container">
+                  <div className="mr-3 sm:mr-0 mt-8 relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                    {/* Diagonal stripe pattern background that covers the entire border area */}
+                    <div className="absolute inset-0 -z-1 pointer-events-none">
+                      <svg
+                        className="w-full h-full"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <defs>
+                          <pattern
+                            id="diagonal-pattern"
+                            width="4"
+                            height="4"
+                            patternUnits="userSpaceOnUse"
+                            patternTransform="rotate(45)"
+                          >
+                            <line
+                              x1="0"
+                              y1="0"
+                              x2="0"
+                              y2="4"
+                              stroke="#3B82F6"
+                              strokeWidth="1.5"
+                              opacity="0.35"
+                            ></line>
+                          </pattern>
+                        </defs>
+                        <rect
+                          width="100%"
+                          height="100%"
+                          fill="url(#diagonal-pattern)"
+                        ></rect>
+                      </svg>
+                    </div>
+                    {/* Content container with ProjectSlider */}
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-clip transition-colors duration-300 ease-in-out">
                       <ProjectSlider
                         id="zaarflip"
                         images={[
@@ -214,8 +321,41 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-                  <div className="hero-image-home-link-block inline-block">
-                    <div className="w-full rounded-sm p-1 image-container">
+                  <div className="mr-3 sm:mr-0 mt-8 relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                    {/* Diagonal stripe pattern background that covers the entire border area */}
+                    <div className="absolute inset-0 -z-1 pointer-events-none">
+                      <svg
+                        className="w-full h-full"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <defs>
+                          <pattern
+                            id="diagonal-pattern"
+                            width="4"
+                            height="4"
+                            patternUnits="userSpaceOnUse"
+                            patternTransform="rotate(45)"
+                          >
+                            <line
+                              x1="0"
+                              y1="0"
+                              x2="0"
+                              y2="4"
+                              stroke="#3B82F6"
+                              strokeWidth="1.5"
+                              opacity="0.35"
+                            ></line>
+                          </pattern>
+                        </defs>
+                        <rect
+                          width="100%"
+                          height="100%"
+                          fill="url(#diagonal-pattern)"
+                        ></rect>
+                      </svg>
+                    </div>
+                    {/* Content container with ProjectSlider */}
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-clip transition-colors duration-300 ease-in-out">
                       <ProjectSlider
                         id="btctooling"
                         images={[
@@ -260,8 +400,41 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-                  <div className="hero-image-home-link-block inline-block">
-                    <div className="w-full rounded-sm p-1 image-container">
+                  <div className="mr-3 sm:mr-0 mt-8 relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                    {/* Diagonal stripe pattern background that covers the entire border area */}
+                    <div className="absolute inset-0 -z-1 pointer-events-none">
+                      <svg
+                        className="w-full h-full"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <defs>
+                          <pattern
+                            id="diagonal-pattern"
+                            width="4"
+                            height="4"
+                            patternUnits="userSpaceOnUse"
+                            patternTransform="rotate(45)"
+                          >
+                            <line
+                              x1="0"
+                              y1="0"
+                              x2="0"
+                              y2="4"
+                              stroke="#3B82F6"
+                              strokeWidth="1.5"
+                              opacity="0.35"
+                            ></line>
+                          </pattern>
+                        </defs>
+                        <rect
+                          width="100%"
+                          height="100%"
+                          fill="url(#diagonal-pattern)"
+                        ></rect>
+                      </svg>
+                    </div>
+                    {/* Content container with ProjectSlider */}
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-clip transition-colors duration-300 ease-in-out">
                       <ProjectSlider
                         id="cantoscan"
                         images={[
@@ -315,8 +488,41 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-                  <div className="hero-image-home-link-block inline-block">
-                    <div className="w-full rounded-sm p-1 image-container">
+                  <div className="mr-3 sm:mr-0 mt-8 relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                    {/* Diagonal stripe pattern background that covers the entire border area */}
+                    <div className="absolute inset-0 -z-1 pointer-events-none">
+                      <svg
+                        className="w-full h-full"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <defs>
+                          <pattern
+                            id="diagonal-pattern"
+                            width="4"
+                            height="4"
+                            patternUnits="userSpaceOnUse"
+                            patternTransform="rotate(45)"
+                          >
+                            <line
+                              x1="0"
+                              y1="0"
+                              x2="0"
+                              y2="4"
+                              stroke="#3B82F6"
+                              strokeWidth="1.5"
+                              opacity="0.35"
+                            ></line>
+                          </pattern>
+                        </defs>
+                        <rect
+                          width="100%"
+                          height="100%"
+                          fill="url(#diagonal-pattern)"
+                        ></rect>
+                      </svg>
+                    </div>
+                    {/* Content container with ProjectSlider */}
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-clip transition-colors duration-300 ease-in-out">
                       <ProjectSlider
                         id="shishi"
                         images={[

@@ -13,13 +13,15 @@ export default function ProjectSlider({ images, id }) {
         try {
           const { Swiper } = await import('swiper');
           
-          // Initialize swiper
+          // Initialize swiper with more configuration options
           const swiper = new Swiper(swiperElRef.current, {
             direction: 'horizontal',
             loop: true,
             grabCursor: true,
             slidesPerView: 1,
             spaceBetween: 0,
+            autoHeight: true,      // Dynamically adjust height
+            updateOnImagesReady: true, // Update layout when images are loaded
           });
           
           return () => {
@@ -43,11 +45,19 @@ export default function ProjectSlider({ images, id }) {
               src={image.src} 
               id={image.id || `${id}-${index}`}
               alt={image.alt || `Project Image ${index + 1}`}
-              className="w-full h-auto"
+              className="w-full h-auto object-contain"
               width={450}
               height={280}
+              layout="responsive"
               priority={index === 0} // Only prioritize first image in each slider
               quality={90}
+              style={{
+                objectFit: "contain", 
+                width: "100%", 
+                height: "auto",
+                marginRight: 0,
+                paddingRight: 0
+              }}
             />
           </div>
         ))}

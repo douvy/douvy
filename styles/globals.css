@@ -177,6 +177,7 @@ h3 {
     font-size: 28px;
     line-height: 38px;
     border-bottom: 1px solid #22262b;
+    padding-bottom: 12px;
     margin-right: 40px;
 }
 .description {
@@ -198,6 +199,9 @@ h3 {
 @media (max-width: 768px) {
     .home-teaser-list {
         padding-top: 12px;
+    }
+    .home-project-title {
+        padding-bottom: 20px;
     }
 }
 #portfolio .hero-image-home-link-block {
@@ -231,6 +235,31 @@ h3 {
     max-width: 453px;
     overflow: hidden;
     position: relative;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .swiper-container {
+        margin-right: 10px; /* Add spacing on mobile */
+        width: 100%;
+        max-width: 100%;
+        padding-right: 0;
+    }
+
+    /* Make sure images don't overflow container */
+    .swiper-slide img {
+        max-width: 100%;
+        height: auto !important;
+    }
+
+    /* Fix the container widths */
+    .relative.z-1.border.dark\:border-gray-600\/80 {
+        width: 100%;
+    }
+
+    .swiper-slide {
+        width: 100% !important;
+    }
 }
 
 .swiper-button-next,
@@ -247,6 +276,12 @@ h3 {
 
 .swiper-slide {
     width: 100%;
+    height: auto !important; /* Force uniform height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 0 !important; /* Ensure no padding on right */
+    margin-right: 0 !important; /* Ensure no margin on right */
 }
 #project-last .home-teaser-list {
     margin-top: 30px;
