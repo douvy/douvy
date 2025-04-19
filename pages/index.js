@@ -88,7 +88,7 @@ export default function Home() {
               <div className="clear-both w-full"></div>
               <p>
                 I'm a Frontend Design Architect with 7+ years in crypto who
-                serves as the essential 'designer in the room,' visualizing
+                serves as the critical designer in the room, visualizing
                 blockchain concepts and creating intuitive interfaces that
                 prevent broken product development. We can continue to build
                 protocols that are better solutions than financial institutions.
