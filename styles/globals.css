@@ -332,15 +332,23 @@ footer h3 {
         clear: left;
     }
     
+    /* More dynamic sizing for profile picture */
     #pfp {
-        width: 110px !important;
-        height: 110px !important;
+        width: min(120px, 40vw) !important;
+        height: min(120px, 40vw) !important;
         margin-top: -10px !important;
+        margin-left: -5px !important;
     }
     
     .hero img {
-        width: 110px !important;
-        height: 110px !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 130px !important;
+    }
+    
+    /* Adjust container position */
+    .relative.border.default-border-color.rounded-sm.p-2\.5 {
+        margin-top: -20px !important;
     }
 }
 .intro img {
