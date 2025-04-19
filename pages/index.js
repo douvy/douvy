@@ -1,5 +1,6 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import { useEffect } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import ScrollIndicator from "../components/ScrollIndicator";
@@ -14,6 +15,26 @@ const ProjectSlider = dynamic(() => import("../components/ProjectSlider"), {
 });
 
 export default function Home() {
+  // Add hotkey handler for Twitter X button
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      // Check if the key pressed is 'x' or 'X' and not inside an input field
+      if ((event.key === 'x' || event.key === 'X') && 
+          !(event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA')) {
+        // Find the twitter link and open it in a new tab
+        window.open('https://x.com/douvy_', '_blank');
+      }
+    };
+
+    // Add event listener
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   return (
     <>
       <Head>
@@ -98,17 +119,28 @@ export default function Home() {
                 cycles, learning, exploring, and posting on crypto twitter.
               </p>
               <p>I enjoy time with family, technology, guitar, and sports.</p>
-              <p>
-                Reach me on{" "}
+              <p className="flex items-baseline flex-wrap">
+                <span>Reach me on</span>{" "}
                 <a
-                  href="https://twitter.com/douvy_"
+                  href="https://x.com/douvy_"
                   target="_blank"
-                  rel="noreferrer"
-                  className="twitter"
+                  rel="noopener noreferrer"
+                  className="twitter-x-button inline-block relative w-[115px] h-10 rounded-md overflow-hidden font-lora mx-3 -mt-1.5"
+                  aria-label="Twitter/X Profile - Press the 'x' key as a shortcut"
                 >
-                  <i className="fab fa-twitter"></i>
-                </a>{" "}
-                to connect.
+                  {/* Main button content */}
+                  <span className="button-content flex items-center w-full h-full px-2 text-white">
+                    <span className="text-sm font-semibold">Twitter</span>
+                    <span className="twitter-spacer"></span>
+                    <span className="x-container flex items-center justify-center w-5 h-5 rounded">
+                      <span className="text-xs font-bold">x</span>
+                    </span>
+                  </span>
+
+                  {/* Bottom shadow for 3D effect */}
+                  <span className="shadow-bottom absolute bottom-0 left-0 right-0 h-[2px]"></span>
+                </a>
+                <span>to connect.</span>
               </p>
               <br />
             </div>
