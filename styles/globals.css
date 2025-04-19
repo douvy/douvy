@@ -333,13 +333,14 @@ footer h3 {
     }
     
     #pfp {
-        width: 100px !important;
-        height: 100px !important;
+        width: 110px !important;
+        height: 110px !important;
+        margin-top: -10px !important;
     }
     
     .hero img {
-        width: 100px !important;
-        height: 100px !important;
+        width: 110px !important;
+        height: 110px !important;
     }
 }
 .intro img {
