@@ -19,19 +19,24 @@ export default function Home() {
   useEffect(() => {
     const handleKeyDown = (event) => {
       // Check if the key pressed is 'x' or 'X' and not inside an input field
-      if ((event.key === 'x' || event.key === 'X') && 
-          !(event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA')) {
+      if (
+        (event.key === "x" || event.key === "X") &&
+        !(
+          event.target.tagName === "INPUT" ||
+          event.target.tagName === "TEXTAREA"
+        )
+      ) {
         // Find the twitter link and open it in a new tab
-        window.open('https://x.com/douvy_', '_blank');
+        window.open("https://x.com/douvy_", "_blank");
       }
     };
 
     // Add event listener
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
     // Cleanup
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
@@ -140,7 +145,6 @@ export default function Home() {
                   {/* Bottom shadow for 3D effect */}
                   <span className="shadow-bottom absolute bottom-0 left-0 right-0 h-[2px]"></span>
                 </a>
-                <span>to connect.</span>
               </p>
               <br />
             </div>
