@@ -313,8 +313,16 @@ footer h3 {
     color: #91c9f5;
     font-family: "Lora", sans-serif;
 }
-.name h1 {
+.name {
     max-width: 300px !important;
+    display: inline-block;
+}
+
+@media (max-width: 480px) {
+    .name {
+        font-size: 35px !important;
+        margin-right: 15px;
+    }
 }
 .intro img {
     float: right !important;
@@ -399,7 +407,14 @@ footer a {
     .hero h1 {
         font-size: 39px;
         line-height: 1.3;
-        margin-top: 25px; /* Adjust this value for vertical centering on mobile */
+    }
+    
+    /* Ensure proper layout for name and image on small screens */
+    .flex.flex-row.items-start {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: start !important;
     }
 
     /* Reset any flexbox changes */

@@ -39,50 +39,53 @@ export default function Home() {
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
             <div className="intro relative">
-              <div className="relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out float-right md:mt-[-20px] mt-[-35px]">
-                {/* Diagonal stripe pattern background that covers the entire border area */}
-                <div className="absolute inset-0 -z-1 pointer-events-none">
-                  <svg
-                    className="w-full h-full"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <defs>
-                      <pattern
-                        id="diagonal-pattern-profile"
-                        width="4"
-                        height="4"
-                        patternUnits="userSpaceOnUse"
-                        patternTransform="rotate(45)"
-                      >
-                        <line
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="4"
-                          stroke="#3B82F6"
-                          strokeWidth="1.5"
-                          opacity="0.35"
-                        ></line>
-                      </pattern>
-                    </defs>
-                    <rect
-                      width="100%"
-                      height="100%"
-                      fill="url(#diagonal-pattern-profile)"
-                    ></rect>
-                  </svg>
-                </div>
-                {/* Content container with ProfilePicture */}
-                <div className="relative z-10 border dark:border-gray-600/40 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out">
-                  <ProfilePicture />
+              <div className="flex flex-row items-start justify-start flex-wrap">
+                <h1 className="name order-1 md:order-1">
+                  hello<span className="move">,</span>
+                  <br />
+                  I'm <em>douvy</em>.
+                </h1>
+                <div className="relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out float-right md:mt-[-20px] mt-[-35px] ml-auto order-2 md:order-2">
+                  {/* Diagonal stripe pattern background that covers the entire border area */}
+                  <div className="absolute inset-0 -z-1 pointer-events-none">
+                    <svg
+                      className="w-full h-full"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <defs>
+                        <pattern
+                          id="diagonal-pattern-profile"
+                          width="4"
+                          height="4"
+                          patternUnits="userSpaceOnUse"
+                          patternTransform="rotate(45)"
+                        >
+                          <line
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="4"
+                            stroke="#3B82F6"
+                            strokeWidth="1.5"
+                            opacity="0.35"
+                          ></line>
+                        </pattern>
+                      </defs>
+                      <rect
+                        width="100%"
+                        height="100%"
+                        fill="url(#diagonal-pattern-profile)"
+                      ></rect>
+                    </svg>
+                  </div>
+                  {/* Content container with ProfilePicture */}
+                  <div className="relative z-10 border dark:border-gray-600/40 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out">
+                    <ProfilePicture />
+                  </div>
                 </div>
               </div>
-              <h1 className="name">
-                hello<span className="move">,</span>
-                <br />
-                I'm <em>douvy</em>.
-              </h1>
-              <div className="clear-both"></div>
+              {/* Clear any floats */}
+              <div className="clear-both w-full"></div>
               <p>
                 I'm a Frontend Design Architect with 7+ years in crypto who
                 serves as the essential 'designer in the room,' visualizing
