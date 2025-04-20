@@ -11,7 +11,7 @@ export default function Document() {
         />
         <meta content="douvy · website" property="og:title" />
         <meta
-          content="https://www.douvy.com/img/favicon.png"
+          content="https://www.douvy.com/img/milady-borderj.pg"
           property="og:image"
         />
         <meta property="og:image:width" content="512" />
