@@ -139,7 +139,9 @@ export default function Home() {
                 >
                   {/* Main button content */}
                   <span className="button-content flex items-center w-full h-full px-2 text-white">
-                    <span className="text-sm font-semibold">Twitter</span>
+                    <span className="text-sm font-semibold italic">
+                      Twitter
+                    </span>
                     <span className="twitter-spacer"></span>
                     <span className="x-container flex items-center justify-center w-5 h-5 rounded">
                       <span className="text-xs font-bold">x</span>
