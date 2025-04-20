@@ -544,6 +544,7 @@ footer a {
     border-bottom-style: solid !important; /* Explicitly set bottom border to solid */
     transition: border-color 0.3s ease-in-out;
     transform: translateY(-2px);
+    font-style: italic !important;
 }
 .twitter-x-button:hover {
     border-color: #1a3fa6 !important;

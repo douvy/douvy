@@ -113,17 +113,21 @@ export default function Home() {
               {/* Clear any floats */}
               <div className="clear-both w-full"></div>
               <p>
-                I'm a Frontend Design Architect with 7+ years in crypto who
-                serves as the critical designer in the room, visualizing
-                blockchain concepts and creating intuitive interfaces that
-                prevent broken product development. We can continue to build
-                protocols that are better solutions than financial institutions.
+                I'm a design-focused frontend developer with 7+ years in crypto,
+                bringing a rare ability for pattern matching that makes me the
+                critical designer in the room, visualizing blockchain concepts
+                and creating interfaces that prevent broken product development.
+                We can build protocols that are better solutions than financial
+                institutions.
               </p>
               <p>
                 Actively involved in crypto through trading multiple market
                 cycles, learning, exploring, and posting on crypto twitter.
               </p>
-              <p>I enjoy time with family, technology, guitar, and sports.</p>
+              <p>
+                My AI curiosity drives me to rapidly integrate it into design,
+                frontend development, and all aspects of life.
+              </p>
               <p className="flex items-baseline flex-wrap">
                 <span>Reach me on</span>{" "}
                 <a
