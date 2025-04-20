@@ -113,7 +113,7 @@ export default function Home() {
               {/* Clear any floats */}
               <div className="clear-both w-full"></div>
               <p>
-                I'm a design-focused frontend developer with 7+ years in crypto,
+                Design-focused frontend developer with 7+ years in crypto,
                 bringing a rare ability for pattern matching that makes me the
                 critical designer in the room, visualizing blockchain concepts
                 and creating interfaces that prevent broken product development.
