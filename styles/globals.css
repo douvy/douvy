@@ -375,13 +375,13 @@ footer h3 {
 /* Elegant scroll indicator - hidden on mobile */
 .scroll-indicator {
     position: fixed;
-    bottom: 25px; /* Moved 15px lower */
+    bottom: 15px; /* Final position - very bottom of viewport */
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
     z-index: 10;
     opacity: 0.4;
-    animation: fadeInOut 2s infinite alternate;
+    animation: bounceArrow 1.5s infinite ease-in-out; /* Faster and smoother animation */
     transition: opacity 0.5s ease;
     display: none; /* Hidden by default */
     cursor: pointer;
@@ -412,14 +412,18 @@ html {
     border-bottom: 1.5px solid #65a0fd;
     transform: rotate(45deg);
 }
-@keyframes fadeInOut {
+@keyframes bounceArrow {
     0% {
-        opacity: 0.3;
+        opacity: 1;
         transform: translateX(-50%) translateY(0);
     }
+    50% {
+        opacity: 0.3;
+        transform: translateX(-50%) translateY(10px);
+    }
     100% {
-        opacity: 0.5;
-        transform: translateX(-50%) translateY(8px);
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
     }
 }
 

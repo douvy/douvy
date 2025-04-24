@@ -121,12 +121,8 @@ export default function Home() {
                 institutions.
               </p>
               <p>
-                Actively involved in crypto through trading multiple market
-                cycles, learning, exploring, and posting on crypto twitter.
-              </p>
-              <p>
-                My AI curiosity drives me to rapidly integrate it into design,
-                frontend development, and all aspects of life.
+                Actively involved in crypto through trading, learning, exploring, and posting on crypto twitter. My AI curiosity drives me to rapidly integrate it into design,
+                frontend dev, and all aspects of life.
               </p>
               <p className="flex items-baseline flex-wrap">
                 <span>Reach me on</span>{" "}
