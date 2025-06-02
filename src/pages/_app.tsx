@@ -1,13 +1,22 @@
-import "../styles/globals.css";
+import "@/styles/globals.css";
 import Head from "next/head";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import type { AppProps } from "next/app";
+import { Lora } from "next/font/google";
 
-function MyApp({ Component, pageProps }) {
+// Initialize the Lora font
+const lora = Lora({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-lora',
+});
+
+function MyApp({ Component, pageProps }: AppProps): React.ReactElement {
   // Use priority loading for only the top-fold content
   useEffect(() => {
     // Helper to load images with low priority
-    const preloadLowPriority = () => {
+    const preloadLowPriority = (): void => {
       // Preload portfolio images with low priority after main content loads
       const imageUrls = [
         "/img/automatons.jpg",
@@ -22,11 +31,13 @@ function MyApp({ Component, pageProps }) {
 
       // Create and append link elements
       setTimeout(() => {
-        imageUrls.forEach((url) => {
+        imageUrls.forEach((url, index) => {
           const link = document.createElement("link");
           link.rel = "preload";
           link.as = "image";
           link.href = url;
+          // Add a key-like attribute for better maintainability
+          link.setAttribute('data-preload-id', `portfolio-img-${index}`);
           document.head.appendChild(link);
         });
       }, 1000); // Delay by 1 second to ensure top content is loaded first
@@ -34,9 +45,9 @@ function MyApp({ Component, pageProps }) {
 
     // Check if this is running in the browser
     if (typeof window !== "undefined") {
-      // Use requestIdleCallback for non-critical initialization
-      if ("requestIdleCallback" in window) {
-        window.requestIdleCallback(preloadLowPriority);
+      // Use requestIdleCallback with fallback for better browser compatibility
+      if (typeof (window as any).requestIdleCallback === 'function') {
+        (window as any).requestIdleCallback(preloadLowPriority);
       } else {
         setTimeout(preloadLowPriority, 1000);
       }
@@ -45,6 +56,11 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
+      <style jsx global>{`
+        :root {
+          --font-lora: ${lora.style.fontFamily};
+        }
+      `}</style>
       <Head>
         <meta
           name="viewport"

@@ -1,6 +1,7 @@
+import React from "react";
 import { Html, Head, Main, NextScript } from "next/document";
 
-export default function Document() {
+export default function Document(): React.ReactElement {
   return (
     <Html lang="en">
       <Head>
@@ -59,7 +60,6 @@ export default function Document() {
           href="/img/milady-bg.jpg"
           as="image"
           fetchPriority="high"
-          importance="high"
           crossOrigin="anonymous"
         />
         <link
@@ -98,10 +98,7 @@ export default function Document() {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
         />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
-        />
+        {/* Lora font is now loaded through next/font in _app.tsx */}
 
         <link
           rel="stylesheet"

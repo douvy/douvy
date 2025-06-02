@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Lora is loaded via next/font in _app.tsx */
+
 /* Custom fonts */
 @font-face {
     font-family: "DegularDisplay";
@@ -56,10 +58,10 @@ h5,
 h6 {
     color: #222222;
     font-weight: 700;
-    font-family: "Lora", sans-serif;
+    font-family: var(--font-lora), sans-serif;
 }
 .font-lora {
-    font-family: "VulfMono", sans-serif;
+    font-family: var(--font-lora), sans-serif;
 }
 a {
     transition: 0.25s;
@@ -71,9 +73,10 @@ a:hover {
     position: relative; /* ensure your intro class has position: relative; */
 }
 .project-title a,
-h3 {
+h3,
+.home-project-title {
     margin-top: 0px;
-    font-family: "Lora", sans-serif;
+    font-family: var(--font-lora), sans-serif;
     letter-spacing: 1.5px;
     margin-bottom: 0px;
     font-weight: 700;
@@ -177,7 +180,6 @@ h3 {
 }
 .home-project-title {
     color: #91c9f5;
-    font-size: 28px;
     line-height: 38px;
     border-bottom: 1px solid #22262b;
     padding-bottom: 12px;
@@ -185,7 +187,7 @@ h3 {
 }
 .description {
     color: #b8bdc7;
-    font-family: "Lora", sans-serif;
+    font-family: var(--font-lora), sans-serif;
 }
 .home-preview-description {
     max-width: 410px;
@@ -253,6 +255,22 @@ h3 {
     overflow: hidden;
     position: relative;
     width: 100%;
+    line-height: 0;
+    font-size: 0;
+    height: auto !important;
+    transition: height 0.3s ease;
+}
+
+.swiper-wrapper {
+    line-height: 0;
+    font-size: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+}
+
+.swiper-slide {
+    height: auto !important;
 }
 
 @media (max-width: 768px) {
@@ -297,8 +315,9 @@ h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-right: 0 !important; /* Ensure no padding on right */
-    margin-right: 0 !important; /* Ensure no margin on right */
+    padding: 0 !important; /* Remove all padding */
+    margin: 0 !important; /* Remove all margins */
+    line-height: 0; /* Remove any line height spacing */
 }
 #project-last .home-teaser-list {
     margin-top: 30px;
@@ -328,7 +347,7 @@ footer a:hover {
 }
 footer h3 {
     color: #91c9f5;
-    font-family: "Lora", sans-serif;
+    font-family: var(--font-lora), sans-serif;
 }
 .name {
     max-width: 300px !important;
@@ -543,14 +562,15 @@ footer a {
 
 /* Twitter X Button Styles */
 .twitter-x-button {
-    border: 2px solid #2250c7 !important; /* Override any other border styles */
-    border-style: solid !important; /* Ensure solid border */
-    border-bottom-style: solid !important; /* Explicitly set bottom border to solid */
+    border: 2px solid #2250c7; 
+    border-style: solid; 
+    border-bottom-style: solid; 
     transition: border-color 0.3s ease-in-out;
     transform: translateY(-2px);
+    font-family: "VulfMono", monospace;
 }
 .twitter-x-button:hover {
-    border-color: #1a3fa6 !important;
+    border-color: #1a3fa6;
 }
 .twitter-x-button .button-content {
     background-color: #2250c7;

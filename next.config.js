@@ -1,13 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
   images: {
     domains: ['douvy.com'],
+    formats: ['image/avif', 'image/webp'],
   },
-  // To enable Vercel Analytics once deployed
-  experimental: {
-    webVitalsAttribution: ['CLS', 'LCP']
-  }
+  // Use standalone output for better caching
+  output: 'standalone',
+  // Enable compression
+  compress: true,
 };
 
 module.exports = nextConfig;

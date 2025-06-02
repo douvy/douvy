@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-export default function ScrollIndicator() {
+export default function ScrollIndicator(): React.ReactElement {
   useEffect(() => {
     // Immediate script to hide scroll indicator on scroll
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       const indicator = document.querySelector('.scroll-indicator');
-      if (indicator) {
+      if (indicator instanceof HTMLElement) {
         indicator.style.display = 'none';
       }
     };

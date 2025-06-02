@@ -1,6 +1,7 @@
 import Link from "next/link";
+import React from "react";
 
-export default function Footer() {
+export default function Footer(): React.ReactElement {
   return (
     <footer className="py-4">
       <div className="flex flex-wrap justify-between mx-auto max-w-screen-xl w-full md:w-10/12 lg:w-8/12 px-4">

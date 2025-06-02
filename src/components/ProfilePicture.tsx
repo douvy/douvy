@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 // Pre-load these images at build time
@@ -16,14 +16,24 @@ const mouthOpenSrc = '/img/milady-mouth-open.png';
 const glassesSrc = '/img/milady-glasses.png';
 const glassesBlinkSrc = '/img/milady-glasses-blink.png';
 
+// Animation state interface
+interface AnimationState {
+  isBlinking: boolean;
+  isMouthMoving: boolean;
+  isSliding: boolean;
+  hasGlasses: boolean;
+  slideCount: number;
+  mouthMoveCount: number;
+}
+
 // NEVER touch background image after it loads - it causes glitches
 // Create a preloader that tracks image loading status
-const preloadImages = () => {
-  if (typeof window === 'undefined') return Promise.resolve();
+const preloadImages = (): Promise<string[]> => {
+  if (typeof window === 'undefined') return Promise.resolve([]);
   
   // Create a promise for each image to track when it's fully loaded
   const imagePromises = [normalSrc, blinkSrc, mouthOpenSrc, glassesSrc, glassesBlinkSrc].map(src => {
-    return new Promise((resolve, reject) => {
+    return new Promise<string>((resolve, reject) => {
       const img = new window.Image();
       img.onload = () => resolve(src);
       img.onerror = () => reject(`Failed to load ${src}`);
@@ -34,16 +44,16 @@ const preloadImages = () => {
   return Promise.all(imagePromises);
 };
 
-export default function ProfilePicture() {
-  const [currentSrc, setCurrentSrc] = useState(normalSrc);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [animationsStarted, setAnimationsStarted] = useState(false);
-  const [imagesPreloaded, setImagesPreloaded] = useState(false);
-  const pfpRef = useRef(null);
-  const heroImageRef = useRef(null);
+export default function ProfilePicture(): React.ReactElement {
+  const [currentSrc, setCurrentSrc] = useState<string>(normalSrc);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [animationsStarted, setAnimationsStarted] = useState<boolean>(false);
+  const [imagesPreloaded, setImagesPreloaded] = useState<boolean>(false);
+  const pfpRef = useRef<HTMLDivElement>(null);
+  const heroImageRef = useRef<HTMLDivElement>(null);
   
   // Animation state maintained in refs to prevent re-renders
-  const stateRef = useRef({
+  const stateRef = useRef<AnimationState>({
     isBlinking: false,
     isMouthMoving: false,
     isSliding: false,
@@ -59,7 +69,7 @@ export default function ProfilePicture() {
     preloadImages()
       .then(() => {
         setImagesPreloaded(true);
-        console.log('All animation images preloaded successfully');
+        // Images preloaded successfully
       })
       .catch(err => {
         console.error('Error preloading images:', err);
@@ -78,12 +88,12 @@ export default function ProfilePicture() {
       setAnimationsStarted(true);
       
       // Function to update the image source
-      function updateImage(newSrc) {
+      function updateImage(newSrc: string): void {
         setCurrentSrc(newSrc);
       }
       
       // Blink function with fixed timing
-      function blink() {
+      function blink(): void {
         if (stateRef.current.isBlinking || stateRef.current.isSliding) return;
         
         stateRef.current.isBlinking = true;
@@ -108,7 +118,7 @@ export default function ProfilePicture() {
       
       // No need for additional preloading here as we already preloaded everything
       
-      function moveMouth() {
+      function moveMouth(): void {
         if (stateRef.current.isMouthMoving || stateRef.current.isSliding || stateRef.current.hasGlasses) return;
         
         stateRef.current.isMouthMoving = true;
@@ -123,7 +133,7 @@ export default function ProfilePicture() {
       }
       
       // Slide animation
-      function slideDown() {
+      function slideDown(): void {
         if (stateRef.current.isSliding || !pfpRef.current) return;
         
         stateRef.current.isSliding = true;

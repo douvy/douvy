@@ -1,29 +1,31 @@
+import React, { useEffect, KeyboardEvent as ReactKeyboardEvent } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import { useEffect } from "react";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
-import ScrollIndicator from "../components/ScrollIndicator";
-import ProfilePicture from "../components/ProfilePicture";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
+import ScrollIndicator from "@/components/ScrollIndicator";
+import ProfilePicture from "@/components/ProfilePicture";
+import type { ProjectImage } from "@/types";
 
 // Dynamic import with loading priority for below-the-fold content
-const ProjectSlider = dynamic(() => import("../components/ProjectSlider"), {
+const ProjectSlider = dynamic(() => import("@/components/ProjectSlider"), {
   ssr: false,
   loading: () => (
     <div className="w-full h-[280px] bg-gray-800 animate-pulse"></div>
   ),
 });
 
-export default function Home() {
+export default function Home(): React.ReactElement {
   // Add hotkey handler for Twitter X button
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent): void => {
       // Check if the key pressed is 'x' or 'X' and not inside an input field
       if (
         (event.key === "x" || event.key === "X") &&
         !(
-          event.target.tagName === "INPUT" ||
-          event.target.tagName === "TEXTAREA"
+          event.target instanceof HTMLInputElement ||
+          event.target instanceof HTMLTextAreaElement ||
+          event.target instanceof HTMLSelectElement
         )
       ) {
         // Find the twitter link and open it in a new tab
@@ -131,7 +133,7 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="twitter-x-button inline-block relative w-[115px] h-10 rounded-md overflow-hidden font-lora mx-3 -mt-1.5"
-                  aria-label="Twitter/X Profile - Press the 'x' key as a shortcut"
+                  aria-label="Twitter Profile - Press the 'x' key as a shortcut"
                 >
                   {/* Main button content */}
                   <span className="button-content flex items-center w-full h-full px-2 text-white">
@@ -220,9 +222,9 @@ export default function Home() {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-clip transition-colors duration-300 ease-in-out">
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out" style={{ lineHeight: 0, fontSize: 0, height: 'auto' }}>
                       <ProjectSlider
-                        id="zaarflip"
+                        id="dgenesis"
                         images={[
                           {
                             src: "/img/automatons.jpg",
@@ -308,7 +310,7 @@ export default function Home() {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-clip transition-colors duration-300 ease-in-out">
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out" style={{ lineHeight: 0, fontSize: 0, height: 'auto' }}>
                       <ProjectSlider
                         id="zaarflip"
                         images={[
@@ -396,7 +398,7 @@ export default function Home() {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-clip transition-colors duration-300 ease-in-out">
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out" style={{ lineHeight: 0, fontSize: 0, height: 'auto' }}>
                       <ProjectSlider
                         id="btctooling"
                         images={[
@@ -407,7 +409,7 @@ export default function Home() {
                           },
                           {
                             src: "/img/btc-tooling-1.jpg",
-                            id: "btc-tooling-alt",
+                            id: "btc-tooling-1",
                             alt: "BTC Tooling",
                           },
                         ]}
@@ -475,7 +477,7 @@ export default function Home() {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-clip transition-colors duration-300 ease-in-out">
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out" style={{ lineHeight: 0, fontSize: 0 }}>
                       <ProjectSlider
                         id="cantoscan"
                         images={[
@@ -563,7 +565,7 @@ export default function Home() {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-clip transition-colors duration-300 ease-in-out">
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out" style={{ lineHeight: 0, fontSize: 0 }}>
                       <ProjectSlider
                         id="shishi"
                         images={[
@@ -574,7 +576,7 @@ export default function Home() {
                           },
                           {
                             src: "/img/shishi-1.jpg",
-                            id: "shishi-alt",
+                            id: "shishi-1",
                             alt: "shishi",
                           },
                         ]}

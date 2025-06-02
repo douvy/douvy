@@ -1,6 +1,11 @@
 import Link from 'next/link';
+import React from 'react';
 
-export default function Nav({ showHomeLink = false }) {
+interface NavProps {
+  showHomeLink?: boolean;
+}
+
+export default function Nav({ showHomeLink = false }: NavProps): React.ReactElement {
   return (
     <div className="absolute top-4 right-2 md:right-6 flex items-center" id="nav">
       <div className="flex">
