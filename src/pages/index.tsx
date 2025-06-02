@@ -16,20 +16,26 @@ const ProjectSlider = dynamic(() => import("@/components/ProjectSlider"), {
 });
 
 export default function Home(): React.ReactElement {
-  // Add hotkey handler for Twitter X button
+  // Add hotkey handler for social media buttons
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent): void => {
-      // Check if the key pressed is 'x' or 'X' and not inside an input field
+      // Check if not inside an input field
       if (
-        (event.key === "x" || event.key === "X") &&
         !(
           event.target instanceof HTMLInputElement ||
           event.target instanceof HTMLTextAreaElement ||
           event.target instanceof HTMLSelectElement
         )
       ) {
-        // Find the twitter link and open it in a new tab
-        window.open("https://x.com/douvy_", "_blank");
+        // Twitter shortcut
+        if (event.key === "x" || event.key === "X") {
+          window.open("https://x.com/douvy_", "_blank");
+        }
+        
+        // GitHub shortcut
+        if (event.key === "g" || event.key === "G") {
+          window.open("https://github.com/douvy", "_blank");
+        }
       }
     };
 
@@ -126,23 +132,42 @@ export default function Home(): React.ReactElement {
                 Actively involved in crypto through trading, learning, exploring, and posting on crypto twitter. My AI curiosity drives me to rapidly integrate it into design,
                 frontend dev, and all aspects of life.
               </p>
-              <p className="flex items-baseline flex-wrap">
-                <span>Reach me on</span>{" "}
+              <p className="flex items-center flex-wrap mt-4">
                 <a
                   href="https://x.com/douvy_"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="twitter-x-button inline-block relative w-[115px] h-10 rounded-md overflow-hidden font-lora mx-3 -mt-1.5"
+                  className="twitter-x-button inline-block relative w-[118px] h-10 rounded-md overflow-hidden font-lora mr-3 ml-0 -mt-1.5"
                   aria-label="Twitter Profile - Press the 'x' key as a shortcut"
                 >
                   {/* Main button content */}
-                  <span className="button-content flex items-center w-full h-full px-2 text-white">
+                  <span className="button-content flex items-center justify-between w-full h-full px-2.5 text-white">
                     <span className="text-sm font-semibold italic">
                       Twitter
                     </span>
-                    <span className="twitter-spacer"></span>
-                    <span className="x-container flex items-center justify-center w-5 h-5 rounded">
-                      <span className="text-xs font-bold">x</span>
+                    <span className="x-container flex items-center justify-center w-5 h-5 rounded ml-1 my-0">
+                      <span className="text-xs font-bold leading-none">X</span>
+                    </span>
+                  </span>
+
+                  {/* Bottom shadow for 3D effect */}
+                  <span className="shadow-bottom absolute bottom-0 left-0 right-0 h-[2px]"></span>
+                </a>
+                
+                <a
+                  href="https://github.com/douvy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="github-button inline-block relative w-[118px] h-10 rounded-md overflow-hidden font-lora mx-2 -mt-1.5"
+                  aria-label="GitHub Profile - Press the 'g' key as a shortcut"
+                >
+                  {/* Main button content */}
+                  <span className="button-content flex items-center justify-between w-full h-full px-2.5 text-white">
+                    <span className="text-sm font-semibold italic">
+                      GitHub
+                    </span>
+                    <span className="g-container flex items-center justify-center w-5 h-5 rounded ml-1 my-0">
+                      <span className="text-xs font-bold leading-none">G</span>
                     </span>
                   </span>
 

@@ -140,7 +140,8 @@ h3,
     transition: all 0.3s ease;
     text-decoration: none;
 }
-.hero a {
+/* General links in hero section, except buttons */
+.hero a:not(.twitter-x-button):not(.github-button) {
     font-style: normal;
     border-bottom: 1px dotted #2f81f7;
 }
@@ -560,7 +561,8 @@ footer a {
     outline: none !important;
 }
 
-/* Twitter X Button Styles */
+/* Social Buttons Styles */
+/* Twitter Button */
 .twitter-x-button {
     border: 2px solid #2250c7; 
     border-style: solid; 
@@ -590,7 +592,37 @@ footer a {
 .twitter-x-button:hover .shadow-bottom {
     background-color: #1a3fa6;
 }
-.twitter-x-button .twitter-spacer {
-    width: 4px;
-    display: inline-block;
+/* We're now using justify-between instead of a spacer */
+
+/* GitHub Button - Dark Theme */
+.github-button {
+    border: 2px solid #36393f; 
+    border-style: solid; 
+    border-bottom-style: solid; 
+    transition: border-color 0.3s ease-in-out;
+    transform: translateY(-2px);
+    font-family: "VulfMono", monospace;
 }
+.github-button:hover {
+    border-color: #444;
+}
+.github-button .button-content {
+    background-color: #1d1f23;
+    transition: background-color 0.3s ease-in-out;
+    color: white;
+}
+.github-button:hover .button-content {
+    background-color: #2a2e33;
+}
+.github-button .g-container {
+    background-color: #222325;
+    border: 1px solid #2f2f32;
+}
+.github-button .shadow-bottom {
+    background-color: #282a2f;
+    transition: background-color 0.3s ease-in-out;
+}
+.github-button:hover .shadow-bottom {
+    background-color: #333;
+}
+/* We're now using justify-between instead of a spacer */
