@@ -69,19 +69,19 @@ export default function Home(): React.ReactElement {
       <ScrollIndicator />
 
       {/* Hero Section - High Priority Content */}
-      <div className="hero">
+      <div className="hero px-2.5 mt-20 mb-6">
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
             <div className="intro relative">
               <div className="flex flex-row items-start justify-start flex-wrap">
-                <h1 className="name order-1 md:order-1">
-                  hello<span className="move">,</span>
+                <h1 className="name max-w-[300px] inline-block order-1 md:order-1 text-[57px] text-highlight leading-[1.3] mb-10">
+                  hello<span className="move ml-[3px]">,</span>
                   <br />
-                  I'm <em>douvy</em>.
+                  I'm <em className="border-b-2 border-blue not-italic">douvy</em>.
                 </h1>
-                <div className="relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out float-right md:mt-[-20px] mt-[-35px] ml-auto order-2 md:order-2">
+                <div className="relative border default-border-color border-outline rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip hover:border-[#415b85] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out float-right md:mt-[-20px] mt-[-35px] ml-auto order-2 md:order-2">
                   {/* Diagonal stripe pattern background that covers the entire border area */}
-                  <div className="absolute inset-0 -z-1 pointer-events-none">
+                  <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
                     <svg
                       className="w-full h-full"
                       xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +120,7 @@ export default function Home(): React.ReactElement {
               </div>
               {/* Clear any floats */}
               <div className="clear-both w-full"></div>
-              <p>
+              <p className="text-muted pt-4 mt-5 leading-8 text-[15px] sm:text-[17px] italic">
                 Design-focused frontend dev with 7+ years in crypto,
                 bringing a rare ability for pattern matching that makes me the
                 critical designer in the room, visualizing blockchain concepts
@@ -128,54 +128,53 @@ export default function Home(): React.ReactElement {
                 We can build protocols that are better solutions than financial
                 institutions.
               </p>
-              <p>
+              <p className="text-muted mt-8 leading-8 text-[15px] sm:text-[17px] italic mb-8 sm:mb-0">
                 Actively involved in crypto through trading, learning, exploring, and posting on crypto twitter. My AI curiosity drives me to rapidly integrate it into design,
                 frontend dev, and all aspects of life.
               </p>
-              <p className="flex items-center flex-wrap mt-4">
+              <p className="flex items-center flex-wrap mt-8 mb-4">
                 <a
                   href="https://x.com/douvy_"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="twitter-x-button inline-block relative w-[118px] h-10 rounded-md overflow-hidden font-lora mr-3 ml-0 -mt-1.5"
+                  className="inline-block relative w-[118px] h-10 rounded-md overflow-hidden mr-3 ml-0 -mt-1.5 border-2 border-blue-base border-solid transition-colors duration-300 ease-in-out -translate-y-0.5 hover:border-blue-dark font-vulf"
                   aria-label="Twitter Profile - Press the 'x' key as a shortcut"
                 >
                   {/* Main button content */}
-                  <span className="button-content flex items-center justify-between w-full h-full px-2.5 text-white">
+                  <span className="flex items-center justify-between w-full h-full px-2.5 text-white bg-blue-base transition-colors duration-300 ease-in-out hover:bg-blue-dark">
                     <span className="text-sm font-semibold italic">
                       Twitter
                     </span>
-                    <span className="x-container flex items-center justify-center w-5 h-5 rounded ml-1 my-0">
+                    <span className="flex items-center justify-center w-5 h-5 rounded ml-1 my-0 bg-blue-light border border-blue-highlight">
                       <span className="text-xs font-bold leading-none">X</span>
                     </span>
                   </span>
 
                   {/* Bottom shadow for 3D effect */}
-                  <span className="shadow-bottom absolute bottom-0 left-0 right-0 h-[2px]"></span>
+                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-blue-shadow transition-colors duration-300 ease-in-out"></span>
                 </a>
                 
                 <a
                   href="https://github.com/douvy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="github-button inline-block relative w-[118px] h-10 rounded-md overflow-hidden font-lora mx-2 -mt-1.5"
+                  className="inline-block relative w-[118px] h-10 rounded-md overflow-hidden mx-2 -mt-1.5 border-y-2 border-x-2 border-dark-border border-b-solid transition-colors duration-300 ease-in-out -translate-y-0.5 hover:border-dark-border-hover font-vulf"
                   aria-label="GitHub Profile - Press the 'g' key as a shortcut"
                 >
                   {/* Main button content */}
-                  <span className="button-content flex items-center justify-between w-full h-full px-2.5 text-white">
+                  <span className="flex items-center justify-between w-full h-full px-2.5 text-white bg-dark-bg transition-colors duration-300 ease-in-out hover:bg-dark-bg-hover">
                     <span className="text-sm font-semibold italic">
                       GitHub
                     </span>
-                    <span className="g-container flex items-center justify-center w-5 h-5 rounded ml-1 my-0">
+                    <span className="flex items-center justify-center w-5 h-5 rounded ml-1 my-0 bg-dark-element border border-dark-element-border">
                       <span className="text-xs font-bold leading-none">G</span>
                     </span>
                   </span>
 
                   {/* Bottom shadow for 3D effect */}
-                  <span className="shadow-bottom absolute bottom-0 left-0 right-0 h-[2px]"></span>
+                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-dark-shadow transition-colors duration-300 ease-in-out"></span>
                 </a>
               </p>
-              <br />
             </div>
           </div>
         </div>
@@ -186,36 +185,37 @@ export default function Home(): React.ReactElement {
         {/* dGenesis */}
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-            <div className="home-teaser-list w-dyn-list">
-              <div className="project-preview-item w-dyn-item">
-                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
+            <div className="home-teaser-list w-dyn-list border-t border-divider pt-[70px]">
+              <div className="project-preview-item w-dyn-item p-0 ml-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center mt-12 sm:mt-0">
                   <div className="inline-block">
                     <div className="grid">
-                      <div className="project-title mt-10-sm">
-                        <h3 className="home-project-title">
+                      <div className="project-title mt-10-sm sm:mt-10">
+                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px]">
                           <a
                             href="https://dgenesis.io/"
                             target="_blank"
                             rel="noreferrer"
+                            className="transition-all duration-250"
                           >
                             dGenesis
                           </a>
                         </h3>
                       </div>
                     </div>
-                    <div className="project-description">
-                      <p className="description">
+                    <div className="project-description mb-4 sm:mb-0">
+                      <p className="description text-muted font-lora">
                         Co-founded project featuring community-owned generative
                         art that sold out in two hours.
                       </p>
-                      <p className="description">
+                      <p className="description text-muted font-lora">
                         First L2 bridgeable NFT on Arbitrum.
                       </p>
                     </div>
                   </div>
-                  <div className="mr-3 sm:mr-0 mt-8 sm:mt-0 relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                  <div className="mr-3 sm:mr-0 mt-4 sm:mt-0 relative border default-border-color border-outline rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip hover:border-[#415b85] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
                     {/* Diagonal stripe pattern background that covers the entire border area */}
-                    <div className="absolute inset-0 -z-1 pointer-events-none">
+                    <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
                       <svg
                         className="w-full h-full"
                         xmlns="http://www.w3.org/2000/svg"
@@ -247,7 +247,7 @@ export default function Home(): React.ReactElement {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out" style={{ lineHeight: 0, fontSize: 0, height: 'auto' }}>
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto">
                       <ProjectSlider
                         id="dgenesis"
                         images={[
@@ -274,25 +274,26 @@ export default function Home(): React.ReactElement {
         {/* Zaar Flip */}
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-            <div className="mt-16 sm:mt-24 w-dyn-list">
-              <div className="project-preview-item w-dyn-item">
+            <div className="mt-16 md:mt-24 w-dyn-list">
+              <div className="project-preview-item w-dyn-item p-0 ml-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title">
+                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px] mt-4 sm:mt-0">
                           <a
                             href="https://flip.zaar.gg/zaar-flip"
                             target="_blank"
                             rel="noreferrer"
+                            className="transition-all duration-250"
                           >
                             Zaar Flip
                           </a>
                         </h3>
                       </div>
                     </div>
-                    <div className="project-description">
-                      <p className="description">
+                    <div className="project-description mb-4 sm:mb-0">
+                      <p className="description text-muted font-lora">
                         Designed the first game on Zaar Chain featuring provably
                         fair coin flipping with a twist. Set odds from picking
                         coin count and min. wins needed. Includes Turbo Flip for
@@ -301,9 +302,9 @@ export default function Home(): React.ReactElement {
                       </p>
                     </div>
                   </div>
-                  <div className="mr-3 sm:mr-0 mt-8 relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                  <div className="mr-3 sm:mr-0 mt-4 relative border default-border-color border-outline rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip hover:border-[#415b85] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
                     {/* Diagonal stripe pattern background that covers the entire border area */}
-                    <div className="absolute inset-0 -z-1 pointer-events-none">
+                    <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
                       <svg
                         className="w-full h-full"
                         xmlns="http://www.w3.org/2000/svg"
@@ -335,7 +336,7 @@ export default function Home(): React.ReactElement {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out" style={{ lineHeight: 0, fontSize: 0, height: 'auto' }}>
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto">
                       <ProjectSlider
                         id="zaarflip"
                         images={[
@@ -362,25 +363,26 @@ export default function Home(): React.ReactElement {
         {/* BTC Tooling */}
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-            <div className="mt-16 sm:mt-24 w-dyn-list">
-              <div className="project-preview-item w-dyn-item">
+            <div className="mt-16 md:mt-24 w-dyn-list">
+              <div className="project-preview-item w-dyn-item p-0 ml-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title">
+                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px] mt-4 sm:mt-0">
                           <a
                             href="https://btctooling.com/"
                             target="_blank"
                             rel="noreferrer"
+                            className="transition-all duration-250"
                           >
                             BTC Tooling
                           </a>
                         </h3>
                       </div>
                     </div>
-                    <div className="project-description">
-                      <p className="description">
+                    <div className="project-description mb-4 sm:mb-0">
+                      <p className="description text-muted font-lora">
                         A Bitcoin dashboard providing real-time price data, a
                         chart, market summary, orderbook, Twitter/X insights and
                         halving countdown data. Built with React, Next.js,
@@ -389,9 +391,9 @@ export default function Home(): React.ReactElement {
                       </p>
                     </div>
                   </div>
-                  <div className="mr-3 sm:mr-0 mt-8 relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                  <div className="mr-3 sm:mr-0 mt-4 relative border default-border-color border-outline rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip hover:border-[#415b85] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
                     {/* Diagonal stripe pattern background that covers the entire border area */}
-                    <div className="absolute inset-0 -z-1 pointer-events-none">
+                    <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
                       <svg
                         className="w-full h-full"
                         xmlns="http://www.w3.org/2000/svg"
@@ -423,7 +425,7 @@ export default function Home(): React.ReactElement {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out" style={{ lineHeight: 0, fontSize: 0, height: 'auto' }}>
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto">
                       <ProjectSlider
                         id="btctooling"
                         images={[
@@ -450,17 +452,17 @@ export default function Home(): React.ReactElement {
         {/* Cantoscan */}
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-            <div className="mt-16 sm:mt-24 w-dyn-list">
-              <div className="project-preview-item w-dyn-item">
+            <div className="mt-16 md:mt-24 w-dyn-list">
+              <div className="project-preview-item w-dyn-item p-0 ml-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title">Cantoscan</h3>
+                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px] mt-4 sm:mt-0">Cantoscan</h3>
                       </div>
                     </div>
-                    <div className="project-description">
-                      <p className="description">
+                    <div className="project-description mb-4 sm:mb-0">
+                      <p className="description text-muted font-lora">
                         Custom-built blockchain explorer with optimized indexing
                         for real-time transaction, address, and smart contract
                         data. Engineered in two weeks, selected as Grand Prize
@@ -468,9 +470,9 @@ export default function Home(): React.ReactElement {
                       </p>
                     </div>
                   </div>
-                  <div className="mr-3 sm:mr-0 mt-8 relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                  <div className="mr-3 sm:mr-0 mt-4 relative border default-border-color border-outline rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip hover:border-[#415b85] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
                     {/* Diagonal stripe pattern background that covers the entire border area */}
-                    <div className="absolute inset-0 -z-1 pointer-events-none">
+                    <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
                       <svg
                         className="w-full h-full"
                         xmlns="http://www.w3.org/2000/svg"
@@ -502,7 +504,7 @@ export default function Home(): React.ReactElement {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out" style={{ lineHeight: 0, fontSize: 0 }}>
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto">
                       <ProjectSlider
                         id="cantoscan"
                         images={[
@@ -529,25 +531,26 @@ export default function Home(): React.ReactElement {
         {/* Shishi */}
         <div className="flex flex-col items-center" id="project-last">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-            <div className="home-teaser-list mt-16 sm:mt-24 w-dyn-list">
-              <div className="project-preview-item w-dyn-item">
+            <div className="home-teaser-list mt-16 md:mt-24 w-dyn-list">
+              <div className="project-preview-item w-dyn-item p-0 ml-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title">
+                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px] mt-4 sm:mt-0">
                           <a
                             href="https://shishi520.io/"
                             target="_blank"
                             rel="noreferrer"
+                            className="transition-all duration-250"
                           >
                             Shishi
                           </a>
                         </h3>
                       </div>
                     </div>
-                    <div className="project-description">
-                      <p className="description">
+                    <div className="project-description mb-4 sm:mb-0">
+                      <p className="description text-muted font-lora">
                         Designed and built website for NFT collection in a
                         neochibi aesthetic with randomized traits inspired by
                         net art and fashion trends. Y2K Fashion-Inspired Digital
@@ -556,9 +559,9 @@ export default function Home(): React.ReactElement {
                       </p>
                     </div>
                   </div>
-                  <div className="mr-3 sm:mr-0 mt-8 relative border default-border-color rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                  <div className="mr-3 sm:mr-0 mt-4 relative border default-border-color border-outline rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip hover:border-[#415b85] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
                     {/* Diagonal stripe pattern background that covers the entire border area */}
-                    <div className="absolute inset-0 -z-1 pointer-events-none">
+                    <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
                       <svg
                         className="w-full h-full"
                         xmlns="http://www.w3.org/2000/svg"
@@ -590,7 +593,7 @@ export default function Home(): React.ReactElement {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out" style={{ lineHeight: 0, fontSize: 0 }}>
+                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto">
                       <ProjectSlider
                         id="shishi"
                         images={[
