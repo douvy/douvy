@@ -1,4 +1,4 @@
-import React, { useEffect, KeyboardEvent as ReactKeyboardEvent } from "react";
+import React, { useEffect, useState, KeyboardEvent as ReactKeyboardEvent } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import Nav from "@/components/Nav";
@@ -15,7 +15,76 @@ const ProjectSlider = dynamic(() => import("@/components/ProjectSlider"), {
   ),
 });
 
+type FilterType = 'All' | 'DeFi' | 'Tools' | 'NFT';
+
+// Filter button component
+const FilterButton = ({ 
+  filter, 
+  isActive, 
+  onClick, 
+  children 
+}: { 
+  filter: FilterType; 
+  isActive: boolean;
+  onClick: (filter: FilterType) => void;
+  children: React.ReactNode;
+}) => {
+  if (isActive) {
+    return (
+      <button 
+        onClick={() => onClick(filter)}
+        className="inline-block relative w-auto h-10 rounded-md overflow-hidden border-2 border-active-border border-solid transition-colors duration-300 ease-in-out -translate-y-0.5 font-vulf"
+      >
+        <span className="flex items-center justify-center px-2.5 py-2 text-white bg-active-bg transition-colors duration-300 ease-in-out text-xs font-semibold italic">
+          {children}
+        </span>
+        <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-active-element transition-colors duration-300 ease-in-out"></span>
+      </button>
+    );
+  }
+
+  return (
+    <button 
+      onClick={() => onClick(filter)}
+      className="inline-block relative w-auto h-10 rounded-md overflow-hidden border-2 border-transparent border-solid transition-colors duration-300 ease-in-out -translate-y-0.5 hover:border-transparent font-vulf"
+    >
+      <span className="flex items-center justify-center px-2.5 py-2 text-white bg-transparent transition-colors duration-300 ease-in-out hover:bg-[#1f2126] text-xs font-semibold italic">
+        {children}
+      </span>
+    </button>
+  );
+};
+
 export default function Home(): React.ReactElement {
+  const [activeFilter, setActiveFilter] = useState<FilterType>('All');
+
+  // Filter button handler
+  const handleFilterClick = (filter: FilterType): void => {
+    setActiveFilter(filter);
+  };
+
+  // Determine which projects to show based on active filter
+  const shouldShowProject = (projectType: FilterType): boolean => {
+    return activeFilter === 'All' || activeFilter === projectType;
+  };
+
+  // Check if a project should have reduced top margin (first visible project)
+  const isFirstVisibleProject = (projectName: string): boolean => {
+    switch (activeFilter) {
+      case 'All':
+        return projectName === 'dGenesis'; // First project in All view
+      case 'DeFi':
+        return projectName === 'ZaarFlip'; // Only project in DeFi view
+      case 'Tools':
+        return projectName === 'BTCTooling'; // First project in Tools view
+      case 'NFT':
+        return projectName === 'dGenesis'; // First project in NFT view
+      default:
+        return false;
+    }
+  };
+
+
   // Add hotkey handler for social media buttons
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent): void => {
@@ -182,15 +251,30 @@ export default function Home(): React.ReactElement {
 
       {/* Portfolio Section */}
       <div id="portfolio" className="section-style">
-        {/* dGenesis */}
+        {/* Project Filters */}
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-            <div className="home-teaser-list w-dyn-list border-t border-divider pt-[70px]">
+            <div className="border-t border-divider pt-10 sm:pt-10 pb-0 sm:pb-4 -mb-2 sm:mb-0">
+              <div className="flex flex-wrap gap-3 justify-start ml-2">
+                <FilterButton filter="All" isActive={activeFilter === 'All'} onClick={handleFilterClick}>All</FilterButton>
+                <FilterButton filter="DeFi" isActive={activeFilter === 'DeFi'} onClick={handleFilterClick}>DeFi</FilterButton>
+                <FilterButton filter="Tools" isActive={activeFilter === 'Tools'} onClick={handleFilterClick}>Tools</FilterButton>
+                <FilterButton filter="NFT" isActive={activeFilter === 'NFT'} onClick={handleFilterClick}>NFT</FilterButton>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* dGenesis */}
+        {shouldShowProject('NFT') && (
+        <div className="flex flex-col items-center">
+          <div className="w-full md:w-10/12 lg:w-8/12 px-4">
+            <div className="w-dyn-list">
               <div className="project-preview-item w-dyn-item p-0 ml-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center mt-12 sm:mt-0">
                   <div className="inline-block">
                     <div className="grid">
-                      <div className="project-title mt-10-sm sm:mt-10">
+                      <div className="project-title">
                         <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px]">
                           <a
                             href="https://dgenesis.io/"
@@ -270,17 +354,19 @@ export default function Home(): React.ReactElement {
             </div>
           </div>
         </div>
+        )}
 
         {/* Zaar Flip */}
+        {shouldShowProject('DeFi') && (
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-            <div className="mt-16 md:mt-24 w-dyn-list">
+            <div className={`w-dyn-list ${isFirstVisibleProject('ZaarFlip') ? 'mt-12 sm:mt-6' : 'mt-16 md:mt-24'}`}>
               <div className="project-preview-item w-dyn-item p-0 ml-2">
-                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center mt-12 sm:mt-0">
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px] mt-4 sm:mt-0">
+                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px]">
                           <a
                             href="https://flip.zaar.gg/zaar-flip"
                             target="_blank"
@@ -359,17 +445,19 @@ export default function Home(): React.ReactElement {
             </div>
           </div>
         </div>
+        )}
 
         {/* BTC Tooling */}
+        {shouldShowProject('Tools') && (
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-            <div className="mt-16 md:mt-24 w-dyn-list">
+            <div className={`w-dyn-list ${isFirstVisibleProject('BTCTooling') ? 'mt-12 sm:mt-6' : 'mt-16 md:mt-24'}`}>
               <div className="project-preview-item w-dyn-item p-0 ml-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px] mt-4 sm:mt-0">
+                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px]">
                           <a
                             href="https://btctooling.com/"
                             target="_blank"
@@ -448,8 +536,10 @@ export default function Home(): React.ReactElement {
             </div>
           </div>
         </div>
+        )}
 
         {/* Cantoscan */}
+        {shouldShowProject('Tools') && (
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
             <div className="mt-16 md:mt-24 w-dyn-list">
@@ -527,8 +617,10 @@ export default function Home(): React.ReactElement {
             </div>
           </div>
         </div>
+        )}
 
         {/* Shishi */}
+        {shouldShowProject('NFT') && (
         <div className="flex flex-col items-center" id="project-last">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
             <div className="home-teaser-list mt-16 md:mt-24 w-dyn-list">
@@ -616,6 +708,7 @@ export default function Home(): React.ReactElement {
             </div>
           </div>
         </div>
+        )}
       </div>
 
       <Footer />

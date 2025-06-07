@@ -48,6 +48,13 @@ module.exports = {
         'dark-element-border': '#2f2f32',// Borders
         'dark-shadow': '#282a2f',        // Shadow effect
         'dark-shadow-hover': '#333333',  // Hover shadow
+        
+        // Active button theme
+        'active-border': '#263044',      // Base border color
+        'active-bg': '#171e2e',          // Main surface
+        'active-bg-hover': '#1f2b46',    // Hover state
+        'active-element': '#222a3c',     // Bottom border inside outer border
+        'active-shadow': '#222a3c',      // Shadow effect (same as element for consistency)
       },
       boxShadow: {
         'project': '5px 5px 0 hsla(219, 90%, 60%, 0.15)',
