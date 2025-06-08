@@ -2,6 +2,7 @@ import React, { useEffect, useState, KeyboardEvent as ReactKeyboardEvent } from 
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import Nav from "@/components/Nav";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollIndicator from "@/components/ScrollIndicator";
 import ProfilePicture from "@/components/ProfilePicture";
@@ -150,11 +151,11 @@ export default function Home(): React.ReactElement {
         />
       </Head>
 
-      <Nav />
+      <Header />
       <ScrollIndicator />
 
       {/* Hero Section - High Priority Content */}
-      <div className="hero px-2.5 mt-28 sm:mt-24 mb-6">
+      <div className="hero px-2.5 mt-32 sm:mt-32 mb-6">
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
             <div className="intro relative">
