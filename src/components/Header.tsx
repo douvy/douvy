@@ -4,6 +4,8 @@ import { useTheme } from '@/contexts/ThemeContext';
 export default function Header(): React.ReactElement {
   const { theme, toggleTheme } = useTheme();
   const [isBlinking, setIsBlinking] = useState(false);
+  const [hasMogged, setHasMogged] = useState(false);
+  const [isSliding, setIsSliding] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent): void => {
@@ -29,27 +31,68 @@ export default function Header(): React.ReactElement {
   useEffect(() => {
     let blinkInterval: NodeJS.Timeout;
 
+    // Mog transition after 25 seconds with slide animation
+    const mogTimeout = setTimeout(() => {
+      setIsSliding(true);
+      setIsBlinking(false); // Stop any current blink
+      if (blinkInterval) clearInterval(blinkInterval); // Stop blinking interval
+      
+      // Slide animation sequence
+      const logoElement = document.querySelector('#header-logo') as HTMLElement;
+      if (logoElement) {
+        // Slide down
+        logoElement.style.transition = 'transform 0.8s cubic-bezier(0.42, 0, 0.58, 1)';
+        logoElement.style.transform = 'translateY(100%)';
+        
+        setTimeout(() => {
+          // Move up out of view and switch to mog
+          logoElement.style.transition = 'none';
+          logoElement.style.transform = 'translateY(-100%)';
+          setHasMogged(true);
+          
+          // Force reflow
+          logoElement.offsetHeight;
+          
+          // Bounce back in with mog
+          logoElement.style.transition = 'transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+          
+          setTimeout(() => {
+            logoElement.style.transform = 'translateY(0)';
+            
+            setTimeout(() => {
+              setIsSliding(false);
+            }, 700);
+          }, 50);
+        }, 800);
+      }
+    }, 25000);
+
     // First blink to sync with ProfilePicture
     const initialBlink = setTimeout(() => {
-      setIsBlinking(true);
-      setTimeout(() => {
-        setIsBlinking(false);
-        
-        // Start interval AFTER first blink completes
-        blinkInterval = setInterval(() => {
-          setIsBlinking(true);
-          setTimeout(() => {
-            setIsBlinking(false);
-          }, 150);
-        }, 3500);
-      }, 150);
+      if (!hasMogged) {
+        setIsBlinking(true);
+        setTimeout(() => {
+          setIsBlinking(false);
+          
+          // Start interval AFTER first blink completes
+          blinkInterval = setInterval(() => {
+            if (!hasMogged) {
+              setIsBlinking(true);
+              setTimeout(() => {
+                setIsBlinking(false);
+              }, 150);
+            }
+          }, 3500);
+        }, 150);
+      }
     }, 2000);
 
     return () => {
       clearTimeout(initialBlink);
+      clearTimeout(mogTimeout);
       if (blinkInterval) clearInterval(blinkInterval);
     };
-  }, []);
+  }, [hasMogged]);
 
   return (
     <header 
@@ -64,15 +107,23 @@ export default function Header(): React.ReactElement {
           <div className="flex justify-between items-center mr-[8px] sm:mr-0">
             <a
               href="/"
-              className="flex items-center transition-opacity duration-200 ease-in-out hover:opacity-75"
+              className="flex items-center transition-opacity duration-200 ease-in-out hover:opacity-75 overflow-hidden"
               aria-label="douvy - Home"
             >
               <img
-                src={isBlinking ? "/img/milady-blink.png" : "/img/milady-no-bg.png"}
+                id="header-logo"
+                src={
+                  hasMogged 
+                    ? "/img/milady-mog.png" 
+                    : isBlinking 
+                      ? "/img/milady-blink.png" 
+                      : "/img/milady-no-bg.png"
+                }
                 alt="douvy logo"
                 className="h-8 w-auto sm:h-10 transition-opacity duration-75"
                 width="32"
                 height="32"
+                style={{ transform: 'translateY(0)' }}
               />
             </a>
             <button
