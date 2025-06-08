@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
 
 export default function Header(): React.ReactElement {
   const { theme, toggleTheme } = useTheme();
+  const [isBlinking, setIsBlinking] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent): void => {
@@ -25,6 +26,31 @@ export default function Header(): React.ReactElement {
     };
   }, [toggleTheme]);
 
+  useEffect(() => {
+    let blinkInterval: NodeJS.Timeout;
+
+    // First blink to sync with ProfilePicture
+    const initialBlink = setTimeout(() => {
+      setIsBlinking(true);
+      setTimeout(() => {
+        setIsBlinking(false);
+        
+        // Start interval AFTER first blink completes
+        blinkInterval = setInterval(() => {
+          setIsBlinking(true);
+          setTimeout(() => {
+            setIsBlinking(false);
+          }, 150);
+        }, 3500);
+      }, 150);
+    }, 2000);
+
+    return () => {
+      clearTimeout(initialBlink);
+      if (blinkInterval) clearInterval(blinkInterval);
+    };
+  }, []);
+
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ease-in-out border-b ${
@@ -35,7 +61,20 @@ export default function Header(): React.ReactElement {
     >
       <div className="flex justify-center py-4">
         <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-          <div className="flex justify-end mr-[8px] sm:mr-0">
+          <div className="flex justify-between items-center mr-[8px] sm:mr-0">
+            <a
+              href="/"
+              className="flex items-center transition-opacity duration-200 ease-in-out hover:opacity-75"
+              aria-label="douvy - Home"
+            >
+              <img
+                src={isBlinking ? "/img/milady-blink.png" : "/img/milady-no-bg.png"}
+                alt="douvy logo"
+                className="h-8 w-auto sm:h-10 transition-opacity duration-75"
+                width="32"
+                height="32"
+              />
+            </a>
             <button
               onClick={toggleTheme}
               className={`inline-block relative w-auto h-8 sm:h-10 rounded-md overflow-hidden border-y-2 border-x-2 border-b-solid transition-colors duration-300 ease-in-out font-vulf ${
