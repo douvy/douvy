@@ -250,7 +250,7 @@ export default function Home(): React.ReactElement {
                   href="https://github.com/douvy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-block relative w-[118px] h-10 rounded-md overflow-hidden mx-2 -mt-1.5 border-y-2 border-x-2 border-b-solid transition-colors duration-300 ease-in-out -translate-y-0.5 font-vulf ${
+                  className={`inline-block relative w-auto h-10 rounded-md overflow-hidden mx-2 -mt-1.5 border-y-2 border-x-2 border-b-solid transition-colors duration-300 ease-in-out -translate-y-0.5 font-vulf ${
                     theme === 'dark' 
                       ? 'border-dark-border hover:border-dark-border-hover'
                       : 'border-light-border hover:border-light-border-hover'
