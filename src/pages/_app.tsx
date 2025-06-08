@@ -4,6 +4,8 @@ import React, { useEffect } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import type { AppProps } from "next/app";
 import { Lora } from "next/font/google";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import ThemeToggle from "@/components/ThemeToggle";
 
 // Initialize the Lora font
 const lora = Lora({
@@ -55,7 +57,7 @@ function MyApp({ Component, pageProps }: AppProps): React.ReactElement {
   }, []);
 
   return (
-    <>
+    <ThemeProvider>
       <style jsx global>{`
         :root {
           --font-lora: ${lora.style.fontFamily};
@@ -68,9 +70,10 @@ function MyApp({ Component, pageProps }: AppProps): React.ReactElement {
         />
         <link rel="icon" href="/img/favicon.png" />
       </Head>
+      <ThemeToggle />
       <Component {...pageProps} />
       <Analytics />
-    </>
+    </ThemeProvider>
   );
 }
 

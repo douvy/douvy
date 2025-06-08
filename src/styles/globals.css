@@ -44,8 +44,14 @@
         font-style: normal;
         @apply text-primary bg-dark text-xs;
     }
+    .light body {
+        @apply text-[#4c5461] bg-[#f5f5f3];
+    }
     h1, h2, h3, h4, h5, h6 {
         @apply text-title font-bold font-lora;
+    }
+    .light h1, .light h2, .light h3, .light h4, .light h5, .light h6 {
+        @apply text-[#2250c7];
     }
     a {
         transition: 0.25s;
@@ -82,6 +88,10 @@
         @apply border border-outline;
     }
     
+    .light #portfolio img {
+        @apply border-gray-400/60;
+    }
+    
     #portfolio .home-teaser-list {
         @apply border-t border-divider pt-section;
     }
@@ -102,6 +112,10 @@
         @apply mt-[30px] border-t-0 border-b border-divider pb-[120px];
     }
     
+    .light #project-last .home-teaser-list {
+        @apply border-[#dde9f8];
+    }
+    
     #project-last img {
         @apply rounded-[2px];
     }
@@ -117,6 +131,20 @@
     
     footer a:hover {
         @apply border-blue;
+    }
+    
+    .light footer a {
+        @apply text-[#2250c7] border-[#dde9f8];
+    }
+    
+    .light footer a:hover {
+        @apply border-[#2250c7];
+    }
+    
+    /* Light mode hover background for project containers - show diagonal pattern */
+    .light .group:hover {
+        background: linear-gradient(-45deg, transparent 25%, rgba(59, 130, 246, 0.1) 25%, rgba(59, 130, 246, 0.1) 50%, transparent 50%, transparent 75%, rgba(59, 130, 246, 0.1) 75%), #e6e8f0;
+        background-size: 8px 8px;
     }
     
     footer h3 {

@@ -5,6 +5,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ScrollIndicator from "@/components/ScrollIndicator";
 import ProfilePicture from "@/components/ProfilePicture";
+import { useTheme } from "@/contexts/ThemeContext";
 import type { ProjectImage } from "@/types";
 
 // Dynamic import with loading priority for below-the-fold content
@@ -22,23 +23,33 @@ const FilterButton = ({
   filter, 
   isActive, 
   onClick, 
-  children 
+  children,
+  theme
 }: { 
   filter: FilterType; 
   isActive: boolean;
   onClick: (filter: FilterType) => void;
   children: React.ReactNode;
+  theme: 'dark' | 'light';
 }) => {
   if (isActive) {
     return (
       <button 
         onClick={() => onClick(filter)}
-        className="inline-block relative w-auto h-10 rounded-md overflow-hidden border-2 border-active-border border-solid transition-colors duration-300 ease-in-out -translate-y-0.5 font-vulf"
+        className={`inline-block relative w-auto h-8 rounded-md overflow-hidden border-2 border-solid transition-colors duration-300 ease-in-out -translate-y-0.5 font-vulf ${
+          theme === 'dark' ? 'border-active-border' : 'border-filter-active-border'
+        }`}
       >
-        <span className="flex items-center justify-center px-2.5 py-2 text-white bg-active-bg transition-colors duration-300 ease-in-out text-xs font-semibold italic">
+        <span className={`flex items-center justify-center w-full h-full px-2 transition-colors duration-300 ease-in-out text-xs font-medium italic ${
+          theme === 'dark' 
+            ? 'text-white bg-active-bg hover:bg-active-bg-hover'
+            : 'text-filter-active-text bg-filter-active-bg hover:bg-filter-active-bg-hover'
+        }`}>
           {children}
         </span>
-        <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-active-element transition-colors duration-300 ease-in-out"></span>
+        <span className={`absolute bottom-0 left-0 right-0 h-[2px] transition-colors duration-300 ease-in-out ${
+          theme === 'dark' ? 'bg-active-element' : 'bg-filter-active-element'
+        }`}></span>
       </button>
     );
   }
@@ -46,9 +57,13 @@ const FilterButton = ({
   return (
     <button 
       onClick={() => onClick(filter)}
-      className="inline-block relative w-auto h-10 rounded-md overflow-hidden border-2 border-transparent border-solid transition-colors duration-300 ease-in-out -translate-y-0.5 hover:border-transparent font-vulf"
+      className="inline-block relative w-auto h-8 rounded-md overflow-hidden border-2 border-transparent border-solid transition-colors duration-300 ease-in-out -translate-y-0.5 hover:border-transparent font-vulf"
     >
-      <span className="flex items-center justify-center px-2.5 py-2 text-white bg-transparent transition-colors duration-300 ease-in-out hover:bg-[#1f2126] text-xs font-semibold italic">
+      <span className={`flex items-center justify-center w-full h-full px-2 bg-transparent transition-colors duration-300 ease-in-out text-xs font-medium italic ${
+        theme === 'dark'
+          ? 'text-white hover:bg-[#1f2126]'
+          : 'text-filter-inactive-text hover:bg-filter-inactive-bg-hover'
+      }`}>
         {children}
       </span>
     </button>
@@ -57,6 +72,7 @@ const FilterButton = ({
 
 export default function Home(): React.ReactElement {
   const [activeFilter, setActiveFilter] = useState<FilterType>('All');
+  const { theme } = useTheme();
 
   // Filter button handler
   const handleFilterClick = (filter: FilterType): void => {
@@ -138,7 +154,7 @@ export default function Home(): React.ReactElement {
       <ScrollIndicator />
 
       {/* Hero Section - High Priority Content */}
-      <div className="hero px-2.5 mt-20 mb-6">
+      <div className="hero px-2.5 mt-28 sm:mt-20 mb-6">
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
             <div className="intro relative">
@@ -146,9 +162,13 @@ export default function Home(): React.ReactElement {
                 <h1 className="name max-w-[300px] inline-block order-1 md:order-1 text-[57px] text-highlight leading-[1.3] mb-10">
                   hello<span className="move ml-[3px]">,</span>
                   <br />
-                  I'm <em className="border-b-2 border-blue not-italic">douvy</em>.
+                  I'm <em className={`border-b-2 not-italic ${theme === 'dark' ? 'border-blue' : 'border-[#91c9f5]'}`}>douvy</em>.
                 </h1>
-                <div className="relative border default-border-color border-outline rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip hover:border-[#415b85] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out float-right md:mt-[-20px] mt-[-35px] ml-auto order-2 md:order-2">
+                <div className={`relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out float-right md:mt-[-20px] mt-[-35px] ml-auto order-2 md:order-2 ${
+                  theme === 'dark' 
+                    ? 'border-outline hover:border-[#415b85] dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]'
+                    : 'border-[#dbdde1] hover:border-[#9ac4fd] hover:shadow-[6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]'
+                }`}>
                   {/* Diagonal stripe pattern background that covers the entire border area */}
                   <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
                     <svg
@@ -182,14 +202,16 @@ export default function Home(): React.ReactElement {
                     </svg>
                   </div>
                   {/* Content container with ProfilePicture */}
-                  <div className="relative z-10 border dark:border-gray-600/40 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out">
+                  <div className={`relative z-10 border rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out ${
+                    theme === 'dark' ? 'border-gray-600/40' : 'border-gray-400/40'
+                  }`}>
                     <ProfilePicture />
                   </div>
                 </div>
               </div>
               {/* Clear any floats */}
               <div className="clear-both w-full"></div>
-              <p className="text-muted pt-4 mt-5 leading-8 text-[15px] sm:text-[17px] italic">
+              <p className={`pt-4 mt-5 leading-8 text-[15px] sm:text-[17px] italic ${theme === 'dark' ? 'text-muted' : 'text-[#4c5461]'}`}>
                 Design-focused frontend dev with 7+ years in crypto,
                 bringing a rare ability for pattern matching that makes me the
                 critical designer in the room, visualizing blockchain concepts
@@ -197,7 +219,7 @@ export default function Home(): React.ReactElement {
                 We can build protocols that are better solutions than financial
                 institutions.
               </p>
-              <p className="text-muted mt-8 leading-8 text-[15px] sm:text-[17px] italic mb-8 sm:mb-0">
+              <p className={`mt-8 leading-8 text-[15px] sm:text-[17px] italic mb-8 sm:mb-0 ${theme === 'dark' ? 'text-muted' : 'text-[#4c5461]'}`}>
                 Actively involved in crypto through trading, learning, exploring, and posting on crypto twitter. My AI curiosity drives me to rapidly integrate it into design,
                 frontend dev, and all aspects of life.
               </p>
@@ -227,21 +249,37 @@ export default function Home(): React.ReactElement {
                   href="https://github.com/douvy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block relative w-[118px] h-10 rounded-md overflow-hidden mx-2 -mt-1.5 border-y-2 border-x-2 border-dark-border border-b-solid transition-colors duration-300 ease-in-out -translate-y-0.5 hover:border-dark-border-hover font-vulf"
+                  className={`inline-block relative w-[118px] h-10 rounded-md overflow-hidden mx-2 -mt-1.5 border-y-2 border-x-2 border-b-solid transition-colors duration-300 ease-in-out -translate-y-0.5 font-vulf ${
+                    theme === 'dark' 
+                      ? 'border-dark-border hover:border-dark-border-hover'
+                      : 'border-light-border hover:border-light-border-hover'
+                  }`}
                   aria-label="GitHub Profile - Press the 'g' key as a shortcut"
                 >
                   {/* Main button content */}
-                  <span className="flex items-center justify-between w-full h-full px-2.5 text-white bg-dark-bg transition-colors duration-300 ease-in-out hover:bg-dark-bg-hover">
+                  <span className={`flex items-center justify-between w-full h-full px-2.5 transition-colors duration-300 ease-in-out ${
+                    theme === 'dark'
+                      ? 'text-white bg-dark-bg hover:bg-dark-bg-hover'
+                      : 'text-light-text bg-light-bg hover:bg-light-bg-hover'
+                  }`}>
                     <span className="text-sm font-semibold italic">
                       GitHub
                     </span>
-                    <span className="flex items-center justify-center w-5 h-5 rounded ml-1 my-0 bg-dark-element border border-dark-element-border">
-                      <span className="text-xs font-bold leading-none">G</span>
+                    <span className={`flex items-center justify-center w-5 h-5 rounded ml-1 my-0 border ${
+                      theme === 'dark'
+                        ? 'bg-dark-element border-dark-element-border'
+                        : 'bg-light-hotkey-bg border-light-element-border'
+                    }`}>
+                      <span className={`text-xs font-bold leading-none ${
+                        theme === 'dark' ? 'text-white' : 'text-light-hotkey'
+                      }`}>G</span>
                     </span>
                   </span>
 
                   {/* Bottom shadow for 3D effect */}
-                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-dark-shadow transition-colors duration-300 ease-in-out"></span>
+                  <span className={`absolute bottom-0 left-0 right-0 h-[2px] transition-colors duration-300 ease-in-out ${
+                    theme === 'dark' ? 'bg-dark-shadow' : 'bg-light-element'
+                  }`}></span>
                 </a>
               </p>
             </div>
@@ -254,12 +292,12 @@ export default function Home(): React.ReactElement {
         {/* Project Filters */}
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-            <div className="border-t border-divider pt-10 sm:pt-10 pb-0 sm:pb-4 -mb-2 sm:mb-0">
+            <div className={`border-t pt-10 sm:pt-10 pb-0 sm:pb-4 -mb-2 sm:mb-0 ${theme === 'dark' ? 'border-divider' : 'border-[#dde9f8]'}`}>
               <div className="flex flex-wrap gap-3 justify-start ml-2">
-                <FilterButton filter="All" isActive={activeFilter === 'All'} onClick={handleFilterClick}>All</FilterButton>
-                <FilterButton filter="DeFi" isActive={activeFilter === 'DeFi'} onClick={handleFilterClick}>DeFi</FilterButton>
-                <FilterButton filter="Tools" isActive={activeFilter === 'Tools'} onClick={handleFilterClick}>Tools</FilterButton>
-                <FilterButton filter="NFT" isActive={activeFilter === 'NFT'} onClick={handleFilterClick}>NFT</FilterButton>
+                <FilterButton filter="All" isActive={activeFilter === 'All'} onClick={handleFilterClick} theme={theme}>All</FilterButton>
+                <FilterButton filter="DeFi" isActive={activeFilter === 'DeFi'} onClick={handleFilterClick} theme={theme}>DeFi</FilterButton>
+                <FilterButton filter="Tools" isActive={activeFilter === 'Tools'} onClick={handleFilterClick} theme={theme}>Tools</FilterButton>
+                <FilterButton filter="NFT" isActive={activeFilter === 'NFT'} onClick={handleFilterClick} theme={theme}>NFT</FilterButton>
               </div>
             </div>
           </div>
@@ -275,7 +313,7 @@ export default function Home(): React.ReactElement {
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px]">
+                        <h3 className={`home-project-title leading-[38px] border-b pb-3 mr-10 tracking-[1.5px] ${theme === 'dark' ? 'text-highlight border-divider' : 'text-[#2250c7] border-[#dde9f8]'}`}>
                           <a
                             href="https://dgenesis.io/"
                             target="_blank"
@@ -288,16 +326,20 @@ export default function Home(): React.ReactElement {
                       </div>
                     </div>
                     <div className="project-description mb-4 sm:mb-0">
-                      <p className="description text-muted font-lora">
+                      <p className={`description font-lora ${theme === 'dark' ? 'text-muted' : 'text-[#4c5461]'}`}>
                         Co-founded project featuring community-owned generative
                         art that sold out in two hours.
                       </p>
-                      <p className="description text-muted font-lora">
+                      <p className={`description font-lora ${theme === 'dark' ? 'text-muted' : 'text-[#4c5461]'}`}>
                         First L2 bridgeable NFT on Arbitrum.
                       </p>
                     </div>
                   </div>
-                  <div className="mr-3 sm:mr-0 mt-4 sm:mt-0 relative border default-border-color border-outline rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip hover:border-[#415b85] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                  <div className={`mr-3 sm:mr-0 mt-4 sm:mt-0 relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out ${
+                    theme === 'dark' 
+                      ? 'border-outline hover:border-[#415b85] dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]'
+                      : 'border-[#dbdde1] hover:border-[#9ac4fd] hover:shadow-[6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]'
+                  }`}>
                     {/* Diagonal stripe pattern background that covers the entire border area */}
                     <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
                       <svg
@@ -331,7 +373,9 @@ export default function Home(): React.ReactElement {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto">
+                    <div className={`relative z-1 border rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto ${
+                      theme === 'dark' ? 'border-gray-600/80' : 'border-gray-400/60'
+                    }`}>
                       <ProjectSlider
                         id="dgenesis"
                         images={[
@@ -366,7 +410,7 @@ export default function Home(): React.ReactElement {
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px]">
+                        <h3 className={`home-project-title leading-[38px] border-b pb-3 mr-10 tracking-[1.5px] ${theme === 'dark' ? 'text-highlight border-divider' : 'text-[#2250c7] border-[#dde9f8]'}`}>
                           <a
                             href="https://flip.zaar.gg/zaar-flip"
                             target="_blank"
@@ -379,7 +423,7 @@ export default function Home(): React.ReactElement {
                       </div>
                     </div>
                     <div className="project-description mb-4 sm:mb-0">
-                      <p className="description text-muted font-lora">
+                      <p className={`description font-lora ${theme === 'dark' ? 'text-muted' : 'text-[#4c5461]'}`}>
                         Designed the first game on Zaar Chain featuring provably
                         fair coin flipping with a twist. Set odds from picking
                         coin count and min. wins needed. Includes Turbo Flip for
@@ -388,7 +432,11 @@ export default function Home(): React.ReactElement {
                       </p>
                     </div>
                   </div>
-                  <div className="mr-3 sm:mr-0 mt-4 relative border default-border-color border-outline rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip hover:border-[#415b85] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                  <div className={`mr-3 sm:mr-0 mt-4 relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out ${
+                    theme === 'dark' 
+                      ? 'border-outline hover:border-[#415b85] dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]'
+                      : 'border-[#dbdde1] hover:border-[#9ac4fd] hover:shadow-[6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]'
+                  }`}>
                     {/* Diagonal stripe pattern background that covers the entire border area */}
                     <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
                       <svg
@@ -422,7 +470,9 @@ export default function Home(): React.ReactElement {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto">
+                    <div className={`relative z-1 border rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto ${
+                      theme === 'dark' ? 'border-gray-600/80' : 'border-gray-400/60'
+                    }`}>
                       <ProjectSlider
                         id="zaarflip"
                         images={[
@@ -457,7 +507,7 @@ export default function Home(): React.ReactElement {
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px]">
+                        <h3 className={`home-project-title leading-[38px] border-b pb-3 mr-10 tracking-[1.5px] ${theme === 'dark' ? 'text-highlight border-divider' : 'text-[#2250c7] border-[#dde9f8]'}`}>
                           <a
                             href="https://btctooling.com/"
                             target="_blank"
@@ -470,7 +520,7 @@ export default function Home(): React.ReactElement {
                       </div>
                     </div>
                     <div className="project-description mb-4 sm:mb-0">
-                      <p className="description text-muted font-lora">
+                      <p className={`description font-lora ${theme === 'dark' ? 'text-muted' : 'text-[#4c5461]'}`}>
                         A Bitcoin dashboard providing real-time price data, a
                         chart, market summary, orderbook, Twitter/X insights and
                         halving countdown data. Built with React, Next.js,
@@ -479,7 +529,11 @@ export default function Home(): React.ReactElement {
                       </p>
                     </div>
                   </div>
-                  <div className="mr-3 sm:mr-0 mt-4 relative border default-border-color border-outline rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip hover:border-[#415b85] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                  <div className={`mr-3 sm:mr-0 mt-4 relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out ${
+                    theme === 'dark' 
+                      ? 'border-outline hover:border-[#415b85] dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]'
+                      : 'border-[#dbdde1] hover:border-[#9ac4fd] hover:shadow-[6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]'
+                  }`}>
                     {/* Diagonal stripe pattern background that covers the entire border area */}
                     <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
                       <svg
@@ -513,7 +567,9 @@ export default function Home(): React.ReactElement {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto">
+                    <div className={`relative z-1 border rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto ${
+                      theme === 'dark' ? 'border-gray-600/80' : 'border-gray-400/60'
+                    }`}>
                       <ProjectSlider
                         id="btctooling"
                         images={[
@@ -548,11 +604,11 @@ export default function Home(): React.ReactElement {
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px] mt-4 sm:mt-0">Cantoscan</h3>
+                        <h3 className={`home-project-title leading-[38px] border-b pb-3 mr-10 tracking-[1.5px] mt-4 sm:mt-0 ${theme === 'dark' ? 'text-highlight border-divider' : 'text-[#2250c7] border-[#dde9f8]'}`}>Cantoscan</h3>
                       </div>
                     </div>
                     <div className="project-description mb-4 sm:mb-0">
-                      <p className="description text-muted font-lora">
+                      <p className={`description font-lora ${theme === 'dark' ? 'text-muted' : 'text-[#4c5461]'}`}>
                         Custom-built blockchain explorer with optimized indexing
                         for real-time transaction, address, and smart contract
                         data. Engineered in two weeks, selected as Grand Prize
@@ -560,7 +616,11 @@ export default function Home(): React.ReactElement {
                       </p>
                     </div>
                   </div>
-                  <div className="mr-3 sm:mr-0 mt-4 relative border default-border-color border-outline rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip hover:border-[#415b85] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                  <div className={`mr-3 sm:mr-0 mt-4 relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out ${
+                    theme === 'dark' 
+                      ? 'border-outline hover:border-[#415b85] dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]'
+                      : 'border-[#dbdde1] hover:border-[#9ac4fd] hover:shadow-[6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]'
+                  }`}>
                     {/* Diagonal stripe pattern background that covers the entire border area */}
                     <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
                       <svg
@@ -629,7 +689,7 @@ export default function Home(): React.ReactElement {
                   <div className="inline-block">
                     <div className="grid">
                       <div className="project-title">
-                        <h3 className="home-project-title text-highlight leading-[38px] border-b border-divider pb-3 mr-10 tracking-[1.5px] mt-4 sm:mt-0">
+                        <h3 className={`home-project-title leading-[38px] border-b pb-3 mr-10 tracking-[1.5px] mt-4 sm:mt-0 ${theme === 'dark' ? 'text-highlight border-divider' : 'text-[#2250c7] border-[#dde9f8]'}`}>
                           <a
                             href="https://shishi520.io/"
                             target="_blank"
@@ -642,7 +702,7 @@ export default function Home(): React.ReactElement {
                       </div>
                     </div>
                     <div className="project-description mb-4 sm:mb-0">
-                      <p className="description text-muted font-lora">
+                      <p className={`description font-lora ${theme === 'dark' ? 'text-muted' : 'text-[#4c5461]'}`}>
                         Designed and built website for NFT collection in a
                         neochibi aesthetic with randomized traits inspired by
                         net art and fashion trends. Y2K Fashion-Inspired Digital
@@ -651,7 +711,11 @@ export default function Home(): React.ReactElement {
                       </p>
                     </div>
                   </div>
-                  <div className="mr-3 sm:mr-0 mt-4 relative border default-border-color border-outline rounded-sm p-2.5 dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] group overflow-clip hover:border-[#415b85] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)] transition-all duration-300 ease-in-out">
+                  <div className={`mr-3 sm:mr-0 mt-4 relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out ${
+                    theme === 'dark' 
+                      ? 'border-outline hover:border-[#415b85] dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]'
+                      : 'border-[#dbdde1] hover:border-[#9ac4fd] hover:shadow-[6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]'
+                  }`}>
                     {/* Diagonal stripe pattern background that covers the entire border area */}
                     <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
                       <svg
@@ -685,7 +749,9 @@ export default function Home(): React.ReactElement {
                       </svg>
                     </div>
                     {/* Content container with ProjectSlider */}
-                    <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto">
+                    <div className={`relative z-1 border rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto ${
+                      theme === 'dark' ? 'border-gray-600/80' : 'border-gray-400/60'
+                    }`}>
                       <ProjectSlider
                         id="shishi"
                         images={[
