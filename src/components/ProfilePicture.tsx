@@ -15,6 +15,8 @@ const blinkSrc = '/img/milady-blink.png';
 const mouthOpenSrc = '/img/milady-mouth-open.png';
 const glassesSrc = '/img/milady-glasses.png';
 const glassesBlinkSrc = '/img/milady-glasses-blink.png';
+const haloSrc = '/img/milady-halo.png';
+const haloBlinkSrc = '/img/milady-blink-halo.png';
 
 // Animation state interface
 interface AnimationState {
@@ -22,6 +24,7 @@ interface AnimationState {
   isMouthMoving: boolean;
   isSliding: boolean;
   hasGlasses: boolean;
+  hasHalo: boolean;
   slideCount: number;
   mouthMoveCount: number;
 }
@@ -32,7 +35,7 @@ const preloadImages = (): Promise<string[]> => {
   if (typeof window === 'undefined') return Promise.resolve([]);
   
   // Create a promise for each image to track when it's fully loaded
-  const imagePromises = [normalSrc, blinkSrc, mouthOpenSrc, glassesSrc, glassesBlinkSrc].map(src => {
+  const imagePromises = [normalSrc, blinkSrc, mouthOpenSrc, glassesSrc, glassesBlinkSrc, haloSrc, haloBlinkSrc].map(src => {
     return new Promise<string>((resolve, reject) => {
       const img = new window.Image();
       img.onload = () => resolve(src);
@@ -58,6 +61,7 @@ export default function ProfilePicture(): React.ReactElement {
     isMouthMoving: false,
     isSliding: false,
     hasGlasses: false,
+    hasHalo: false,
     slideCount: 0,
     mouthMoveCount: 0
   });
@@ -99,7 +103,9 @@ export default function ProfilePicture(): React.ReactElement {
         stateRef.current.isBlinking = true;
         
         // Choose the right blink image
-        if (stateRef.current.hasGlasses) {
+        if (stateRef.current.hasHalo) {
+          updateImage(haloBlinkSrc);
+        } else if (stateRef.current.hasGlasses) {
           updateImage(glassesBlinkSrc);
         } else {
           updateImage(blinkSrc);
@@ -107,7 +113,9 @@ export default function ProfilePicture(): React.ReactElement {
         
         // Set fixed end time (200ms is good for natural blink)
         setTimeout(() => {
-          if (stateRef.current.hasGlasses) {
+          if (stateRef.current.hasHalo) {
+            updateImage(haloSrc);
+          } else if (stateRef.current.hasGlasses) {
             updateImage(glassesSrc);
           } else {
             updateImage(normalSrc);
@@ -138,6 +146,10 @@ export default function ProfilePicture(): React.ReactElement {
         
         stateRef.current.isSliding = true;
         const pfp = pfpRef.current;
+        const img = pfp.querySelector('img');
+        
+        // Remove border during transition
+        if (img) img.style.border = "none";
         
         // Set proper transitions
         pfp.style.transition = "transform 0.8s cubic-bezier(0.42, 0, 0.58, 1)";
@@ -165,6 +177,8 @@ export default function ProfilePicture(): React.ReactElement {
             pfp.style.transform = "translateY(0)";
             
             setTimeout(() => {
+              // Restore border after animation completes
+              if (img) img.style.border = "";
               stateRef.current.isSliding = false;
             }, 700);
           }, 50);
@@ -186,12 +200,119 @@ export default function ProfilePicture(): React.ReactElement {
         slideDown();
       }, 15000);
       
+      // Halo slide animation - same pattern as glasses
+      function slideHalo(): void {
+        if (stateRef.current.isSliding || !pfpRef.current) return;
+        
+        stateRef.current.isSliding = true;
+        const pfp = pfpRef.current;
+        const img = pfp.querySelector('img');
+        
+        // Remove border during transition
+        if (img) img.style.border = "none";
+        
+        // Set proper transitions
+        pfp.style.transition = "transform 0.8s cubic-bezier(0.42, 0, 0.58, 1)";
+        pfp.style.transform = "translateY(100%)";
+        
+        setTimeout(() => {
+          // Move up out of view
+          pfp.style.transition = "none";
+          pfp.style.transform = "translateY(-100%)";
+          
+          stateRef.current.hasHalo = true;
+          
+          updateImage(haloSrc);
+          
+          // Force reflow
+          pfp.offsetHeight;
+          
+          // Bounce back in
+          pfp.style.transition = "transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+          
+          setTimeout(() => {
+            pfp.style.transform = "translateY(0)";
+            
+            setTimeout(() => {
+              // Restore border after animation completes
+              if (img) img.style.border = "";
+              stateRef.current.isSliding = false;
+            }, 700);
+          }, 50);
+        }, 800);
+      }
+      
+      // Halo animation timing
+      const haloTimeout = setTimeout(() => {
+        slideHalo();
+      }, 35000);
+      
+      // Loop restart function - slide out halo, slide in normal to restart
+      function restartSequence(): void {
+        if (stateRef.current.isSliding || !pfpRef.current) return;
+        
+        stateRef.current.isSliding = true;
+        const pfp = pfpRef.current;
+        const img = pfp.querySelector('img');
+        
+        // Remove border during transition
+        if (img) img.style.border = "none";
+        
+        // Slide out the halo milady
+        pfp.style.transition = "transform 0.8s cubic-bezier(0.42, 0, 0.58, 1)";
+        pfp.style.transform = "translateY(100%)";
+        
+        setTimeout(() => {
+          // Move up out of view
+          pfp.style.transition = "none";
+          pfp.style.transform = "translateY(-100%)";
+          
+          // Reset all state while hidden
+          stateRef.current.hasGlasses = false;
+          stateRef.current.hasHalo = false;
+          stateRef.current.slideCount = 0;
+          stateRef.current.mouthMoveCount = 0;
+          
+          // Switch back to normal milady
+          updateImage(normalSrc);
+          
+          // Force reflow
+          pfp.offsetHeight;
+          
+          // Bounce back in with normal milady
+          pfp.style.transition = "transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+          
+          setTimeout(() => {
+            pfp.style.transform = "translateY(0)";
+            
+            setTimeout(() => {
+              // Restore border and reset animation flags
+              if (img) img.style.border = "";
+              stateRef.current.isSliding = false;
+              stateRef.current.isBlinking = false;
+              stateRef.current.isMouthMoving = false;
+              
+              // Restart the animation sequence
+              setAnimationsStarted(false);
+              setTimeout(() => setAnimationsStarted(true), 100);
+            }, 700);
+          }, 50);
+        }, 800);
+      }
+      
+      // Restart sequence after halo has been shown for 10 seconds
+      const restartTimeout = setTimeout(() => {
+        restartSequence();
+      }, 45000); // 35s (halo appears) + 10s (halo display time) = 45s total
+      
       // Cleanup
       return () => {
         clearInterval(blinkInterval);
         clearTimeout(firstMouthTimeout);
         clearTimeout(secondMouthTimeout);
         clearTimeout(glassesTimeout);
+        clearTimeout(haloTimeout);
+        clearTimeout(restartTimeout);
       };
     }, 2000); // Extended to 2000ms to ensure everything is fully loaded and browser has time to render
     
