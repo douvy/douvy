@@ -154,7 +154,7 @@ export default function Home(): React.ReactElement {
       <ScrollIndicator />
 
       {/* Hero Section - High Priority Content */}
-      <div className="hero px-2.5 mt-28 sm:mt-20 mb-6">
+      <div className="hero px-2.5 mt-28 sm:mt-24 mb-6">
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
             <div className="intro relative">
