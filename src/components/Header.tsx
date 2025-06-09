@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
 
-export default function Header(): React.ReactElement {
+interface HeaderProps {
+  isProfilePictureVisible: boolean;
+}
+
+export default function Header({ isProfilePictureVisible }: HeaderProps): React.ReactElement {
   const { theme, toggleTheme } = useTheme();
   const [isBlinking, setIsBlinking] = useState(false);
   const [hasMogged, setHasMogged] = useState(false);
@@ -28,14 +32,47 @@ export default function Header(): React.ReactElement {
     };
   }, [toggleTheme]);
 
+  // Separate effect for managing blinking when milady becomes visible/hidden
   useEffect(() => {
-    let blinkInterval: NodeJS.Timeout;
+    if (isProfilePictureVisible || hasMogged) {
+      // If profile picture is visible OR we're in mog state, don't blink
+      // Also ensure blinking state is cleared when hidden
+      setIsBlinking(false);
+      return;
+    }
+
+    // Start blinking when milady becomes visible and not in mog state
+    const blinkInterval = setInterval(() => {
+      setIsBlinking(true);
+      setTimeout(() => {
+        setIsBlinking(false);
+      }, 150);
+    }, 3500);
+
+    // Initial blink
+    setTimeout(() => {
+      setIsBlinking(true);
+      setTimeout(() => {
+        setIsBlinking(false);
+      }, 150);
+    }, 200);
+
+    return () => {
+      clearInterval(blinkInterval);
+    };
+  }, [isProfilePictureVisible, hasMogged]);
+
+  // Separate effect for the main animation sequence (only runs once)
+  useEffect(() => {
+    // Don't start the main sequence if profile picture is visible initially
+    if (isProfilePictureVisible) {
+      return;
+    }
 
     // Mog transition after 25 seconds with slide animation
     const mogTimeout = setTimeout(() => {
       setIsSliding(true);
       setIsBlinking(false); // Stop any current blink
-      if (blinkInterval) clearInterval(blinkInterval); // Stop blinking interval
       
       // Slide animation sequence
       const logoElement = document.querySelector('#header-logo') as HTMLElement;
@@ -67,32 +104,10 @@ export default function Header(): React.ReactElement {
       }
     }, 25000);
 
-    // First blink to sync with ProfilePicture
-    const initialBlink = setTimeout(() => {
-      if (!hasMogged) {
-        setIsBlinking(true);
-        setTimeout(() => {
-          setIsBlinking(false);
-          
-          // Start interval AFTER first blink completes
-          blinkInterval = setInterval(() => {
-            if (!hasMogged) {
-              setIsBlinking(true);
-              setTimeout(() => {
-                setIsBlinking(false);
-              }, 150);
-            }
-          }, 3500);
-        }, 150);
-      }
-    }, 2000);
-
     return () => {
-      clearTimeout(initialBlink);
       clearTimeout(mogTimeout);
-      if (blinkInterval) clearInterval(blinkInterval);
     };
-  }, [hasMogged]);
+  }, [isProfilePictureVisible]);
 
   return (
     <header 
@@ -104,7 +119,7 @@ export default function Header(): React.ReactElement {
     >
       <div className="flex justify-center py-4">
         <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-          <div className="flex justify-between items-center mr-[8px] sm:mr-0">
+          <div className="flex justify-between items-center">
             <a
               href="/"
               className="flex items-center transition-opacity duration-200 ease-in-out hover:opacity-75 overflow-hidden"
@@ -120,15 +135,19 @@ export default function Header(): React.ReactElement {
                       : "/img/milady-no-bg.png"
                 }
                 alt="douvy logo"
-                className="h-8 w-auto sm:h-10 transition-opacity duration-75"
+                className="h-8 w-auto sm:h-10 transition-all duration-300 ease-in-out ml-1 sm:ml-0"
                 width="32"
                 height="32"
-                style={{ transform: 'translateY(0)' }}
+                style={{ 
+                  transform: 'translateY(0)',
+                  opacity: isProfilePictureVisible ? 0 : 1,
+                  visibility: isProfilePictureVisible ? 'hidden' : 'visible'
+                }}
               />
             </a>
             <button
               onClick={toggleTheme}
-              className={`inline-block relative w-auto h-8 sm:h-10 rounded-md overflow-hidden border-y-2 border-x-2 border-b-solid transition-colors duration-300 ease-in-out font-vulf ${
+              className={`inline-block relative w-auto h-8 sm:h-10 rounded-md overflow-hidden border-y-2 border-x-2 border-b-solid transition-colors duration-300 ease-in-out font-vulf mr-1 sm:mr-0 ${
                 theme === 'dark' 
                   ? 'border-dark-border hover:border-dark-border-hover'
                   : 'border-light-border hover:border-light-border-hover'

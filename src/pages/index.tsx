@@ -73,6 +73,7 @@ const FilterButton = ({
 
 export default function Home(): React.ReactElement {
   const [activeFilter, setActiveFilter] = useState<FilterType>('All');
+  const [isProfilePictureVisible, setIsProfilePictureVisible] = useState<boolean>(true);
   const { theme } = useTheme();
 
   // Filter button handler
@@ -101,6 +102,52 @@ export default function Home(): React.ReactElement {
     }
   };
 
+
+  // Profile picture visibility observer
+  useEffect(() => {
+    let observer: IntersectionObserver | null = null;
+
+    const observeProfilePicture = (): void => {
+      // Look for the profile picture container using the same selector strategy as ProfilePicture component
+      const profileContainer = document.querySelector('.hero-image');
+      
+      if (!profileContainer) {
+        // If container not found, retry after a short delay
+        setTimeout(observeProfilePicture, 100);
+        return;
+      }
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            // Optimal timing: Profile picture is considered "visible" when more than 60% is in view
+            // This gives users more time to see the header milady while scrolling up
+            // and ensures the profile picture is substantially visible before header milady hides
+            const isVisible = entry.isIntersecting && entry.intersectionRatio > 0.6;
+            setIsProfilePictureVisible(isVisible);
+          });
+        },
+        {
+          // Reduced root margin for more precise timing - header milady appears when profile picture 
+          // is just starting to leave viewport, disappears when profile picture is well into view
+          rootMargin: '-20px 0px -20px 0px',
+          // Fine-grained thresholds for smooth detection around the 60% mark
+          threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+        }
+      );
+
+      observer.observe(profileContainer);
+    };
+
+    observeProfilePicture();
+
+    // Cleanup function
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+    };
+  }, []);
 
   // Add hotkey handler for social media buttons
   useEffect(() => {
@@ -151,7 +198,7 @@ export default function Home(): React.ReactElement {
         />
       </Head>
 
-      <Header />
+      <Header isProfilePictureVisible={isProfilePictureVisible} />
       <ScrollIndicator />
 
       {/* Hero Section - High Priority Content */}
