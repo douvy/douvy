@@ -50,8 +50,8 @@ const FilterButton = ({
         <span
           className={`flex items-center justify-center w-full h-full px-2 transition-colors duration-300 ease-in-out text-xs font-medium italic ${
             theme === "dark"
-              ? "text-white bg-active-bg hover:bg-active-bg-hover"
-              : "text-filter-active-text bg-filter-active-bg hover:bg-filter-active-bg-hover"
+              ? "text-white bg-active-bg hover:hover:bg-active-bg-hover"
+              : "text-filter-active-text bg-filter-active-bg hover:hover:bg-filter-active-bg-hover"
           }`}
         >
           {children}
@@ -73,8 +73,8 @@ const FilterButton = ({
       <span
         className={`flex items-center justify-center w-full h-full px-2 bg-transparent transition-colors duration-300 ease-in-out text-xs font-medium italic ${
           theme === "dark"
-            ? "text-white hover:bg-[#1f2126]"
-            : "text-filter-inactive-text hover:bg-filter-inactive-bg-hover"
+            ? "text-white hover:hover:bg-[#1f2126]"
+            : "text-filter-inactive-text hover:hover:bg-filter-inactive-bg-hover"
         }`}
       >
         {children}
