@@ -285,7 +285,7 @@ export default function Home(): React.ReactElement {
               {/* Clear any floats */}
               <div className="clear-both w-full"></div>
               <p
-                className={`pt-4 mt-5 leading-8 text-[15px] sm:text-[17px] italic ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
+                className={`pt-2 mt-4 leading-8 text-[15px] sm:text-[17px] italic ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
               >
                 Pattern-matching frontend dev with 7+ years in crypto, bringing
                 the rare ability to visualize blockchain concepts and create
