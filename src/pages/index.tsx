@@ -300,7 +300,7 @@ export default function Home(): React.ReactElement {
                 rapidly integrate it into design, development, and creative
                 work.
               </p>
-              <p className="flex items-center flex-wrap mt-8 mb-4">
+              <p className="flex items-center flex-wrap mt-10 mb-4">
                 <a
                   href="https://x.com/douvy_"
                   target="_blank"
