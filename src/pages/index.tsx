@@ -449,8 +449,8 @@ export default function Home(): React.ReactElement {
                           Built a crypto trading platform featuring leverage
                           trading, spot markets, and automated market funds with
                           6% APY. Crypto and fiat deposits and withdrawals.
-                          Developed with Next.js, TypeScript, and websocket
-                          infrastructure for live updates.
+                          Developed with Next.js, TypeScript, and websockets for
+                          live updates.
                         </p>
                       </div>
                     </div>
