@@ -107,7 +107,7 @@ export default function Home(): React.ReactElement {
       case "DeFi":
         return projectName === "Arriba"; // First project in DeFi view
       case "Tools":
-        return projectName === "BTCTooling"; // First project in Tools view
+        return projectName === "RemiliaNET"; // First project in Tools view
       case "NFT":
         return projectName === "dGenesis"; // First project in NFT view
       default:
@@ -525,12 +525,12 @@ export default function Home(): React.ReactElement {
           </div>
         )}
 
-        {/* dGenesis */}
-        {shouldShowProject("NFT") && (
+        {/* RemiliaNET */}
+        {shouldShowProject("Tools") && (
           <div className="flex flex-col items-center">
             <div className="w-full md:w-10/12 lg:w-8/12 px-4">
               <div
-                className={`w-dyn-list ${isFirstVisibleProject("dGenesis") ? "mt-12 sm:mt-6" : "mt-16 md:mt-24"}`}
+                className={`w-dyn-list ${isFirstVisibleProject("RemiliaNET") ? "mt-12 sm:mt-6" : "mt-16 md:mt-24"}`}
               >
                 <div className="project-preview-item w-dyn-item p-0 ml-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center mt-12 sm:mt-0">
@@ -541,12 +541,12 @@ export default function Home(): React.ReactElement {
                             className={`home-project-title leading-[38px] border-b pb-3 mr-10 tracking-[1.5px] ${theme === "dark" ? "text-highlight border-divider" : "text-[#2250c7] border-[#dde9f8]"}`}
                           >
                             <a
-                              href="https://dgenesis.io/"
+                              href="https://remiliastats.com/"
                               target="_blank"
                               rel="noreferrer"
                               className="transition-all duration-250"
                             >
-                              dGenesis
+                              RemiliaNET Stats
                             </a>
                           </h3>
                         </div>
@@ -555,13 +555,9 @@ export default function Home(): React.ReactElement {
                         <p
                           className={`description font-lora ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
                         >
-                          Co-founded project featuring community-owned
-                          generative art that sold out in two hours.
-                        </p>
-                        <p
-                          className={`description font-lora ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
-                        >
-                          First L2 bridgeable NFT on Arbitrum.
+                          Analytics and leaderboard platform. Real-time
+                          statistics, rankings, and detailed user profiles.
+                          Built with Next.js, TypeScript, and Tailwind.
                         </p>
                       </div>
                     </div>
@@ -613,17 +609,227 @@ export default function Home(): React.ReactElement {
                         }`}
                       >
                         <ProjectSlider
-                          id="dgenesis"
+                          id="remilianet"
                           images={[
                             {
-                              src: "/img/automatons.jpg",
-                              id: "automatons",
-                              alt: "automatons",
+                              src: "/img/remilianet-1.jpg",
+                              id: "remilianet-1",
+                              alt: "RemiliaNET",
                             },
                             {
-                              src: "/img/drips.jpg",
-                              id: "drips",
-                              alt: "drips",
+                              src: "/img/remilianet-2.jpg",
+                              id: "remilianet-2",
+                              alt: "RemiliaNET",
+                            },
+                          ]}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Bitcoin Dashboard */}
+        {shouldShowProject("Tools") && (
+          <div className="flex flex-col items-center">
+            <div className="w-full md:w-10/12 lg:w-8/12 px-4">
+              <div
+                className={`w-dyn-list ${isFirstVisibleProject("BitcoinDashboard") ? "mt-12 sm:mt-6" : "mt-16 md:mt-24"}`}
+              >
+                <div className="project-preview-item w-dyn-item p-0 ml-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center mt-12 sm:mt-0">
+                    <div className="inline-block">
+                      <div className="grid">
+                        <div className="project-title">
+                          <h3
+                            className={`home-project-title leading-[38px] border-b pb-3 mr-10 tracking-[1.5px] ${theme === "dark" ? "text-highlight border-divider" : "text-[#2250c7] border-[#dde9f8]"}`}
+                          >
+                            <a
+                              href="https://btctooling.com/"
+                              target="_blank"
+                              rel="noreferrer"
+                              className="transition-all duration-250"
+                            >
+                              Bitcoin Dashboard
+                            </a>
+                          </h3>
+                        </div>
+                      </div>
+                      <div className="project-description mb-4 sm:mb-0">
+                        <p
+                          className={`description font-lora ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
+                        >
+                          A Bitcoin dashboard providing real-time price data, a
+                          chart, market summary, orderbook, Twitter/X insights
+                          and halving countdown data. Built with React, Next.js,
+                          TypeScript using CoinGecko and Blockchain.info APIs
+                          with WebSockets for real-time updates.
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      className={`mr-3 sm:mr-0 mt-4 sm:mt-0 relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out ${
+                        theme === "dark"
+                          ? "border-outline hover:border-[#415b85] dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
+                          : "border-[#dbdde1] hover:border-[#9ac4fd] hover:shadow-[6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
+                      }`}
+                    >
+                      {/* Diagonal stripe pattern background that covers the entire border area */}
+                      <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
+                        <svg
+                          className="w-full h-full"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <defs>
+                            <pattern
+                              id="diagonal-pattern"
+                              width="4"
+                              height="4"
+                              patternUnits="userSpaceOnUse"
+                              patternTransform="rotate(45)"
+                            >
+                              <line
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="4"
+                                stroke="#3B82F6"
+                                strokeWidth="1.5"
+                                opacity="0.35"
+                              ></line>
+                            </pattern>
+                          </defs>
+                          <rect
+                            width="100%"
+                            height="100%"
+                            fill="url(#diagonal-pattern)"
+                          ></rect>
+                        </svg>
+                      </div>
+                      {/* Content container with ProjectSlider */}
+                      <div
+                        className={`relative z-1 border rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto ${
+                          theme === "dark"
+                            ? "border-gray-600/80"
+                            : "border-gray-400/60"
+                        }`}
+                      >
+                        <ProjectSlider
+                          id="btctooling"
+                          images={[
+                            {
+                              src: "/img/btc-tooling.jpg",
+                              id: "btc-tooling",
+                              alt: "Bitcoin Dashboard",
+                            },
+                            {
+                              src: "/img/btc-tooling-1.jpg",
+                              id: "btc-tooling-1",
+                              alt: "Bitcoin Dashboard",
+                            },
+                          ]}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Cantoscan */}
+        {shouldShowProject("Tools") && (
+          <div className="flex flex-col items-center">
+            <div className="w-full md:w-10/12 lg:w-8/12 px-4">
+              <div
+                className={`w-dyn-list ${isFirstVisibleProject("Cantoscan") ? "mt-12 sm:mt-6" : "mt-16 md:mt-24"}`}
+              >
+                <div className="project-preview-item w-dyn-item p-0 ml-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center mt-12 sm:mt-0">
+                    <div className="inline-block">
+                      <div className="grid">
+                        <div className="project-title">
+                          <h3
+                            className={`home-project-title leading-[38px] border-b pb-3 mr-10 tracking-[1.5px] ${theme === "dark" ? "text-highlight border-divider" : "text-[#2250c7] border-[#dde9f8]"}`}
+                          >
+                            Cantoscan
+                          </h3>
+                        </div>
+                      </div>
+                      <div className="project-description mb-4 sm:mb-0">
+                        <p
+                          className={`description font-lora ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
+                        >
+                          Custom-built blockchain explorer with optimized
+                          indexing for real-time transaction, address, and smart
+                          contract data. Engineered in two weeks, selected as
+                          Grand Prize winner of Canto Hackathon Ch.1, S5.
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      className={`mr-3 sm:mr-0 mt-4 sm:mt-0 relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out ${
+                        theme === "dark"
+                          ? "border-outline hover:border-[#415b85] dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
+                          : "border-[#dbdde1] hover:border-[#9ac4fd] hover:shadow-[6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
+                      }`}
+                    >
+                      {/* Diagonal stripe pattern background that covers the entire border area */}
+                      <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
+                        <svg
+                          className="w-full h-full"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <defs>
+                            <pattern
+                              id="diagonal-pattern"
+                              width="4"
+                              height="4"
+                              patternUnits="userSpaceOnUse"
+                              patternTransform="rotate(45)"
+                            >
+                              <line
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="4"
+                                stroke="#3B82F6"
+                                strokeWidth="1.5"
+                                opacity="0.35"
+                              ></line>
+                            </pattern>
+                          </defs>
+                          <rect
+                            width="100%"
+                            height="100%"
+                            fill="url(#diagonal-pattern)"
+                          ></rect>
+                        </svg>
+                      </div>
+                      {/* Content container with ProjectSlider */}
+                      <div
+                        className={`relative z-1 border rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto ${
+                          theme === "dark"
+                            ? "border-gray-600/80"
+                            : "border-gray-400/60"
+                        }`}
+                      >
+                        <ProjectSlider
+                          id="cantoscan"
+                          images={[
+                            {
+                              src: "/img/cantoscan.jpg",
+                              id: "cantoscan",
+                              alt: "cantoscan",
+                            },
+                            {
+                              src: "/img/cantoscan-1.jpg",
+                              id: "cantoscan-1",
+                              alt: "cantoscan",
                             },
                           ]}
                         />
@@ -746,29 +952,22 @@ export default function Home(): React.ReactElement {
           </div>
         )}
 
-        {/* BTC Tooling */}
-        {shouldShowProject("Tools") && (
+        {/* dGenesis */}
+        {shouldShowProject("NFT") && (
           <div className="flex flex-col items-center">
             <div className="w-full md:w-10/12 lg:w-8/12 px-4">
               <div
-                className={`w-dyn-list ${isFirstVisibleProject("BTCTooling") ? "mt-12 sm:mt-6" : "mt-16 md:mt-24"}`}
+                className={`w-dyn-list ${isFirstVisibleProject("dGenesis") ? "mt-12 sm:mt-6" : "mt-16 md:mt-24"}`}
               >
                 <div className="project-preview-item w-dyn-item p-0 ml-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
+                  <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center mt-12 sm:mt-0">
                     <div className="inline-block">
                       <div className="grid">
                         <div className="project-title">
                           <h3
                             className={`home-project-title leading-[38px] border-b pb-3 mr-10 tracking-[1.5px] ${theme === "dark" ? "text-highlight border-divider" : "text-[#2250c7] border-[#dde9f8]"}`}
                           >
-                            <a
-                              href="https://btctooling.com/"
-                              target="_blank"
-                              rel="noreferrer"
-                              className="transition-all duration-250"
-                            >
-                              BTC Tooling
-                            </a>
+                            dGenesis
                           </h3>
                         </div>
                       </div>
@@ -776,16 +975,18 @@ export default function Home(): React.ReactElement {
                         <p
                           className={`description font-lora ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
                         >
-                          A Bitcoin dashboard providing real-time price data, a
-                          chart, market summary, orderbook, Twitter/X insights
-                          and halving countdown data. Built with React, Next.js,
-                          TypeScript using CoinGecko and Blockchain.info APIs
-                          with WebSockets for real-time updates.
+                          Co-founded project featuring community-owned
+                          generative art that sold out in two hours.
+                        </p>
+                        <p
+                          className={`description font-lora ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
+                        >
+                          First L2 bridgeable NFT on Arbitrum.
                         </p>
                       </div>
                     </div>
                     <div
-                      className={`mr-3 sm:mr-0 mt-4 relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out ${
+                      className={`mr-3 sm:mr-0 mt-4 sm:mt-0 relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out ${
                         theme === "dark"
                           ? "border-outline hover:border-[#415b85] dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
                           : "border-[#dbdde1] hover:border-[#9ac4fd] hover:shadow-[6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
@@ -832,17 +1033,17 @@ export default function Home(): React.ReactElement {
                         }`}
                       >
                         <ProjectSlider
-                          id="btctooling"
+                          id="dgenesis"
                           images={[
                             {
-                              src: "/img/btc-tooling.jpg",
-                              id: "btc-tooling",
-                              alt: "BTC Tooling",
+                              src: "/img/automatons.jpg",
+                              id: "automatons",
+                              alt: "automatons",
                             },
                             {
-                              src: "/img/btc-tooling-1.jpg",
-                              id: "btc-tooling-1",
-                              alt: "BTC Tooling",
+                              src: "/img/drips.jpg",
+                              id: "drips",
+                              alt: "drips",
                             },
                           ]}
                         />
@@ -962,98 +1163,6 @@ export default function Home(): React.ReactElement {
           </div>
         )}
 
-        {/* Cantoscan */}
-        {shouldShowProject("Tools") && (
-          <div className="flex flex-col items-center" id="project-last">
-            <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-              <div className="home-teaser-list mt-16 md:mt-24 w-dyn-list">
-                <div className="project-preview-item w-dyn-item p-0 ml-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center">
-                    <div className="inline-block">
-                      <div className="grid">
-                        <div className="project-title">
-                          <h3
-                            className={`home-project-title leading-[38px] border-b pb-3 mr-10 tracking-[1.5px] mt-4 sm:mt-0 ${theme === "dark" ? "text-highlight border-divider" : "text-[#2250c7] border-[#dde9f8]"}`}
-                          >
-                            Cantoscan
-                          </h3>
-                        </div>
-                      </div>
-                      <div className="project-description mb-4 sm:mb-0">
-                        <p
-                          className={`description font-lora ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
-                        >
-                          Custom-built blockchain explorer with optimized
-                          indexing for real-time transaction, address, and smart
-                          contract data. Engineered in two weeks, selected as
-                          Grand Prize winner of Canto Hackathon Ch.1, S5.
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      className={`mr-3 sm:mr-0 mt-4 relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out ${
-                        theme === "dark"
-                          ? "border-outline hover:border-[#415b85] dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
-                          : "border-[#dbdde1] hover:border-[#9ac4fd] hover:shadow-[6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
-                      }`}
-                    >
-                      {/* Diagonal stripe pattern background that covers the entire border area */}
-                      <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
-                        <svg
-                          className="w-full h-full"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <defs>
-                            <pattern
-                              id="diagonal-pattern"
-                              width="4"
-                              height="4"
-                              patternUnits="userSpaceOnUse"
-                              patternTransform="rotate(45)"
-                            >
-                              <line
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="4"
-                                stroke="#3B82F6"
-                                strokeWidth="1.5"
-                                opacity="0.35"
-                              ></line>
-                            </pattern>
-                          </defs>
-                          <rect
-                            width="100%"
-                            height="100%"
-                            fill="url(#diagonal-pattern)"
-                          ></rect>
-                        </svg>
-                      </div>
-                      {/* Content container with ProjectSlider */}
-                      <div className="relative z-1 border dark:border-gray-600/80 rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto">
-                        <ProjectSlider
-                          id="cantoscan"
-                          images={[
-                            {
-                              src: "/img/cantoscan.jpg",
-                              id: "cantoscan",
-                              alt: "cantoscan",
-                            },
-                            {
-                              src: "/img/cantoscan-1.jpg",
-                              id: "cantoscan-1",
-                              alt: "cantoscan",
-                            },
-                          ]}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       <Footer />
