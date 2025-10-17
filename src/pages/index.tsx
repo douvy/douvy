@@ -525,6 +525,110 @@ export default function Home(): React.ReactElement {
           </div>
         )}
 
+        {/* dGenesis */}
+        {shouldShowProject("NFT") && (
+          <div className="flex flex-col items-center">
+            <div className="w-full md:w-10/12 lg:w-8/12 px-4">
+              <div
+                className={`w-dyn-list ${isFirstVisibleProject("dGenesis") ? "mt-12 sm:mt-6" : "mt-16 md:mt-24"}`}
+              >
+                <div className="project-preview-item w-dyn-item p-0 ml-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center mt-12 sm:mt-0">
+                    <div className="inline-block">
+                      <div className="grid">
+                        <div className="project-title">
+                          <h3
+                            className={`home-project-title leading-[38px] border-b pb-3 mr-10 tracking-[1.5px] ${theme === "dark" ? "text-highlight border-divider" : "text-[#2250c7] border-[#dde9f8]"}`}
+                          >
+                            dGenesis
+                          </h3>
+                        </div>
+                      </div>
+                      <div className="project-description mb-4 sm:mb-0">
+                        <p
+                          className={`description font-lora ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
+                        >
+                          Co-founded project featuring community-owned
+                          generative art that sold out in two hours.
+                        </p>
+                        <p
+                          className={`description font-lora ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
+                        >
+                          First L2 bridgeable NFT on Arbitrum.
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      className={`mr-3 sm:mr-0 mt-4 sm:mt-0 relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out ${
+                        theme === "dark"
+                          ? "border-outline hover:border-[#415b85] dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
+                          : "border-[#dbdde1] hover:border-[#9ac4fd] hover:shadow-[6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
+                      }`}
+                    >
+                      {/* Diagonal stripe pattern background that covers the entire border area */}
+                      <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
+                        <svg
+                          className="w-full h-full"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <defs>
+                            <pattern
+                              id="diagonal-pattern"
+                              width="4"
+                              height="4"
+                              patternUnits="userSpaceOnUse"
+                              patternTransform="rotate(45)"
+                            >
+                              <line
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="4"
+                                stroke="#3B82F6"
+                                strokeWidth="1.5"
+                                opacity="0.35"
+                              ></line>
+                            </pattern>
+                          </defs>
+                          <rect
+                            width="100%"
+                            height="100%"
+                            fill="url(#diagonal-pattern)"
+                          ></rect>
+                        </svg>
+                      </div>
+                      {/* Content container with ProjectSlider */}
+                      <div
+                        className={`relative z-1 border rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto ${
+                          theme === "dark"
+                            ? "border-gray-600/80"
+                            : "border-gray-400/60"
+                        }`}
+                      >
+                        <ProjectSlider
+                          id="dgenesis"
+                          images={[
+                            {
+                              src: "/img/automatons.jpg",
+                              id: "automatons",
+                              alt: "automatons",
+                            },
+                            {
+                              src: "/img/drips.jpg",
+                              id: "drips",
+                              alt: "drips",
+                            },
+                          ]}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* RemiliaNET */}
         {shouldShowProject("Tools") && (
           <div className="flex flex-col items-center">
@@ -653,7 +757,7 @@ export default function Home(): React.ReactElement {
                               rel="noreferrer"
                               className="transition-all duration-250"
                             >
-                              Bitcoin Dashboard
+                              BTC Tooling
                             </a>
                           </h3>
                         </div>
@@ -940,110 +1044,6 @@ export default function Home(): React.ReactElement {
                               src: "/img/zaar-flip-1.jpg",
                               id: "zaar-flip-1",
                               alt: "Zaar Flip",
-                            },
-                          ]}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* dGenesis */}
-        {shouldShowProject("NFT") && (
-          <div className="flex flex-col items-center">
-            <div className="w-full md:w-10/12 lg:w-8/12 px-4">
-              <div
-                className={`w-dyn-list ${isFirstVisibleProject("dGenesis") ? "mt-12 sm:mt-6" : "mt-16 md:mt-24"}`}
-              >
-                <div className="project-preview-item w-dyn-item p-0 ml-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center mt-12 sm:mt-0">
-                    <div className="inline-block">
-                      <div className="grid">
-                        <div className="project-title">
-                          <h3
-                            className={`home-project-title leading-[38px] border-b pb-3 mr-10 tracking-[1.5px] ${theme === "dark" ? "text-highlight border-divider" : "text-[#2250c7] border-[#dde9f8]"}`}
-                          >
-                            dGenesis
-                          </h3>
-                        </div>
-                      </div>
-                      <div className="project-description mb-4 sm:mb-0">
-                        <p
-                          className={`description font-lora ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
-                        >
-                          Co-founded project featuring community-owned
-                          generative art that sold out in two hours.
-                        </p>
-                        <p
-                          className={`description font-lora ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
-                        >
-                          First L2 bridgeable NFT on Arbitrum.
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      className={`mr-3 sm:mr-0 mt-4 sm:mt-0 relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out ${
-                        theme === "dark"
-                          ? "border-outline hover:border-[#415b85] dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
-                          : "border-[#dbdde1] hover:border-[#9ac4fd] hover:shadow-[6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
-                      }`}
-                    >
-                      {/* Diagonal stripe pattern background that covers the entire border area */}
-                      <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
-                        <svg
-                          className="w-full h-full"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <defs>
-                            <pattern
-                              id="diagonal-pattern"
-                              width="4"
-                              height="4"
-                              patternUnits="userSpaceOnUse"
-                              patternTransform="rotate(45)"
-                            >
-                              <line
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="4"
-                                stroke="#3B82F6"
-                                strokeWidth="1.5"
-                                opacity="0.35"
-                              ></line>
-                            </pattern>
-                          </defs>
-                          <rect
-                            width="100%"
-                            height="100%"
-                            fill="url(#diagonal-pattern)"
-                          ></rect>
-                        </svg>
-                      </div>
-                      {/* Content container with ProjectSlider */}
-                      <div
-                        className={`relative z-1 border rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto ${
-                          theme === "dark"
-                            ? "border-gray-600/80"
-                            : "border-gray-400/60"
-                        }`}
-                      >
-                        <ProjectSlider
-                          id="dgenesis"
-                          images={[
-                            {
-                              src: "/img/automatons.jpg",
-                              id: "automatons",
-                              alt: "automatons",
-                            },
-                            {
-                              src: "/img/drips.jpg",
-                              id: "drips",
-                              alt: "drips",
                             },
                           ]}
                         />
