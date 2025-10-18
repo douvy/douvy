@@ -288,9 +288,9 @@ export default function Home(): React.ReactElement {
                 className={`pt-2 mt-4 leading-8 text-[15px] sm:text-[17px] italic ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
               >
                 Pattern-matching frontend dev with 7+ years in crypto, bringing
-                the rare ability to visualize blockchain concepts and create
-                interfaces that prevent broken product development. We can build
-                protocols that are better solutions than financial institutions.
+                the rare ability to visualize concepts and create interfaces
+                that prevent broken product development. We can build protocols
+                that are better solutions than financial institutions.
               </p>
               <p
                 className={`mt-8 leading-8 text-[15px] sm:text-[17px] italic mb-8 sm:mb-0 ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
@@ -1162,7 +1162,6 @@ export default function Home(): React.ReactElement {
             </div>
           </div>
         )}
-
       </div>
 
       <Footer />
