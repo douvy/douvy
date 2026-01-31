@@ -110,15 +110,19 @@ export default function Header({ isProfilePictureVisible }: HeaderProps): React.
   }, [isProfilePictureVisible]);
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ease-in-out border-b ${
-        theme === 'dark' 
-          ? 'bg-[#111216] border-[#20252c]'
-          : 'bg-[#f5f5f3] border-[#dde9f7]'
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ease-in-out ${
+        theme === 'dark'
+          ? 'bg-[#111216]'
+          : 'bg-[#f5f5f3]'
       }`}
     >
       <div className="flex justify-center py-4">
-        <div className="w-full md:w-10/12 lg:w-8/12 px-4">
+        <div className={`w-full md:w-10/12 lg:w-8/12 px-4 pb-4 border-b transition-colors duration-300 ease-in-out ${
+          theme === 'dark'
+            ? 'border-[#20252c]'
+            : 'border-[#dde9f7]'
+        }`}>
           <div className="flex justify-between items-center">
             <a
               href="/"
