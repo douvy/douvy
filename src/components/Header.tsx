@@ -118,7 +118,7 @@ export default function Header({ isProfilePictureVisible }: HeaderProps): React.
       }`}
     >
       <div className="flex justify-center py-4">
-        <div className={`w-full md:w-10/12 lg:w-8/12 px-4 pb-4 border-b transition-colors duration-300 ease-in-out ${
+        <div className={`w-full md:w-10/12 lg:w-8/12 mx-4 md:mx-0 md:px-4 pb-4 border-b transition-colors duration-300 ease-in-out ${
           theme === 'dark'
             ? 'border-[#20252c]'
             : 'border-[#dde9f7]'
