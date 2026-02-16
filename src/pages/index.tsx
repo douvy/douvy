@@ -556,10 +556,10 @@ export default function Home(): React.ReactElement {
                         <p
                           className={`description font-lora ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
                         >
-                          Autonomous agent that makes NFL and NBA prop picks. Scrapes
-                          projections, injuries, news, DK lines. Claude picks
-                          through hundreds and only bets when it's confident.
-                          Kelly sizing that tightens when it's losing.
+                          Autonomous agent for NFL/NBA prop picks. Pulls
+                          projections, injuries, news, DK lines. Claude
+                          synthesizes and only bets when it's confident. Kelly
+                          sizing that tightens during drawdowns.
                         </p>
                         <p
                           className={`description font-lora mt-2 ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
