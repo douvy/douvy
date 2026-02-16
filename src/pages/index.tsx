@@ -617,8 +617,8 @@ export default function Home(): React.ReactElement {
                           id="propix"
                           images={[
                             {
-                              src: "/img/propix-1.jpg",
-                              id: "propix-1",
+                              src: "/img/propix.jpg",
+                              id: "propix",
                               alt: "Propix Agent",
                             },
                           ]}
