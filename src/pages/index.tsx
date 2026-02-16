@@ -21,7 +21,7 @@ const ProjectSlider = dynamic(() => import("@/components/ProjectSlider"), {
   ),
 });
 
-type FilterType = "All" | "DeFi" | "Tools" | "NFT";
+type FilterType = "All" | "AI" | "DeFi" | "Tools" | "NFT";
 
 // Filter button component
 const FilterButton = ({
@@ -104,6 +104,8 @@ export default function Home(): React.ReactElement {
     switch (activeFilter) {
       case "All":
         return projectName === "Arriba"; // First project in All view
+      case "AI":
+        return projectName === "Propix Agent"; // First project in AI view
       case "DeFi":
         return projectName === "Arriba"; // First project in DeFi view
       case "Tools":
@@ -132,7 +134,7 @@ export default function Home(): React.ReactElement {
       observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            // Optimal timing: Profile picture is considered "visible" when more than 60% is in view
+            /// Optimal timing: Profile picture is considered "visible" when more than 60% is in view
             // This gives users more time to see the header milady while scrolling up
             // and ensures the profile picture is substantially visible before header milady hides
             const isVisible =
@@ -388,6 +390,14 @@ export default function Home(): React.ReactElement {
                   All
                 </FilterButton>
                 <FilterButton
+                  filter="AI"
+                  isActive={activeFilter === "AI"}
+                  onClick={handleFilterClick}
+                  theme={theme}
+                >
+                  AI
+                </FilterButton>
+                <FilterButton
                   filter="DeFi"
                   isActive={activeFilter === "DeFi"}
                   onClick={handleFilterClick}
@@ -511,6 +521,105 @@ export default function Home(): React.ReactElement {
                               src: "/img/arriba-1.jpg",
                               id: "arriba-1",
                               alt: "Arriba",
+                            },
+                          ]}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Propix Agent */}
+        {shouldShowProject("AI") && (
+          <div className="flex flex-col items-center">
+            <div className="w-full md:w-10/12 lg:w-8/12 px-4">
+              <div
+                className={`w-dyn-list ${isFirstVisibleProject("Propix Agent") ? "mt-12 sm:mt-6" : "mt-16 md:mt-24"}`}
+              >
+                <div className="project-preview-item w-dyn-item p-0 ml-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:items-center mt-12 sm:mt-0">
+                    <div className="inline-block">
+                      <div className="grid">
+                        <div className="project-title">
+                          <h3
+                            className={`home-project-title leading-[38px] border-b pb-3 mr-10 tracking-[1.5px] ${theme === "dark" ? "text-highlight border-divider" : "text-[#2250c7] border-[#dde9f8]"}`}
+                          >
+                            Propix Agent
+                          </h3>
+                        </div>
+                      </div>
+                      <div className="project-description mb-4 sm:mb-0">
+                        <p
+                          className={`description font-lora ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
+                        >
+                          Autonomous agent that makes NFL and NBA prop picks. Scrapes
+                          projections, injuries, news, DK lines. Claude filters hundreds down to high-confidence
+                          plays; sometimes none. Kelly sizing that tightens when it's
+                          losing. Recalibrates edge thresholds weekly.
+                        </p>
+                        <p
+                          className={`description font-lora mt-2 ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
+                        >
+                          49-30. 62% win rate. +16% ROI.
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      className={`mr-3 sm:mr-0 mt-4 sm:mt-0 relative border rounded-sm p-2.5 group overflow-clip transition-all duration-300 ease-in-out ${
+                        theme === "dark"
+                          ? "border-outline hover:border-[#415b85] dark:shadow-[5px_5px_0_hsla(219,_90%,_60%,_0.15)] dark:hover:!border-blue-400/50 dark:hover:[box-shadow:_6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
+                          : "border-[#dbdde1] hover:border-[#9ac4fd] hover:shadow-[6px_6px_0_hsla(219,_93%,_60%,_0.15),-6px_-6px_0_hsla(219,_93%,_80%,_0.08)]"
+                      }`}
+                    >
+                      <div className="absolute inset-0 -z-1 z-[-1] pointer-events-none">
+                        <svg
+                          className="w-full h-full"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <defs>
+                            <pattern
+                              id="diagonal-pattern-propix"
+                              width="4"
+                              height="4"
+                              patternUnits="userSpaceOnUse"
+                              patternTransform="rotate(45)"
+                            >
+                              <line
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="4"
+                                stroke="#3B82F6"
+                                strokeWidth="1.5"
+                                opacity="0.35"
+                              ></line>
+                            </pattern>
+                          </defs>
+                          <rect
+                            width="100%"
+                            height="100%"
+                            fill="url(#diagonal-pattern-propix)"
+                          ></rect>
+                        </svg>
+                      </div>
+                      <div
+                        className={`relative z-1 border rounded-[2px] overflow-hidden transition-colors duration-300 ease-in-out leading-[0] text-[0] h-auto ${
+                          theme === "dark"
+                            ? "border-gray-600/80"
+                            : "border-gray-400/60"
+                        }`}
+                      >
+                        <ProjectSlider
+                          id="propix"
+                          images={[
+                            {
+                              src: "/img/propix.jpg",
+                              id: "propix",
+                              alt: "Propix Agent",
                             },
                           ]}
                         />
