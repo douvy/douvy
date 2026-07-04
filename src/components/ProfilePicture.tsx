@@ -1,50 +1,41 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
-// Pre-load these images at build time
-const imageProps = {
-  width: 180,
-  height: 180,
-  priority: true,
-  quality: 95
-};
-
-// Define all avatar image sources - declared outside component to prevent re-creation
+// Avatar image sources - declared outside component to prevent re-creation
 const normalSrc = '/img/milady-no-bg.png';
-const blinkSrc = '/img/milady-blink.png'; 
+const blinkSrc = '/img/milady-blink.png';
 const mouthOpenSrc = '/img/milady-mouth-open.png';
 const glassesSrc = '/img/milady-glasses.png';
 const glassesBlinkSrc = '/img/milady-glasses-blink.png';
 const haloSrc = '/img/milady-halo.png';
 const haloBlinkSrc = '/img/milady-blink-halo.png';
 
-// Animation state interface
+const allSrcs = [normalSrc, blinkSrc, mouthOpenSrc, glassesSrc, glassesBlinkSrc, haloSrc, haloBlinkSrc];
+
 interface AnimationState {
   isBlinking: boolean;
   isMouthMoving: boolean;
   isSliding: boolean;
   hasGlasses: boolean;
   hasHalo: boolean;
-  slideCount: number;
-  mouthMoveCount: number;
 }
 
 // NEVER touch background image after it loads - it causes glitches
-// Create a preloader that tracks image loading status
+// Preload every animation frame so src swaps never flash
 const preloadImages = (): Promise<string[]> => {
   if (typeof window === 'undefined') return Promise.resolve([]);
-  
-  // Create a promise for each image to track when it's fully loaded
-  const imagePromises = [normalSrc, blinkSrc, mouthOpenSrc, glassesSrc, glassesBlinkSrc, haloSrc, haloBlinkSrc].map(src => {
-    return new Promise<string>((resolve, reject) => {
-      const img = new window.Image();
-      img.onload = () => resolve(src);
-      img.onerror = () => reject(`Failed to load ${src}`);
-      img.src = src;
-    });
-  });
-  
-  return Promise.all(imagePromises);
+
+  return Promise.all(
+    allSrcs.map(
+      (src) =>
+        new Promise<string>((resolve, reject) => {
+          const img = new window.Image();
+          img.onload = () => resolve(src);
+          img.onerror = () => reject(`Failed to load ${src}`);
+          img.src = src;
+        })
+    )
+  );
 };
 
 export default function ProfilePicture(): React.ReactElement {
@@ -53,28 +44,22 @@ export default function ProfilePicture(): React.ReactElement {
   const [animationsStarted, setAnimationsStarted] = useState<boolean>(false);
   const [imagesPreloaded, setImagesPreloaded] = useState<boolean>(false);
   const pfpRef = useRef<HTMLDivElement>(null);
-  const heroImageRef = useRef<HTMLDivElement>(null);
-  
-  // Animation state maintained in refs to prevent re-renders
+
+  // Animation state maintained in a ref to prevent re-renders
   const stateRef = useRef<AnimationState>({
     isBlinking: false,
     isMouthMoving: false,
     isSliding: false,
     hasGlasses: false,
-    hasHalo: false,
-    slideCount: 0,
-    mouthMoveCount: 0
+    hasHalo: false
   });
-  
-  // First, preload all animation images 
+
+  // First, preload all animation images
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    
+
     preloadImages()
-      .then(() => {
-        setImagesPreloaded(true);
-        // Images preloaded successfully
-      })
+      .then(() => setImagesPreloaded(true))
       .catch(err => {
         console.error('Error preloading images:', err);
         // Still set as true so animations can eventually start
@@ -85,228 +70,121 @@ export default function ProfilePicture(): React.ReactElement {
   // Start animation after everything is fully loaded
   useEffect(() => {
     if (!isLoaded || !imagesPreloaded || animationsStarted) return;
-    
-    // Add a small delay before starting animations to ensure
-    // everything is fully loaded and rendered
+
+    let cleanupTimers: (() => void) | undefined;
+
+    // Small delay before starting animations so everything is fully rendered
     const startupDelay = setTimeout(() => {
       setAnimationsStarted(true);
-      
-      // Function to update the image source
-      function updateImage(newSrc: string): void {
-        setCurrentSrc(newSrc);
-      }
-      
-      // Blink function with fixed timing
+      const state = stateRef.current;
+
+      // Blink with fixed timing (200ms is good for a natural blink)
       function blink(): void {
-        if (stateRef.current.isBlinking || stateRef.current.isSliding) return;
-        
-        stateRef.current.isBlinking = true;
-        
-        // Choose the right blink image
-        if (stateRef.current.hasHalo) {
-          updateImage(haloBlinkSrc);
-        } else if (stateRef.current.hasGlasses) {
-          updateImage(glassesBlinkSrc);
-        } else {
-          updateImage(blinkSrc);
-        }
-        
-        // Set fixed end time (200ms is good for natural blink)
+        if (state.isBlinking || state.isSliding) return;
+
+        state.isBlinking = true;
+        setCurrentSrc(state.hasHalo ? haloBlinkSrc : state.hasGlasses ? glassesBlinkSrc : blinkSrc);
+
         setTimeout(() => {
-          if (stateRef.current.hasHalo) {
-            updateImage(haloSrc);
-          } else if (stateRef.current.hasGlasses) {
-            updateImage(glassesSrc);
-          } else {
-            updateImage(normalSrc);
-          }
-          stateRef.current.isBlinking = false;
+          setCurrentSrc(state.hasHalo ? haloSrc : state.hasGlasses ? glassesSrc : normalSrc);
+          state.isBlinking = false;
         }, 200);
       }
-      
-      // No need for additional preloading here as we already preloaded everything
-      
+
       function moveMouth(): void {
-        if (stateRef.current.isMouthMoving || stateRef.current.isSliding || stateRef.current.hasGlasses) return;
-        
-        stateRef.current.isMouthMoving = true;
-        stateRef.current.mouthMoveCount++;
-        
-        updateImage(mouthOpenSrc);
-        
+        if (state.isMouthMoving || state.isSliding || state.hasGlasses) return;
+
+        state.isMouthMoving = true;
+        setCurrentSrc(mouthOpenSrc);
+
         setTimeout(() => {
-          updateImage(normalSrc);
-          stateRef.current.isMouthMoving = false;
+          setCurrentSrc(normalSrc);
+          state.isMouthMoving = false;
         }, 800);
       }
-      
-      // Slide animation
-      function slideDown(): void {
-        if (stateRef.current.isSliding || !pfpRef.current) return;
-        
-        stateRef.current.isSliding = true;
+
+      // Shared slide animation: slide down out of view, swap the image while
+      // hidden (onHidden), bounce back in, then run onSettled once landed.
+      function slideSwap(onHidden: () => void, onSettled?: () => void): void {
+        if (state.isSliding || !pfpRef.current) return;
+
+        state.isSliding = true;
         const pfp = pfpRef.current;
         const img = pfp.querySelector('img');
-        
+
         // Remove border during transition
         if (img) img.style.border = "none";
-        
-        // Set proper transitions
+
         pfp.style.transition = "transform 0.8s cubic-bezier(0.42, 0, 0.58, 1)";
         pfp.style.transform = "translateY(100%)";
-        
+
         setTimeout(() => {
-          // Move up out of view
+          // Reposition above the frame while hidden and swap the image
           pfp.style.transition = "none";
           pfp.style.transform = "translateY(-100%)";
-          
-          stateRef.current.slideCount++;
-          if (stateRef.current.slideCount === 1) {
-            stateRef.current.hasGlasses = true;
-          }
-          
-          updateImage(glassesSrc);
-          
-          // Force reflow
+          onHidden();
+
+          // Force reflow so the position change applies before animating back in
           pfp.offsetHeight;
-          
-          // Bounce back in
+
           pfp.style.transition = "transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
-          
+
           setTimeout(() => {
             pfp.style.transform = "translateY(0)";
-            
+
             setTimeout(() => {
               // Restore border after animation completes
               if (img) img.style.border = "";
-              stateRef.current.isSliding = false;
+              state.isSliding = false;
+              onSettled?.();
             }, 700);
           }, 50);
         }, 800);
       }
-      
-      // Blink immediately on startup
+
+      // Blink immediately on startup, then every 3.5 seconds
       blink();
-      
-      // Then set interval for exactly 3.5 seconds
       const blinkInterval = setInterval(blink, 3500);
-      
-      // Schedule mouth movements with extra delay for first one (giving browser time to settle)
-      const firstMouthTimeout = setTimeout(moveMouth, 6000); // Increased from 5000 to 6000
+
+      // Mouth movements, with extra delay for the first (lets the browser settle)
+      const firstMouthTimeout = setTimeout(moveMouth, 6000);
       const secondMouthTimeout = setTimeout(moveMouth, 10000);
-      
-      // Glasses animation
+
+      // Sequence: glasses at 15s, halo at 35s, restart at 45s (halo shown 10s)
       const glassesTimeout = setTimeout(() => {
-        slideDown();
+        slideSwap(() => {
+          state.hasGlasses = true;
+          setCurrentSrc(glassesSrc);
+        });
       }, 15000);
-      
-      // Halo slide animation - same pattern as glasses
-      function slideHalo(): void {
-        if (stateRef.current.isSliding || !pfpRef.current) return;
-        
-        stateRef.current.isSliding = true;
-        const pfp = pfpRef.current;
-        const img = pfp.querySelector('img');
-        
-        // Remove border during transition
-        if (img) img.style.border = "none";
-        
-        // Set proper transitions
-        pfp.style.transition = "transform 0.8s cubic-bezier(0.42, 0, 0.58, 1)";
-        pfp.style.transform = "translateY(100%)";
-        
-        setTimeout(() => {
-          // Move up out of view
-          pfp.style.transition = "none";
-          pfp.style.transform = "translateY(-100%)";
-          
-          stateRef.current.hasHalo = true;
-          
-          updateImage(haloSrc);
-          
-          // Force reflow
-          pfp.offsetHeight;
-          
-          // Bounce back in
-          pfp.style.transition = "transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
-          
-          setTimeout(() => {
-            pfp.style.transform = "translateY(0)";
-            
-            setTimeout(() => {
-              // Restore border after animation completes
-              if (img) img.style.border = "";
-              stateRef.current.isSliding = false;
-            }, 700);
-          }, 50);
-        }, 800);
-      }
-      
-      // Halo animation timing
+
       const haloTimeout = setTimeout(() => {
-        slideHalo();
+        slideSwap(() => {
+          state.hasHalo = true;
+          setCurrentSrc(haloSrc);
+        });
       }, 35000);
-      
-      // Loop restart function - slide out halo, slide in normal to restart
-      function restartSequence(): void {
-        if (stateRef.current.isSliding || !pfpRef.current) return;
-        
-        stateRef.current.isSliding = true;
-        const pfp = pfpRef.current;
-        const img = pfp.querySelector('img');
-        
-        // Remove border during transition
-        if (img) img.style.border = "none";
-        
-        // Slide out the halo milady
-        pfp.style.transition = "transform 0.8s cubic-bezier(0.42, 0, 0.58, 1)";
-        pfp.style.transform = "translateY(100%)";
-        
-        setTimeout(() => {
-          // Move up out of view
-          pfp.style.transition = "none";
-          pfp.style.transform = "translateY(-100%)";
-          
-          // Reset all state while hidden
-          stateRef.current.hasGlasses = false;
-          stateRef.current.hasHalo = false;
-          stateRef.current.slideCount = 0;
-          stateRef.current.mouthMoveCount = 0;
-          
-          // Switch back to normal milady
-          updateImage(normalSrc);
-          
-          // Force reflow
-          pfp.offsetHeight;
-          
-          // Bounce back in with normal milady
-          pfp.style.transition = "transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
-          
-          setTimeout(() => {
-            pfp.style.transform = "translateY(0)";
-            
-            setTimeout(() => {
-              // Restore border and reset animation flags
-              if (img) img.style.border = "";
-              stateRef.current.isSliding = false;
-              stateRef.current.isBlinking = false;
-              stateRef.current.isMouthMoving = false;
-              
-              // Restart the animation sequence
-              setAnimationsStarted(false);
-              setTimeout(() => setAnimationsStarted(true), 100);
-            }, 700);
-          }, 50);
-        }, 800);
-      }
-      
-      // Restart sequence after halo has been shown for 10 seconds
+
       const restartTimeout = setTimeout(() => {
-        restartSequence();
-      }, 45000); // 35s (halo appears) + 10s (halo display time) = 45s total
-      
-      // Cleanup
-      return () => {
+        slideSwap(
+          () => {
+            // Reset all state while hidden
+            state.hasGlasses = false;
+            state.hasHalo = false;
+            setCurrentSrc(normalSrc);
+          },
+          () => {
+            state.isBlinking = false;
+            state.isMouthMoving = false;
+
+            // Toggling animationsStarted re-runs this effect from the top
+            setAnimationsStarted(false);
+            setTimeout(() => setAnimationsStarted(true), 100);
+          }
+        );
+      }, 45000);
+
+      cleanupTimers = () => {
         clearInterval(blinkInterval);
         clearTimeout(firstMouthTimeout);
         clearTimeout(secondMouthTimeout);
@@ -314,17 +192,17 @@ export default function ProfilePicture(): React.ReactElement {
         clearTimeout(haloTimeout);
         clearTimeout(restartTimeout);
       };
-    }, 2000); // Extended to 2000ms to ensure everything is fully loaded and browser has time to render
-    
+    }, 2000);
+
     return () => {
       clearTimeout(startupDelay);
+      cleanupTimers?.();
     };
   }, [isLoaded, imagesPreloaded, animationsStarted]);
 
   return (
-    <div 
-      className="hero-image relative" 
-      ref={heroImageRef}
+    <div
+      className="hero-image relative"
       style={{
         backgroundImage: "url('/img/milady-bg.jpg')",
         backgroundSize: "cover",
@@ -333,19 +211,19 @@ export default function ProfilePicture(): React.ReactElement {
         overflow: "hidden"
       }}
     >
-      <div 
+      <div
         ref={pfpRef}
-        id="pfp" 
+        id="pfp"
         className="relative w-[180px] h-[180px] float-right sm:w-[120px] sm:h-[120px] md:w-[180px] md:h-[180px]"
-        style={{ 
+        style={{
           outline: "none",
           border: "none",
           transform: "translateY(0)" // Ensure starting position is correct
         }}
       >
-        <Image 
+        <Image
           src={currentSrc}
-          alt="douvy profile" 
+          alt="douvy profile"
           fill
           sizes="(max-width: 768px) 120px, 180px"
           priority={true}
