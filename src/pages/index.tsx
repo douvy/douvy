@@ -191,15 +191,15 @@ export default function Home(): React.ReactElement {
                 className={`pt-2 mt-4 leading-8 text-[15px] sm:text-[17px] italic ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
               >
                 Design engineer with 8+ years in crypto who prototypes and ships
-                financial interfaces directly in the browser, from concept
+                interfaces directly in the browser, from concept
                 through production code. We can build protocols that are better
                 solutions than financial institutions.
               </p>
               <p
                 className={`mt-8 leading-8 text-[15px] sm:text-[17px] italic mb-8 sm:mb-0 ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
               >
-                I ship design and code at inference-speed with parallel agents.
-                Actively involved in crypto through trading, learning,
+                AI has completely changed how I work. I build with agents every
+                day. Actively involved in crypto through trading, learning,
                 exploring, and posting on Twitter.
               </p>
               <p className="flex items-center flex-wrap mt-10 mb-4">
