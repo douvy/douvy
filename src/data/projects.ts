@@ -23,13 +23,24 @@ export const PROJECTS: Project[] = [
     url: "https://arriba.com/",
     category: "DeFi",
     description: [
-      "Built a crypto trading platform featuring leverage trading, spot markets, and automated market funds with 5.25% APY. Crypto and fiat deposits and withdrawals. Developed with Next.js, TypeScript, and websockets for live updates.",
+      "Crypto trading platform: leverage, spot markets, automated market funds at 5.25% APY. Crypto and fiat deposits and withdrawals, live orderbook over websockets.",
     ],
     images: [
       { src: "/img/arriba.jpg", alt: "Arriba" },
       { src: "/img/arriba-1.jpg", alt: "Arriba" },
     ],
     flushTop: true,
+  },
+  {
+    id: "how-agents-think",
+    name: "How Agents Think",
+    url: "https://howagentsthink.com/",
+    category: "AI",
+    description: [
+      "Teaches how AI agents work by letting you watch one think. Three hand-scripted runs with a plan, tool calls, inner thoughts, and a memory gauge, on a timeline you can scrub like video. Every frame is a pure function of time, so dragging backward actually rewinds the run.",
+      "Designed, built, and shipped in two days with Claude Code.",
+    ],
+    images: [{ src: "/img/how-agents-think.mp4", alt: "How Agents Think" }],
   },
   {
     id: "dgenesis",
@@ -60,7 +71,7 @@ export const PROJECTS: Project[] = [
     url: "https://remiliastats.com/",
     category: "Tools",
     description: [
-      "Analytics and leaderboard platform. Real-time statistics, rankings, and detailed user profiles. Built with Next.js, TypeScript, and Tailwind.",
+      "Analytics and leaderboard for RemiliaNET. Real-time rankings and user profiles.",
     ],
     images: [
       { src: "/img/remilianet-1.jpg", alt: "RemiliaNET" },
@@ -73,7 +84,7 @@ export const PROJECTS: Project[] = [
     url: "https://btctooling.com/",
     category: "Tools",
     description: [
-      "A Bitcoin dashboard providing real-time price data, a chart, market summary, orderbook, Twitter/X insights and halving countdown data. Built with React, Next.js, TypeScript using CoinGecko and Blockchain.info APIs with WebSockets for real-time updates.",
+      "Bitcoin dashboard: live price, orderbook, market summary, halving countdown, Twitter/X sentiment. Streams over WebSockets from CoinGecko and Blockchain.info.",
     ],
     images: [
       { src: "/img/btc-tooling.jpg", alt: "Bitcoin Dashboard" },
@@ -86,7 +97,7 @@ export const PROJECTS: Project[] = [
     url: "https://shishi520.io/",
     category: "NFT",
     description: [
-      "Designed and built website for NFT collection in a neochibi aesthetic with randomized traits inspired by net art and fashion trends. Y2K Fashion-Inspired Digital Dolls feature an interactive tool that allows users to customize and swap outfits.",
+      "Site for a neochibi NFT collection. Built an interactive dress-up tool where users swap outfits on their doll and export the result. Randomized traits drawn from net art and Y2K fashion.",
     ],
     images: [
       { src: "/img/shishi.jpg", alt: "shishi" },
@@ -98,7 +109,7 @@ export const PROJECTS: Project[] = [
     name: "Cantoscan",
     category: "Tools",
     description: [
-      "Custom-built blockchain explorer with optimized indexing for real-time transaction, address, and smart contract data. Engineered in two weeks, selected as Grand Prize winner of Canto Hackathon Ch.1, S5.",
+      "Blockchain explorer with real-time transaction, address, and contract indexing. Built in two weeks. Grand Prize, Canto Hackathon Ch.1, S5.",
     ],
     images: [
       { src: "/img/cantoscan.jpg", alt: "cantoscan" },
@@ -111,7 +122,7 @@ export const PROJECTS: Project[] = [
     url: "https://flip.zaar.gg/zaar-flip",
     category: "DeFi",
     description: [
-      'Designed the first game on Zaar Chain featuring provably fair coin flipping with a twist. Set odds from picking coin count and min. wins needed. Includes Turbo Flip for auto-flipping and "Be The House" staking feature. Built with React, Next.js, TypeScript.',
+      'First game on Zaar Chain: provably fair coin flips where you set the odds by picking coin count and minimum wins. Turbo Flip for auto-flipping, "Be The House" staking on the other side.',
     ],
     images: [
       { src: "/img/zaar-flip.jpg", alt: "Zaar Flip" },

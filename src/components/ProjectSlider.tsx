@@ -70,24 +70,45 @@ export default function ProjectSlider({ images, id }: ProjectSliderProps): React
             aria-roledescription="slide"
             aria-label={`${index + 1} of ${images.length}`}
           >
-            <Image 
-              src={image.src} 
-              id={image.id || `${id}-${index}`}
-              alt={image.alt || `${id} project image ${index + 1}`}
-              className="w-full h-auto object-contain block cursor-pointer"
-              width={450}
-              height={280}
-              priority={index === 0} // Only prioritize first image in each slider
-              quality={90}
-              style={{
-                objectFit: "contain", 
-                width: "100%", 
-                height: "auto",
-                margin: 0,
-                padding: 0,
-                display: "block"
-              }}
-            />
+            {image.src.endsWith('.mp4') ? (
+              <video
+                src={image.src}
+                id={image.id || `${id}-${index}`}
+                aria-label={image.alt || `${id} project video ${index + 1}`}
+                className="w-full h-auto object-contain block cursor-pointer"
+                autoPlay
+                muted
+                loop
+                playsInline
+                style={{
+                  objectFit: "contain",
+                  width: "100%",
+                  height: "auto",
+                  margin: 0,
+                  padding: 0,
+                  display: "block"
+                }}
+              />
+            ) : (
+              <Image
+                src={image.src}
+                id={image.id || `${id}-${index}`}
+                alt={image.alt || `${id} project image ${index + 1}`}
+                className="w-full h-auto object-contain block cursor-pointer"
+                width={450}
+                height={280}
+                priority={index === 0} // Only prioritize first image in each slider
+                quality={90}
+                style={{
+                  objectFit: "contain",
+                  width: "100%",
+                  height: "auto",
+                  margin: 0,
+                  padding: 0,
+                  display: "block"
+                }}
+              />
+            )}
           </div>
         ))}
       </div>
