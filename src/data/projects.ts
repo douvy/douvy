@@ -37,8 +37,8 @@ export const PROJECTS: Project[] = [
     url: "https://howagentsthink.com/",
     category: "AI",
     description: [
-      "Teaches how AI agents work by letting you watch one think. Three hand-scripted runs with a plan, tool calls, inner thoughts, and a memory gauge, on a timeline you can scrub like video. Every frame is a pure function of time, so dragging backward actually rewinds the run.",
-      "Designed, built, and shipped in two days with Claude Code.",
+      "Teaches how AI agents work by letting you watch one think. Three hand-scripted runs with a plan, tool calls, inner thoughts, and a memory gauge, on a timeline you can scrub like video.",
+      "Each run teaches one lesson: the agentic loop, what happens when a plan fails, and what happens when memory fills up.",
     ],
     images: [{ src: "/img/how-agents-think.mp4", alt: "How Agents Think" }],
   },
