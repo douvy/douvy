@@ -18,6 +18,18 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
+    id: "how-agents-think",
+    name: "How Agents Think",
+    url: "https://howagentsthink.com/",
+    category: "AI",
+    description: [
+      "Teaches how AI agents work by letting you watch one think. Three hand-scripted runs with a plan, tool calls, inner thoughts, and a memory gauge, on a timeline you can scrub like video.",
+      "Each run teaches one lesson: the agentic loop, what happens when a plan fails, and what happens when memory fills up.",
+    ],
+    images: [{ src: "/img/how-agents-think.mp4", alt: "How Agents Think" }],
+    flushTop: true,
+  },
+  {
     id: "arriba",
     name: "Arriba",
     url: "https://arriba.com/",
@@ -29,18 +41,6 @@ export const PROJECTS: Project[] = [
       { src: "/img/arriba.jpg", alt: "Arriba" },
       { src: "/img/arriba-1.jpg", alt: "Arriba" },
     ],
-    flushTop: true,
-  },
-  {
-    id: "how-agents-think",
-    name: "How Agents Think",
-    url: "https://howagentsthink.com/",
-    category: "AI",
-    description: [
-      "Teaches how AI agents work by letting you watch one think. Three hand-scripted runs with a plan, tool calls, inner thoughts, and a memory gauge, on a timeline you can scrub like video.",
-      "Each run teaches one lesson: the agentic loop, what happens when a plan fails, and what happens when memory fills up.",
-    ],
-    images: [{ src: "/img/how-agents-think.mp4", alt: "How Agents Think" }],
   },
   {
     id: "dgenesis",
