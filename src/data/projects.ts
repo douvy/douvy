@@ -23,7 +23,7 @@ export const PROJECTS: Project[] = [
     url: "https://howagentsthink.com/",
     category: "AI",
     description: [
-      "Teaches how AI agents work by letting you watch one think. Three hand-scripted runs with a plan, tool calls, inner thoughts, and a memory gauge, on a timeline you can scrub like video.",
+      "A fun and simplified way to follow and actually learn about how an AI agent works. You can play through clean runs, when a plan fails, and when memory fills up.",
       "Each run teaches one lesson: the agentic loop, what happens when a plan fails, and what happens when memory fills up.",
     ],
     images: [{ src: "/img/how-agents-think.mp4", alt: "How Agents Think" }],
