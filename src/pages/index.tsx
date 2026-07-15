@@ -67,7 +67,8 @@ export default function Home(): React.ReactElement {
   const { theme } = useTheme();
 
   const visibleProjects = PROJECTS.filter(
-    (project) => activeFilter === "All" || project.category === activeFilter,
+    (project) =>
+      activeFilter === "All" || project.categories.includes(activeFilter),
   );
 
   // Track hero profile picture visibility so the header milady only shows

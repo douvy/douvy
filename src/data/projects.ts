@@ -8,7 +8,7 @@ export interface Project {
   id: string;
   name: string;
   url?: string;
-  category: ProjectCategory;
+  categories: ProjectCategory[];
   /** Each string renders as its own paragraph. */
   description: string[];
   images: ProjectImage[];
@@ -18,21 +18,21 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    id: "how-agents-think",
-    name: "How Agents Think",
-    url: "https://howagentsthink.com/",
-    category: "AI",
+    id: "blobflow",
+    name: "BlobFlow",
+    url: "https://blobflow.com/",
+    categories: ["Tools", "DeFi"],
     description: [
-      "A fun and simplified way to follow and actually learn about how an AI agent works. You can play through clean runs to see the agentic loop, watch what happens when a plan fails, and see when memory fills up.",
+      "Interactive analytics dashboard for Ethereum EIP-4844 blob data, visualizing transactions, costs, and L2 usage patterns. Updates live as each block lands.",
     ],
-    images: [{ src: "/img/how-agents-think.mp4", alt: "How Agents Think" }],
+    images: [{ src: "/img/blobflow.jpg", alt: "BlobFlow" }],
     flushTop: true,
   },
   {
     id: "arriba",
     name: "Arriba",
     url: "https://arriba.com/",
-    category: "DeFi",
+    categories: ["DeFi"],
     description: [
       "Crypto trading platform: leverage, spot markets, automated market funds at 5.25% APY. Crypto and fiat deposits and withdrawals, live orderbook over websockets.",
     ],
@@ -42,9 +42,19 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: "how-agents-think",
+    name: "How Agents Think",
+    url: "https://howagentsthink.com/",
+    categories: ["AI"],
+    description: [
+      "A fun and simplified way to follow and actually learn about how an AI agent works. You can play through clean runs to see the agentic loop, watch what happens when a plan fails, and see when memory fills up.",
+    ],
+    images: [{ src: "/img/how-agents-think.mp4", alt: "How Agents Think" }],
+  },
+  {
     id: "dgenesis",
     name: "dGenesis",
-    category: "NFT",
+    categories: ["NFT"],
     description: [
       "Co-founded project featuring community-owned generative art that sold out in two hours.",
       "First L2 bridgeable NFT on Arbitrum.",
@@ -57,7 +67,7 @@ export const PROJECTS: Project[] = [
   {
     id: "propix",
     name: "Propix Agent",
-    category: "AI",
+    categories: ["AI"],
     description: [
       "Autonomous agent for NFL/NBA prop picks. Pulls projections, injuries, news, DK lines. Claude synthesizes and only bets when it's confident. Kelly sizing that tightens during drawdowns.",
       "49-30. 62% win rate. +16% ROI.",
@@ -68,7 +78,7 @@ export const PROJECTS: Project[] = [
     id: "remilianet",
     name: "RemiliaNET Stats",
     url: "https://remiliastats.com/",
-    category: "Tools",
+    categories: ["Tools"],
     description: [
       "Analytics and leaderboard for RemiliaNET. Real-time rankings and user profiles.",
     ],
@@ -81,7 +91,7 @@ export const PROJECTS: Project[] = [
     id: "btctooling",
     name: "BTC Tooling",
     url: "https://btctooling.com/",
-    category: "Tools",
+    categories: ["Tools"],
     description: [
       "Bitcoin dashboard: live price, orderbook, market summary, halving countdown, Twitter/X sentiment. Streams over WebSockets from CoinGecko and Blockchain.info.",
     ],
@@ -94,7 +104,7 @@ export const PROJECTS: Project[] = [
     id: "shishi",
     name: "Shishi",
     url: "https://shishi520.io/",
-    category: "NFT",
+    categories: ["NFT"],
     description: [
       "Site for a neochibi NFT collection. Built an interactive dress-up tool where users swap outfits on their doll and export the result. Randomized traits drawn from net art and Y2K fashion.",
     ],
@@ -106,7 +116,7 @@ export const PROJECTS: Project[] = [
   {
     id: "cantoscan",
     name: "Cantoscan",
-    category: "Tools",
+    categories: ["Tools"],
     description: [
       "Blockchain explorer with real-time transaction, address, and contract indexing. Built in two weeks. Grand Prize, Canto Hackathon Ch.1, S5.",
     ],
@@ -119,7 +129,7 @@ export const PROJECTS: Project[] = [
     id: "zaarflip",
     name: "Zaar Flip",
     url: "https://flip.zaar.gg/zaar-flip",
-    category: "DeFi",
+    categories: ["DeFi"],
     description: [
       'First game on Zaar Chain: provably fair coin flips where you set the odds by picking coin count and minimum wins. Turbo Flip for auto-flipping, "Be The House" staking on the other side.',
     ],
