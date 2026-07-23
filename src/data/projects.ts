@@ -93,7 +93,7 @@ export const PROJECTS: Project[] = [
     url: "https://btctooling.com/",
     categories: ["Tools"],
     description: [
-      "Bitcoin dashboard: live price, orderbook, market summary, halving countdown, Twitter/X sentiment. Streams over WebSockets from CoinGecko and Blockchain.info.",
+      "Bitcoin dashboard: live price, orderbook, market summary, halving countdown, Twitter/X sentiment. Streams over WebSockets from Coinbase, Bitfinex, and Binance.",
     ],
     images: [
       { src: "/img/btc-tooling.jpg", alt: "Bitcoin Dashboard" },
