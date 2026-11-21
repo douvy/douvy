@@ -5,7 +5,7 @@
 import type { DaisyShape } from "@/components/blowDaisy";
 
 /** Height of the strip in px. */
-export const HEIGHT = 180;
+export const HEIGHT = 230;
 
 export type Colour = "deep" | "mid" | "bright" | "pale" | "olive" | "gold" | "coral" | "cream";
 
@@ -255,7 +255,7 @@ export function buildPlants(width: number): Plant[][] {
     const count = 2 + Math.floor(random() * 3);
     for (let i = 0; i < count; i++) {
       const bx = x + between(-10, 10);
-      const height = tall ? between(40, 116) : between(12, 42);
+      const height = tall ? between(44, 140) : between(12, 42);
       const lean = between(-16, 16);
       // Solid ink blades among the tall ones read as shadow
       const colour = tall
@@ -279,7 +279,7 @@ export function buildPlants(width: number): Plant[][] {
   // head is squashed and turned, as if seen at an angle.
   const daisy = (x: number): Plant => {
     const plant = draw();
-    const stem = stalk(x, between(66, 148), between(-15, 15));
+    const stem = stalk(x, between(96, 200), between(-15, 15));
     plant.inked([band(stem.points, between(3.2, 4.4), 0.85)], pick(["mid", "pale", "olive", "mid"] as const), 1.8);
 
     const [cx, cy] = stem.at(1);
@@ -337,7 +337,7 @@ export function buildPlants(width: number): Plant[][] {
   // One large leaf on a line stem, with a centre line and chevron veins
   const bigLeaf = (x: number): Plant => {
     const plant = draw();
-    const stem = stalk(x, between(26, 84), between(-10, 10));
+    const stem = stalk(x, between(44, 128), between(-10, 10));
     const base = stem.at(1);
     const shape = leaf(base, -Math.PI / 2 + jitter(0.45), between(34, 54), between(0.19, 0.25));
     const colour = pick(["gold", "pale", "mid", "coral", "bright", "gold"] as const);
@@ -361,7 +361,7 @@ export function buildPlants(width: number): Plant[][] {
   // A line stem carrying two-tone leaves
   const sprig = (x: number): Plant => {
     const plant = draw();
-    const height = between(56, 124);
+    const height = between(72, 160);
     const stem = stalk(x, height, between(-22, 22));
     plant.lines([stem.points], 2.2);
     const colour = pick(["mid", "olive", "pale", "mid"] as const);
@@ -391,7 +391,7 @@ export function buildPlants(width: number): Plant[][] {
   // A frond: one lance-shaped silhouette, hatched in a herringbone
   const fern = (x: number): Plant => {
     const plant = draw();
-    const height = between(64, 142);
+    const height = between(84, 182);
     const stem = stalk(x, height, between(-28, 28));
     const spread = between(11, 17);
     const start = 0.14;
@@ -434,7 +434,7 @@ export function buildPlants(width: number): Plant[][] {
   // A stem that curls into a spiral at the top, with small leaflets below
   const fiddlehead = (x: number): Plant => {
     const plant = draw();
-    const stem = stalk(x, between(54, 120), between(-10, 10));
+    const stem = stalk(x, between(74, 162), between(-10, 10));
     const side = random() < 0.5 ? -1 : 1;
     const radius = between(9, 15.5);
     const [sx, sy] = stem.at(1);
@@ -466,7 +466,7 @@ export function buildPlants(width: number): Plant[][] {
   // A tall line stem carrying a long seed head, ticked across
   const reed = (x: number): Plant => {
     const plant = draw();
-    const stem = stalk(x, between(80, 150), between(-15, 15));
+    const stem = stalk(x, between(104, 192), between(-15, 15));
     plant.lines([stem.points], 2.2);
     const from = between(0.48, 0.6);
     const [ax, ay] = stem.at(from);
@@ -490,7 +490,7 @@ export function buildPlants(width: number): Plant[][] {
   // Twigs ending in ringed oval buds
   const buds = (x: number): Plant => {
     const plant = draw();
-    const stem = stalk(x, between(48, 120), between(-17, 17));
+    const stem = stalk(x, between(66, 160), between(-17, 17));
     const twigs: Point[][] = [stem.points];
     const outer: Point[][] = [];
     const inner: Point[][] = [];
@@ -517,7 +517,7 @@ export function buildPlants(width: number): Plant[][] {
   // A broad blade whose tip hooks over
   const curlBlade = (x: number): Plant => {
     const plant = draw();
-    const stem = stalk(x, between(58, 128), between(-18, 18));
+    const stem = stalk(x, between(74, 166), between(-18, 18));
     const side = random() < 0.5 ? -1 : 1;
     const radius = between(7, 12.5);
     const [sx, sy] = stem.at(1);
@@ -538,7 +538,7 @@ export function buildPlants(width: number): Plant[][] {
   // out to each tooth
   const toothedLeaf = (x: number): Plant => {
     const plant = draw();
-    const height = between(84, 174);
+    const height = between(104, 218);
     const lean = between(-34, 34);
     const half = between(11, 20);
     const flip = random() < 0.5 ? -1 : 1; // which side carries the teeth
@@ -576,7 +576,7 @@ export function buildPlants(width: number): Plant[][] {
   // A stem of overlapping pointed leaflets in two alternating colours
   const laurel = (x: number): Plant => {
     const plant = draw();
-    const height = between(70, 144);
+    const height = between(92, 186);
     const stem = stalk(x, height, between(-30, 30));
     plant.lines([stem.points], 2);
     const tones = pick([
@@ -601,33 +601,43 @@ export function buildPlants(width: number): Plant[][] {
   };
 
   // Long arcs sweeping across the scene, each a banded rim over a mound of
-  // ink packed with pebbles
+  // ink packed with pebbles. The arcs overlap, so there is little bare ground
+  // between them.
   const mounds = (): Plant[] => {
     const result: Plant[] = [];
     const baseY = HEIGHT - 22;
-    for (let x = between(-160, -20); x < width; ) {
+    for (let x = between(-200, -60); x < width; ) {
       const plant = draw();
-      const span = between(240, 520);
-      const rise = between(34, 86);
+      const span = between(260, 520);
+      const rise = between(34, 70);
       const peakY = baseY - rise * 2; // control point; the arc tops out at `rise`
       const arc = curve([x, baseY], [x + span / 2, peakY], [x + span, baseY], 0.25);
       plant.fill([[...arc, [x + span, HEIGHT + 6], [x, HEIGHT + 6]]], "ink");
 
       const rim = between(8, 13);
+      const arcY = (px: number): number => {
+        const t = (px - x) / span;
+        return (1 - t) * (1 - t) * baseY + 2 * (1 - t) * t * peakY + t * t * baseY;
+      };
+
+      // Pebbles are laid in rows that follow the arc, starting right under
+      // the rim and stepping down, so the mound is packed to the top instead
+      // of leaving a black gap under the curve. They stop where the flat
+      // pebble bed along the ground takes over.
       const byColour: Record<string, Point[][]> = {};
-      for (let up = 31; up < 22 + rise; up += between(7.8, 9.2)) {
-        for (let px = x + 6; px < x + span - 6; ) {
-          const rx = between(3.2, 10.5);
+      const pitch = 7.7;
+      for (let depth = rim / 2 + 5.2; depth < rise + 10; depth += pitch) {
+        for (let px = x + between(4, 9); px < x + span - 4; ) {
+          const rx = random() < 0.14 ? between(8.5, 12.5) : between(3, 8);
           px += rx;
-          const t = (px - x) / span;
-          const arcY = (1 - t) * (1 - t) * baseY + 2 * (1 - t) * t * peakY + t * t * baseY;
-          const py = HEIGHT - up + jitter(1);
-          // Only where the pebble fits under the rim
-          if (py - 4 > arcY + rim / 2 + 3) {
-            const colour = pick(["mid", "deep", "pale", "olive", "mid", "pale"] as const);
-            (byColour[colour] ??= []).push(oval([px, py], rx, between(2.5, 3.9), jitter(0.22)));
+          const py = arcY(px) + depth + jitter(0.7);
+          if (py < HEIGHT - 28) {
+            const colour = pick(["mid", "deep", "pale", "olive", "mid", "pale", "mid"] as const);
+            // Tilted to lie along the curve at this point
+            const slope = Math.atan2(arcY(px + 3) - arcY(px - 3), 6);
+            (byColour[colour] ??= []).push(oval([px, py], rx, between(2.6, 3.5), slope + jitter(0.12)));
           }
-          px += rx + between(2, 3.6);
+          px += rx + between(1.8, 3.1);
         }
       }
       (Object.keys(byColour) as Colour[]).forEach((colour) => plant.fill(byColour[colour], colour));
@@ -635,7 +645,7 @@ export function buildPlants(width: number): Plant[][] {
       plant.inked([band(arc, rim)], pick(["pale", "mid", "pale", "olive"] as const), 2.2);
       plant.lines([arc.map(([ax, ay]): Point => [ax, ay + rim * 0.14])], 1.1);
       result.push({ x, shapes: plant.shapes, still: true, duration: 0, delay: 0 });
-      x += span * between(0.55, 1) + between(30, 180);
+      x += span * between(0.42, 0.74);
     }
     return result;
   };
@@ -644,7 +654,7 @@ export function buildPlants(width: number): Plant[][] {
   // slivers and shards rather than round dots - and the odd four-point star
   const stipple = (x: number): Plant => {
     const plant = draw();
-    const cy = HEIGHT - between(50, 152);
+    const cy = HEIGHT - between(70, 204);
     const bits: Point[][] = [];
     const count = 5 + Math.floor(random() * 10);
     for (let i = 0; i < count; i++) {
@@ -715,15 +725,15 @@ export function buildPlants(width: number): Plant[][] {
   for (let x = 6; x < width; x += between(20, 38)) back.push(grassTuft(x, true));
 
   const middle: Plant[] = [];
-  for (let x = between(20, 50); x < width; x += between(36, 76)) {
+  for (let x = between(20, 50); x < width; x += between(30, 62)) {
     const kind = random();
-    if (kind < 0.3) middle.push(daisy(x));
-    else if (kind < 0.44) middle.push(laurel(x));
-    else if (kind < 0.56) middle.push(fern(x));
-    else if (kind < 0.66) middle.push(bigLeaf(x));
-    else if (kind < 0.76) middle.push(curlBlade(x));
-    else if (kind < 0.85) middle.push(buds(x));
-    else if (kind < 0.92) middle.push(fiddlehead(x));
+    if (kind < 0.42) middle.push(daisy(x));
+    else if (kind < 0.53) middle.push(laurel(x));
+    else if (kind < 0.64) middle.push(fern(x));
+    else if (kind < 0.73) middle.push(bigLeaf(x));
+    else if (kind < 0.81) middle.push(curlBlade(x));
+    else if (kind < 0.88) middle.push(buds(x));
+    else if (kind < 0.94) middle.push(fiddlehead(x));
     else if (kind < 0.97) middle.push(sprig(x));
     else middle.push(reed(x));
   }
