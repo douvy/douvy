@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 // Import Swiper styles
 import 'swiper/css';
@@ -8,6 +8,63 @@ import { ProjectImage } from '@/types';
 interface ProjectSliderProps {
   images: ProjectImage[];
   id: string;
+}
+
+interface LazyVideoProps {
+  src: string;
+  id: string;
+  label: string;
+  width?: number;
+  height?: number;
+}
+
+// Autoplaying video that only starts downloading once its card is close to
+// the viewport, so visitors who never scroll that far don't pay for it.
+function LazyVideo({ src, id, label, width, height }: LazyVideoProps): React.ReactElement {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isNear, setIsNear] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setIsNear(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '400px' } // start early enough to be playing on arrival
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      src={isNear ? src : undefined}
+      id={id}
+      aria-label={label}
+      className="w-full h-auto object-contain block cursor-pointer"
+      // width/height reserve the right aspect ratio before the file loads
+      width={width}
+      height={height}
+      autoPlay
+      muted
+      loop
+      playsInline
+      style={{
+        objectFit: "contain",
+        width: "100%",
+        height: "auto",
+        margin: 0,
+        padding: 0,
+        display: "block"
+      }}
+    />
+  );
 }
 
 export default function ProjectSlider({ images, id }: ProjectSliderProps): React.ReactElement {
@@ -71,23 +128,12 @@ export default function ProjectSlider({ images, id }: ProjectSliderProps): React
             aria-label={`${index + 1} of ${images.length}`}
           >
             {image.src.endsWith('.mp4') ? (
-              <video
+              <LazyVideo
                 src={image.src}
                 id={image.id || `${id}-${index}`}
-                aria-label={image.alt || `${id} project video ${index + 1}`}
-                className="w-full h-auto object-contain block cursor-pointer"
-                autoPlay
-                muted
-                loop
-                playsInline
-                style={{
-                  objectFit: "contain",
-                  width: "100%",
-                  height: "auto",
-                  margin: 0,
-                  padding: 0,
-                  display: "block"
-                }}
+                label={image.alt || `${id} project video ${index + 1}`}
+                width={image.width}
+                height={image.height}
               />
             ) : (
               <Image

@@ -49,7 +49,14 @@ export const PROJECTS: Project[] = [
     description: [
       "A fun and simplified way to follow and actually learn about how an AI agent works. You can play through clean runs to see the agentic loop, watch what happens when a plan fails, and see when memory fills up.",
     ],
-    images: [{ src: "/img/how-agents-think.mp4", alt: "How Agents Think" }],
+    images: [
+      {
+        src: "/img/how-agents-think.mp4",
+        alt: "How Agents Think",
+        width: 848,
+        height: 464,
+      },
+    ],
   },
   {
     id: "dgenesis",
