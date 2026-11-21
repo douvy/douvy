@@ -79,8 +79,18 @@ export function buildPlants(
   width: number,
   HEIGHT: number,
   plantHeightAt: (x: number) => number,
-  /** How far above the ground the arches spring from; lower makes them shorter. */
-  archBase = 34
+  {
+    archBase = 34,
+    archScale = 1,
+    flowerScale = 1,
+  }: {
+    /** How far above the ground the arches spring from; lower makes them shorter. */
+    archBase?: number;
+    /** Multiplies how high the arches rise. */
+    archScale?: number;
+    /** Multiplies the size of the daisy heads. */
+    flowerScale?: number;
+  } = {}
 ): Plant[][] {
   const growAt = (x: number): number => plantHeightAt(x) / DESIGN_HEIGHT;
   const random = seededRandom(11);
@@ -299,7 +309,7 @@ export function buildPlants(
     plant.inked([band(stem.points, between(3.2, 4.4), 0.85)], pick(["mid", "pale", "olive", "mid"] as const), 1.8);
 
     const [cx, cy] = stem.at(1);
-    const radius = between(17, 27);
+    const radius = between(17, 27) * flowerScale;
     const squash = between(0.48, 1);
     const turn = jitter(0.6);
     // Flower space (polar) to the page: squash, then turn
@@ -627,7 +637,7 @@ export function buildPlants(
     for (let x = between(-200, -60); x < width; ) {
       const plant = draw();
       const span = between(260, 520);
-      const rise = between(34, 70);
+      const rise = between(34, 70) * archScale;
       const peakY = baseY - rise * 2; // control point; the arc tops out at `rise`
       const arc = curve([x, baseY], [x + span / 2, peakY], [x + span, baseY], 0.25);
       plant.fill([[...arc, [x + span, HEIGHT + 6], [x, HEIGHT + 6]]], "ink");

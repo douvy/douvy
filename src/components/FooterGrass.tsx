@@ -52,7 +52,19 @@ const MIN_HEIGHT = 150;
 const MAX_HEIGHT = 300;
 // Used when the hero leaves no room at all (most phones), where the strip
 // only appears at the end of the page
-const DEFAULT_HEIGHT = 290;
+const DEFAULT_HEIGHT = 250;
+
+// Narrow windows (below Tailwind's sm breakpoint). One arch is about as wide
+// as the whole window there, so the arches are lower and flatter and the
+// daisies a little larger, which keeps the flowers the main thing.
+const NARROW_BELOW = 640;
+const NARROW = {
+  options: { archBase: 14, archScale: 0.72, flowerScale: 1.18 },
+  // Lower arches need less of the strip kept below the window to hide their feet
+  belowWindowAtTop: 30,
+  minHeight: 110,
+  defaultHeight: 360,
+};
 // Less room than this would show only a sliver of leaf tips, so show nothing
 const MIN_ROOM = 28;
 
@@ -92,38 +104,64 @@ export default function FooterGrass(): React.ReactElement {
   const [room, setRoom] = useState<number>(measureRoom);
 
   // Drawn once, for the window as it was on load
-  const { width, height, canvas, layers } = useMemo(() => {
+  const { width, height, canvas, below, layers } = useMemo(() => {
     // Screen width, not window width, so widening the window never runs out
     const width = Math.min(MAX_WIDTH, Math.max(window.innerWidth, window.screen.width) + 80);
     const initialRoom = measureRoom();
+    const narrow = window.innerWidth < NARROW_BELOW;
+    const below = narrow ? NARROW.belowWindowAtTop : BELOW_WINDOW_AT_TOP;
     const height =
       initialRoom < MIN_ROOM
-        ? DEFAULT_HEIGHT
-        : Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, initialRoom + BELOW_WINDOW_AT_TOP));
+        ? narrow
+          ? NARROW.defaultHeight
+          : DEFAULT_HEIGHT
+        : Math.min(MAX_HEIGHT, Math.max(narrow ? NARROW.minHeight : MIN_HEIGHT, initialRoom + below));
 
-    // The canvas is taller than the planting in the middle, to hold the tall
-    // plants at the sides
-    const canvas = Math.round(height * SIDE_BOOST);
     const column = document.querySelector(".hero > div > div")?.getBoundingClientRect();
     const columnLeft = column ? column.left : 0;
     const columnRight = column ? column.right : window.innerWidth;
+
+    // Narrow windows have no side margins, but the space to the right of the
+    // hero's buttons is empty up to the bio above them, so the plants there
+    // can stand that much taller
+    let besideButtonsFrom = Infinity;
+    let besideButtonsExtra = 0;
+    const buttonRow = document.querySelector(".intro > p:last-child");
+    const lastButton = buttonRow?.querySelector("a:last-of-type");
+    const bio = buttonRow?.previousElementSibling;
+    if (narrow && initialRoom >= MIN_ROOM && buttonRow && lastButton && bio) {
+      besideButtonsFrom = lastButton.getBoundingClientRect().right + 16;
+      besideButtonsExtra = Math.max(0, buttonRow.getBoundingClientRect().bottom - bio.getBoundingClientRect().bottom - 4);
+    }
+
+    // The canvas is taller than the planting in the middle, to hold the
+    // taller plants at the sides or beside the buttons
+    const canvas = Math.round(Math.max(height * SIDE_BOOST, height + besideButtonsExtra));
     // The drawing is wider than the window and centered on it
     const overhang = (width - window.innerWidth) / 2;
+    const ramp = (t: number): number => {
+      const c = Math.min(1, Math.max(0, t));
+      return c * c * (3 - 2 * c);
+    };
     const plantHeightAt = (x: number): number => {
       const windowX = x - overhang;
       const outside = Math.max(columnLeft - windowX, windowX - columnRight, 0);
-      const t = Math.min(1, outside / SIDE_RAMP);
-      return height * (1 + (SIDE_BOOST - 1) * t * t * (3 - 2 * t));
+      const inMargin = height * (1 + (SIDE_BOOST - 1) * ramp(outside / SIDE_RAMP));
+      const besideButtons = height + besideButtonsExtra * ramp((windowX - besideButtonsFrom) / 50);
+      return Math.max(inMargin, besideButtons);
     };
-    // On phones the strip is narrow and one arch fills most of it, so there
-    // the arches sit a little lower and leave more of the height to the plants
-    const archBase = initialRoom < MIN_ROOM ? 22 : 34;
-    return { width, height, canvas, layers: buildPlants(width, canvas, plantHeightAt, archBase) };
+    return {
+      width,
+      height,
+      canvas,
+      below,
+      layers: buildPlants(width, canvas, plantHeightAt, narrow ? NARROW.options : {}),
+    };
   }, []);
 
   // How much of the planting shows at the top of the page. The lowest part
   // always stays below the window there, even when there's room to spare.
-  const peek = room < MIN_ROOM ? 0 : Math.min(height - BELOW_WINDOW_AT_TOP, room);
+  const peek = room < MIN_ROOM ? 0 : Math.min(height - below, room);
 
   // ~1,000 paths that never change. Memoised so a phase or theme change only
   // touches the wrapper (the colours are CSS variables set on it).
