@@ -139,17 +139,6 @@ export default function Home(): React.ReactElement {
     <>
       <Head>
         <title>douvy</title>
-        <link
-          rel="preload"
-          as="style"
-          href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        />
-        <link
-          rel="preload"
-          as="font"
-          href="/fonts/DegularDisplay-Black.woff2"
-          crossOrigin=""
-        />
       </Head>
 
       <Header isProfilePictureVisible={isProfilePictureVisible} />

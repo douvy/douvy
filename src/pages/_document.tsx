@@ -21,13 +21,6 @@ export default function Document(): React.ReactElement {
         {/* Preload critical fonts */}
         <link
           rel="preload"
-          href="/fonts/DegularDisplay-Black.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
           href="/fonts/VulfMono-Regular.woff2"
           as="font"
           type="font/woff2"
@@ -91,18 +84,6 @@ export default function Document(): React.ReactElement {
           href="/img/zaar-flip-1.jpg"
           as="image"
           fetchPriority="high"
-        />
-
-        {/* External stylesheets */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
-        />
-        {/* Lora font is now loaded through next/font in _app.tsx */}
-
-        <link
-          rel="stylesheet"
-          href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         />
       </Head>
       <body style={{ minHeight: "100vh" }}>

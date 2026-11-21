@@ -10,7 +10,6 @@ module.exports = {
       fontFamily: {
         lora: ["Lora", "serif"],
         vulf: ["VulfMono", "monospace"],
-        degular: ["DegularDisplay", "sans-serif"],
       },
       colors: {
         // Legacy colors for backward compatibility (dark mode default)

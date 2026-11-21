@@ -4,16 +4,6 @@
 
 /* Custom fonts */
 @font-face {
-    font-family: "DegularDisplay";
-    src:
-        url("/fonts/DegularDisplay-Black.woff2") format("woff2"),
-        url("/fonts/DegularDisplay-Black.woff") format("woff");
-    font-weight: 900;
-    font-style: normal;
-    font-display: block;
-}
-
-@font-face {
     font-family: "VulfMono";
     src:
         url("/fonts/VulfMono-Regular.woff2") format("woff2"),
