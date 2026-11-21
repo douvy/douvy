@@ -138,7 +138,7 @@ export const PROJECTS: Project[] = [
     name: "Zaar Flip",
     categories: ["DeFi"],
     description: [
-      'First game on the now-defunct Zaar Chain: provably fair coin flips where you set the odds by picking coin count and minimum wins. Turbo Flip for auto-flipping, "Be The House" staking on the other side.',
+      'Provably fair onchain game: coin flips where you set the odds by picking coin count and minimum wins. Turbo Flip for auto-flipping, "Be The House" staking on the other side.',
     ],
     images: [
       { src: "/img/zaar-flip.jpg", alt: "Zaar Flip" },
