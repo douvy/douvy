@@ -130,7 +130,7 @@ export function createBlowDaisy(frame: HTMLElement, from: CollageDaisy): BlowDai
 
   // Where it comes to rest: just right of her mouth, which is at about
   // 64% / 73% of the frame. It grows a little on the way up.
-  const cx = width * 0.86;
+  const cx = width * 0.83;
   const cy = height * 0.7;
   const radius = width * 0.16;
   // Flower space (polar) to the frame: squash, then turn
@@ -202,11 +202,27 @@ export function createBlowDaisy(frame: HTMLElement, from: CollageDaisy): BlowDai
   flower.appendChild(shape(ring(core), from.centre === "olive" ? TAN : BLUE, 1.9));
   flower.appendChild(shape(ring(core * 0.48), CREAM, 1.1));
 
-  // Once the flower has arrived this cuts off anything below the frame's
-  // bottom edge (the end of the stem; later the whole thing as it sinks) but
-  // nothing above or to the sides, so petals can still leave
+  // The flower goes behind the frame's bottom border, never over it. While
+  // it flies, a hole is cut out of the drawing area exactly where that border
+  // is: the band between the picture's bottom edge and the outer edge of the
+  // striped frame around it. Rising into the picture, the flower is visible
+  // below the frame, hidden as it passes the band, and visible again inside.
   const clip = document.createElement("div");
-  clip.style.cssText = "position:absolute;inset:0";
+  const outer = (frame.closest(".group") ?? frame).getBoundingClientRect();
+  const band = {
+    left: outer.left - start.left - 1,
+    // A few px extra to cover the frame's offset shadow
+    right: outer.right - start.left + 7,
+    top: height,
+    bottom: outer.bottom - start.top + 7,
+  };
+  // One polygon: the whole area, then the band. With evenodd the band, being
+  // inside the first shape, becomes the hole.
+  const holeAtBorder =
+    "polygon(evenodd, -4000px -3000px, 4000px -3000px, 4000px 4000px, -4000px 4000px, -4000px -3000px, " +
+    `${band.left}px ${band.top}px, ${band.right}px ${band.top}px, ${band.right}px ${band.bottom}px, ` +
+    `${band.left}px ${band.bottom}px, ${band.left}px ${band.top}px)`;
+  clip.style.cssText = `position:absolute;inset:0;clip-path:${holeAtBorder}`;
 
   svg.appendChild(flower);
   clip.appendChild(svg);
@@ -294,9 +310,12 @@ export function createBlowDaisy(frame: HTMLElement, from: CollageDaisy): BlowDai
 
     hover() {
       // From here on it behaves as if planted in the frame: it pivots at the
-      // foot of the stem, and the stem's end is tucked under the bottom edge.
+      // foot of the stem, with the stem's end under the bottom border.
       // The flight left it exactly at rest, so changing the pivot moves nothing.
       flower.style.transformOrigin = `${baseX}px ${height}px`;
+      // Now cut off everything below the picture's bottom edge, so when it
+      // sinks later it doesn't reappear under the frame. The stem ends inside
+      // the border band, so nothing visible changes at this moment.
       clip.style.clipPath = "inset(-2000px -4000px 0 -4000px)";
       // Barely moving, until she blows
       hovering = track(
