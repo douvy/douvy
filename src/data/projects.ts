@@ -23,7 +23,7 @@ export const PROJECTS: Project[] = [
     url: "https://blobflow.com/",
     categories: ["Tools", "DeFi"],
     description: [
-      "Interactive analytics dashboard for Ethereum EIP-4844 blob data, visualizing transactions, costs, and L2 usage patterns. Updates live as each block lands.",
+      "A dashboard for Ethereum blobs, the data space L2s have posted to since EIP-4844. See which L2s are using it, how much, and what it's costing them. Updates with every block.",
     ],
     images: [{ src: "/img/blobflow.jpg", alt: "BlobFlow" }],
     flushTop: true,
