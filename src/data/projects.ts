@@ -23,7 +23,7 @@ export const PROJECTS: Project[] = [
     url: "https://blobflow.com/",
     categories: ["Tools", "DeFi"],
     description: [
-      "Real-time Ethereum blob analytics. Shows the blob fee and where it's headed next block, which chains are posting the most, and when one flips another.",
+      "Real-time Ethereum blob analytics. Shows which chains are sending the most data to Ethereum, what they're paying for it, and where the price is headed.",
     ],
     images: [{ src: "/img/blobflow.jpg", alt: "BlobFlow" }],
     flushTop: true,
