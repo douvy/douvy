@@ -148,6 +148,15 @@
         }
     }
     
+    /* Phones: the bio is mono italic, about 27 characters to a line. Desktop
+       spacing makes that look like a list, so pull the lines and words in. */
+    @media (max-width: 639px) {
+        .intro > p:not(:last-child) {
+            line-height: 25px;
+            word-spacing: -0.18em;
+        }
+    }
+
     @media (min-width: 768px) {
         #portfolio .grid.md\:grid-cols-2 {
             @apply gap-16;
