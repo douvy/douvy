@@ -65,6 +65,19 @@ const NARROW = {
   minHeight: 110,
   defaultHeight: 360,
 };
+
+// Phones (narrow and touch). The hero is taller than the screen, so the strip
+// can't be fitted under it; it stands over the bottom of the first screen
+// instead, and sinks away as the page scrolls.
+const PHONE = {
+  // Mobile Safari floats its toolbar over the bottom of the page and doesn't
+  // report how tall it is. This much of the strip is assumed to be behind it.
+  barAllowance: 90,
+  // ...and this much shows above that
+  showAbove: 110,
+  // Fully sunk after scrolling this fraction of the screen height
+  sinkOver: 0.9,
+};
 // Less room than this would show only a sliver of leaf tips, so show nothing
 const MIN_ROOM = 28;
 
@@ -104,14 +117,15 @@ export default function FooterGrass(): React.ReactElement {
   const [room, setRoom] = useState<number>(measureRoom);
 
   // Drawn once, for the window as it was on load
-  const { width, height, canvas, below, layers } = useMemo(() => {
+  const { width, height, canvas, below, phone, layers } = useMemo(() => {
     // Screen width, not window width, so widening the window never runs out
     const width = Math.min(MAX_WIDTH, Math.max(window.innerWidth, window.screen.width) + 80);
     const initialRoom = measureRoom();
     const narrow = window.innerWidth < NARROW_BELOW;
+    const phone = narrow && window.matchMedia("(pointer: coarse)").matches;
     const below = narrow ? NARROW.belowWindowAtTop : BELOW_WINDOW_AT_TOP;
     const height =
-      initialRoom < MIN_ROOM
+      phone || initialRoom < MIN_ROOM
         ? narrow
           ? NARROW.defaultHeight
           : DEFAULT_HEIGHT
@@ -129,7 +143,7 @@ export default function FooterGrass(): React.ReactElement {
     const buttonRow = document.querySelector(".intro > p:last-child");
     const lastButton = buttonRow?.querySelector("a:last-of-type");
     const bio = buttonRow?.previousElementSibling;
-    if (narrow && initialRoom >= MIN_ROOM && buttonRow && lastButton && bio) {
+    if (narrow && !phone && initialRoom >= MIN_ROOM && buttonRow && lastButton && bio) {
       besideButtonsFrom = lastButton.getBoundingClientRect().right + 16;
       besideButtonsExtra = Math.max(0, buttonRow.getBoundingClientRect().bottom - bio.getBoundingClientRect().bottom - 4);
     }
@@ -155,13 +169,20 @@ export default function FooterGrass(): React.ReactElement {
       height,
       canvas,
       below,
+      phone,
       layers: buildPlants(width, canvas, plantHeightAt, narrow ? NARROW.options : {}),
     };
   }, []);
 
   // How much of the planting shows at the top of the page. The lowest part
   // always stays below the window there, even when there's room to spare.
-  const peek = room < MIN_ROOM ? 0 : Math.min(height - below, room);
+  const peek = phone
+    ? PHONE.barAllowance + PHONE.showAbove
+    : room < MIN_ROOM
+      ? 0
+      : Math.min(height - below, room);
+  // Phones only: 0 at the top of the page, 1 once the strip has sunk away
+  const [sunk, setSunk] = useState(0);
 
   // ~1,000 paths that never change. Memoised so a phase or theme change only
   // touches the wrapper (the colours are CSS variables set on it).
@@ -217,6 +238,7 @@ export default function FooterGrass(): React.ReactElement {
       frame = requestAnimationFrame(() => {
         frame = 0;
         setPhase(currentPhase());
+        if (phone) setSunk(Math.min(1, window.scrollY / (window.innerHeight * PHONE.sinkOver)));
       });
     };
     // The room under the hero changes with the window, and once more when the
@@ -233,14 +255,14 @@ export default function FooterGrass(): React.ReactElement {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [phone]);
 
   // React's style type doesn't know about CSS variables, hence the wider type
   const style: React.CSSProperties & Record<`--${string}`, string> = {
     height: canvas,
     // How far down the strip sits while peeking (see globals.css). The extra
     // canvas above the planting doesn't change this: it is bottom-anchored.
-    "--peek-offset": `${height - peek}px`,
+    "--peek-offset": `${height - peek + sunk * (peek + 12)}px`,
     ...PALETTES[theme],
   };
 
@@ -251,7 +273,7 @@ export default function FooterGrass(): React.ReactElement {
     <div aria-hidden="true" style={{ height }}>
       <div
         className={`footer-grass fixed bottom-0 left-0 right-0 z-10 overflow-hidden pointer-events-none ${
-          phase === "hidden" ? "is-hidden" : phase === "end" ? "" : "is-peeking"
+          phase === "end" ? "" : phone ? "is-peeking is-scroll-linked" : phase === "hidden" ? "is-hidden" : "is-peeking"
         }`}
         style={style}
       >

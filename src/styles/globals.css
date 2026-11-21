@@ -214,6 +214,12 @@
     transform: translateY(var(--peek-offset, 45%));
 }
 
+/* Phones: the offset follows the scroll position directly, so it mustn't
+   also be eased */
+.footer-grass.is-scroll-linked {
+    transition: none;
+}
+
 /* Scrolled away from the top: slid below the window, and not animating while out of sight */
 .footer-grass.is-hidden {
     transform: translateY(105%);
