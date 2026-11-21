@@ -6,7 +6,7 @@ import { useTheme } from "@/contexts/ThemeContext";
 // shipped in the HTML. The placeholder keeps the page height stable.
 const FooterGrass = dynamic(() => import("@/components/FooterGrass"), {
   ssr: false,
-  loading: () => <div style={{ height: 200 }} />,
+  loading: () => <div style={{ height: 230 }} />,
 });
 
 export default function Footer(): React.ReactElement {

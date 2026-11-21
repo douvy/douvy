@@ -52,7 +52,7 @@ const MIN_HEIGHT = 150;
 const MAX_HEIGHT = 300;
 // Used when the hero leaves no room at all (most phones), where the strip
 // only appears at the end of the page
-const DEFAULT_HEIGHT = 200;
+const DEFAULT_HEIGHT = 230;
 // Less room than this would show only a sliver of leaf tips, so show nothing
 const MIN_ROOM = 28;
 
