@@ -37,8 +37,9 @@ const PALETTES = {
  */
 type Phase = "intro" | "hidden" | "end";
 
-// Most the strip shows at the top of the page: a bit over half its height
-const PEEK_MAX = Math.round(HEIGHT * 0.55);
+// Most the strip shows at the top of the page: enough for the arcs and
+// pebble mounds to clear the edge, not just the tips of the tall plants
+const PEEK_MAX = Math.round(HEIGHT * 0.8);
 // Below this it is only a sliver of leaf tips, so show nothing instead
 const PEEK_MIN = 28;
 
