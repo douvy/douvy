@@ -615,7 +615,9 @@ export function buildPlants(width: number, HEIGHT: number, plantHeightAt: (x: nu
   // between them.
   const mounds = (): Plant[] => {
     const result: Plant[] = [];
-    const baseY = HEIGHT - 22;
+    // Where the arcs spring from. Raising this lifts every arch without
+    // touching the plants, which are sized from the strip's height.
+    const baseY = HEIGHT - 34;
     for (let x = between(-200, -60); x < width; ) {
       const plant = draw();
       const span = between(260, 520);
