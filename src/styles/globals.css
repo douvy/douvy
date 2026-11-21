@@ -208,9 +208,10 @@
     animation: plant-sway 7s ease-in-out infinite alternate;
 }
 
-/* Top of the page: only the upper half shows, so it doesn't sit on the content */
+/* Top of the page: shows only as much as fits under the hero; FooterGrass
+   measures that and sets --peek-offset */
 .footer-grass.is-peeking {
-    transform: translateY(45%);
+    transform: translateY(var(--peek-offset, 45%));
 }
 
 /* Scrolled away from the top: slid below the window, and not animating while out of sight */

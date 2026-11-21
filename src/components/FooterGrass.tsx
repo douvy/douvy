@@ -30,11 +30,33 @@ const PALETTES = {
 
 /**
  * Where the strip is in its scroll story:
- *  - "intro": top of the page, upper half peeking along the bottom of the window
+ *  - "intro": top of the page, peeking along the bottom of the window as far
+ *    as the hero leaves room (see measurePeek)
  *  - "hidden": scrolled away from the top, slid out of view
  *  - "end": past the last project, fully up
  */
 type Phase = "intro" | "hidden" | "end";
+
+// Most the strip shows at the top of the page: a bit over half its height
+const PEEK_MAX = Math.round(HEIGHT * 0.55);
+// Below this it is only a sliver of leaf tips, so show nothing instead
+const PEEK_MIN = 28;
+
+/**
+ * How much of the strip can show at the top of the page without covering the
+ * hero. The lowest thing there is the row of Twitter/GitHub buttons; the strip
+ * gets whatever room is left under it. On a phone the hero is usually taller
+ * than the window, which leaves no room, so the strip stays out of the way
+ * until the end of the page.
+ */
+function measurePeek(): number {
+  const buttons = document.querySelector(".intro > p:last-child");
+  if (!buttons) return PEEK_MAX;
+  // Position in the page, not the window, so the answer doesn't depend on scroll
+  const bottom = buttons.getBoundingClientRect().bottom + window.scrollY;
+  const room = Math.round(window.innerHeight - bottom - 10);
+  return room < PEEK_MIN ? 0 : Math.min(PEEK_MAX, room);
+}
 
 function currentPhase(): Phase {
   const { scrollY, innerHeight } = window;
@@ -55,6 +77,7 @@ function currentPhase(): Phase {
 export default function FooterGrass(): React.ReactElement {
   const { theme } = useTheme();
   const [phase, setPhase] = useState<Phase>(currentPhase);
+  const [peek, setPeek] = useState<number>(measurePeek);
 
   const { width, layers } = useMemo(() => {
     // Screen width, not window width, so widening the window never runs out
@@ -118,14 +141,29 @@ export default function FooterGrass(): React.ReactElement {
         setPhase(currentPhase());
       });
     };
+    // The room under the hero changes with the window, and once more when the
+    // web fonts load and the text reflows
+    const onResize = (): void => {
+      setPeek(measurePeek());
+      onScroll();
+    };
+    document.fonts.ready.then(() => setPeek(measurePeek()));
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
+
+  // React's style type doesn't know about CSS variables, hence the wider type
+  const style: React.CSSProperties & Record<`--${string}`, string> = {
+    height: HEIGHT,
+    // How far down the strip sits while peeking (see globals.css)
+    "--peek-offset": `${HEIGHT - peek}px`,
+    ...PALETTES[theme],
+  };
 
   return (
     // The outer div reserves the strip's place at the end of the page; the
@@ -136,7 +174,7 @@ export default function FooterGrass(): React.ReactElement {
         className={`footer-grass fixed bottom-0 left-0 right-0 z-10 overflow-hidden pointer-events-none ${
           phase === "hidden" ? "is-hidden" : phase === "end" ? "" : "is-peeking"
         }`}
-        style={{ height: HEIGHT, ...(PALETTES[theme] as React.CSSProperties) }}
+        style={style}
       >
         {drawing}
       </div>
