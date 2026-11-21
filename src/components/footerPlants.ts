@@ -4,8 +4,8 @@
 
 import type { DaisyShape } from "@/components/blowDaisy";
 
-/** Height of the strip in px. */
-export const HEIGHT = 230;
+/** The height the plant sizes below were drawn for; other heights scale them. */
+const DESIGN_HEIGHT = 230;
 
 export type Colour = "deep" | "mid" | "bright" | "pale" | "olive" | "gold" | "coral" | "cream";
 
@@ -66,8 +66,14 @@ const polygon = (points: Point[]): string =>
 //  - contours are a few straight runs with crisp corners, not smooth curves
 //  - outlines are bold and steady, with only slight changes in weight
 //  - colour sits a touch off-register from its outline, as in a screen print
-/** Layers of plants covering `width` px, back to front. */
-export function buildPlants(width: number): Plant[][] {
+/**
+ * Layers of plants covering `width` px, back to front, for a strip `HEIGHT`
+ * px tall. Plants grow or shrink with the height; the arches and the pebble
+ * bed along the ground stay the same size, so a shorter strip is the same
+ * ground with shorter plants on it.
+ */
+export function buildPlants(width: number, HEIGHT: number): Plant[][] {
+  const grow = HEIGHT / DESIGN_HEIGHT;
   const random = seededRandom(11);
   const between = (min: number, max: number): number => min + random() * (max - min);
   const jitter = (amount: number): number => between(-amount, amount);
@@ -188,7 +194,8 @@ export function buildPlants(width: number): Plant[][] {
   };
 
   // A stem from below the ground line that bows; `at` locates points along it
-  const stalk = (x: number, height: number, lean: number): { points: Point[]; at: (t: number) => Point } => {
+  const stalk = (x: number, designHeight: number, lean: number): { points: Point[]; at: (t: number) => Point } => {
+    const height = designHeight * grow;
     const bow = between(-7, 7);
     const at = (t: number): Point => [
       x + lean * Math.pow(t, 1.6) + bow * Math.sin(Math.PI * t),
@@ -255,7 +262,7 @@ export function buildPlants(width: number): Plant[][] {
     const count = 2 + Math.floor(random() * 3);
     for (let i = 0; i < count; i++) {
       const bx = x + between(-10, 10);
-      const height = tall ? between(44, 140) : between(12, 42);
+      const height = tall ? between(44, 140) * grow : between(12, 42);
       const lean = between(-16, 16);
       // Solid ink blades among the tall ones read as shadow
       const colour = tall
@@ -538,7 +545,7 @@ export function buildPlants(width: number): Plant[][] {
   // out to each tooth
   const toothedLeaf = (x: number): Plant => {
     const plant = draw();
-    const height = between(104, 218);
+    const height = between(104, 218) * grow;
     const lean = between(-34, 34);
     const half = between(11, 20);
     const flip = random() < 0.5 ? -1 : 1; // which side carries the teeth
@@ -654,7 +661,7 @@ export function buildPlants(width: number): Plant[][] {
   // slivers and shards rather than round dots - and the odd four-point star
   const stipple = (x: number): Plant => {
     const plant = draw();
-    const cy = HEIGHT - between(70, 204);
+    const cy = HEIGHT - between(70, 204) * grow;
     const bits: Point[][] = [];
     const count = 5 + Math.floor(random() * 10);
     for (let i = 0; i < count; i++) {

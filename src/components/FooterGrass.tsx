@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { buildPlants, HEIGHT, n } from "@/components/footerPlants";
+import { buildPlants, n } from "@/components/footerPlants";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const MAX_WIDTH = 2600;
@@ -31,32 +31,37 @@ const PALETTES = {
 /**
  * Where the strip is in its scroll story:
  *  - "intro": top of the page, peeking along the bottom of the window as far
- *    as the hero leaves room (see measurePeek)
+ *    as the hero leaves room (see measureRoom)
  *  - "hidden": scrolled away from the top, slid out of view
  *  - "end": past the last project, fully up
  */
 type Phase = "intro" | "hidden" | "end";
 
-// Most the strip shows at the top of the page: all of it, when the hero
-// leaves that much room under its buttons (measurePeek decides)
-const PEEK_MAX = HEIGHT;
-// Below this it is only a sliver of leaf tips, so show nothing instead
-const PEEK_MIN = 28;
+// The strip is drawn to fit the visitor's window. At the top of the page it
+// rises to just under the hero's buttons, with only its lowest part - the
+// flat pebble bed - below the window, so the arches and the flowers both show.
+// Its full height is therefore the room under the buttons plus that part.
+const BELOW_WINDOW_AT_TOP = 40;
+const MIN_HEIGHT = 150;
+const MAX_HEIGHT = 270;
+// Used when the hero leaves no room at all (most phones), where the strip
+// only appears at the end of the page
+const DEFAULT_HEIGHT = 200;
+// Less room than this would show only a sliver of leaf tips, so show nothing
+const MIN_ROOM = 28;
 
 /**
- * How much of the strip can show at the top of the page without covering the
- * hero. The lowest thing there is the row of Twitter/GitHub buttons; the strip
- * gets whatever room is left under it. On a phone the hero is usually taller
- * than the window, which leaves no room, so the strip stays out of the way
- * until the end of the page.
+ * Space, in px, between the bottom of the hero and the bottom of the window
+ * when the page is at the top. The lowest thing in the hero is the row of
+ * Twitter/GitHub buttons. On a phone the hero is usually taller than the
+ * window and this is negative.
  */
-function measurePeek(): number {
+function measureRoom(): number {
   const buttons = document.querySelector(".intro > p:last-child");
-  if (!buttons) return PEEK_MAX;
+  if (!buttons) return DEFAULT_HEIGHT;
   // Position in the page, not the window, so the answer doesn't depend on scroll
   const bottom = buttons.getBoundingClientRect().bottom + window.scrollY;
-  const room = Math.round(window.innerHeight - bottom - 10);
-  return room < PEEK_MIN ? 0 : Math.min(PEEK_MAX, room);
+  return Math.round(window.innerHeight - bottom - 10);
 }
 
 function currentPhase(): Phase {
@@ -78,13 +83,22 @@ function currentPhase(): Phase {
 export default function FooterGrass(): React.ReactElement {
   const { theme } = useTheme();
   const [phase, setPhase] = useState<Phase>(currentPhase);
-  const [peek, setPeek] = useState<number>(measurePeek);
+  const [room, setRoom] = useState<number>(measureRoom);
 
-  const { width, layers } = useMemo(() => {
+  // Drawn once, for the window as it was on load
+  const { width, height, layers } = useMemo(() => {
     // Screen width, not window width, so widening the window never runs out
     const width = Math.min(MAX_WIDTH, Math.max(window.innerWidth, window.screen.width) + 80);
-    return { width, layers: buildPlants(width) };
+    const initialRoom = measureRoom();
+    const height =
+      initialRoom < MIN_ROOM
+        ? DEFAULT_HEIGHT
+        : Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, initialRoom + BELOW_WINDOW_AT_TOP));
+    return { width, height, layers: buildPlants(width, height) };
   }, []);
+
+  // How much of it shows at the top of the page
+  const peek = room < MIN_ROOM ? 0 : Math.min(height, room);
 
   // ~1,000 paths that never change. Memoised so a phase or theme change only
   // touches the wrapper (the colours are CSS variables set on it).
@@ -92,8 +106,8 @@ export default function FooterGrass(): React.ReactElement {
     () => (
       <svg
         width={width}
-        height={HEIGHT}
-        viewBox={`0 0 ${width} ${HEIGHT}`}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
         className="absolute bottom-0 left-1/2 max-w-none"
         style={{ marginLeft: -width / 2 }}
       >
@@ -109,7 +123,7 @@ export default function FooterGrass(): React.ReactElement {
                     ? undefined
                     : {
                         // Each plant sways from its own root, out of phase with its neighbours
-                        transformOrigin: `${n(plant.x)}px ${HEIGHT}px`,
+                        transformOrigin: `${n(plant.x)}px ${height}px`,
                         animationDuration: `${n(plant.duration)}s`,
                         animationDelay: `-${n(plant.delay)}s`,
                       }
@@ -129,7 +143,7 @@ export default function FooterGrass(): React.ReactElement {
         ))}
       </svg>
     ),
-    [layers, width]
+    [layers, width, height]
   );
 
   useEffect(() => {
@@ -145,10 +159,10 @@ export default function FooterGrass(): React.ReactElement {
     // The room under the hero changes with the window, and once more when the
     // web fonts load and the text reflows
     const onResize = (): void => {
-      setPeek(measurePeek());
+      setRoom(measureRoom());
       onScroll();
     };
-    document.fonts.ready.then(() => setPeek(measurePeek()));
+    document.fonts.ready.then(() => setRoom(measureRoom()));
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize);
     return () => {
@@ -160,9 +174,9 @@ export default function FooterGrass(): React.ReactElement {
 
   // React's style type doesn't know about CSS variables, hence the wider type
   const style: React.CSSProperties & Record<`--${string}`, string> = {
-    height: HEIGHT,
+    height,
     // How far down the strip sits while peeking (see globals.css)
-    "--peek-offset": `${HEIGHT - peek}px`,
+    "--peek-offset": `${height - peek}px`,
     ...PALETTES[theme],
   };
 
@@ -170,7 +184,7 @@ export default function FooterGrass(): React.ReactElement {
     // The outer div reserves the strip's place at the end of the page; the
     // strip itself is pinned to the bottom of the window so it can also show
     // at the top of the page. At the very bottom the two line up.
-    <div aria-hidden="true" style={{ height: HEIGHT }}>
+    <div aria-hidden="true" style={{ height }}>
       <div
         className={`footer-grass fixed bottom-0 left-0 right-0 z-10 overflow-hidden pointer-events-none ${
           phase === "hidden" ? "is-hidden" : phase === "end" ? "" : "is-peeking"
