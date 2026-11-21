@@ -22,12 +22,12 @@ export interface DaisyShape {
   centre: string;
 }
 
-/** A daisy currently on screen in the footer strip. */
+/** The daisy that will fly: normally one from the footer strip. */
 export interface CollageDaisy extends DaisyShape {
   /** Centre of its head, in window coordinates */
   x: number;
   y: number;
-  /** Removes it from the strip, stem and all. */
+  /** Removes it from the strip, stem and all (nothing to do for a stand-in). */
   pick(): void;
 }
 
@@ -50,31 +50,43 @@ const between = (min: number, max: number): number => min + Math.random() * (max
 const jitter = (amount: number): number => between(-amount, amount);
 
 /**
- * Finds a daisy in the footer strip whose head is fully on screen, preferring
- * the one most nearly below the frame. Returns undefined when there is none -
- * the strip may not be drawn yet, or may be scrolled out of view.
+ * Chooses the daisy that will fly up to the frame. In order of preference:
+ *  1. one in the footer strip whose head is fully on screen
+ *  2. one in the strip just below the bottom of the window - on phones the
+ *     strip can't show at the top of the page (the hero fills the window), so
+ *     the daisy comes up over the bottom edge instead
+ *  3. if the strip has no daisy in reach, or isn't drawn yet, a stand-in that
+ *     starts below the bottom edge
+ * Within 1 and 2 it takes the one most nearly below the frame.
  */
-export function findCollageDaisy(frame: HTMLElement): CollageDaisy | undefined {
+export function findCollageDaisy(frame: HTMLElement): CollageDaisy {
   const frameRect = frame.getBoundingClientRect();
   const frameX = frameRect.left + frameRect.width / 2;
-  let best: CollageDaisy | undefined;
+  let best: (CollageDaisy & { onScreen: boolean }) | undefined;
 
   document.querySelectorAll<SVGGElement>(".footer-grass g[data-daisy]").forEach((group) => {
     if (group.dataset.picked) return;
-    const head = group.querySelectorAll<SVGPathElement>("path[data-head]");
-    if (!head.length || !group.dataset.daisy) return;
     // The first head path is the petals; its box is the head as actually
     // drawn, sway and strip position included
-    const box = head[0].getBoundingClientRect();
-    const onScreen = box.width > 0 && box.left > 0 && box.right < window.innerWidth && box.bottom < window.innerHeight - 2;
-    if (!onScreen) return;
+    const head = group.querySelector<SVGPathElement>("path[data-head]");
+    if (!head || !group.dataset.daisy) return;
+    const box = head.getBoundingClientRect();
+    if (box.width === 0 || box.left < 0 || box.right > window.innerWidth) return;
+
+    const onScreen = box.bottom < window.innerHeight - 2;
+    const justBelow = box.top < window.innerHeight + 260;
+    if (!onScreen && !justBelow) return;
 
     const x = box.left + box.width / 2;
-    if (best && Math.abs(x - frameX) >= Math.abs(best.x - frameX)) return;
+    if (best) {
+      if (best.onScreen && !onScreen) return;
+      if (best.onScreen === onScreen && Math.abs(x - frameX) >= Math.abs(best.x - frameX)) return;
+    }
     best = {
       ...(JSON.parse(group.dataset.daisy) as DaisyShape),
       x,
       y: box.top + box.height / 2,
+      onScreen,
       pick() {
         group.dataset.picked = "true";
         group.style.visibility = "hidden";
@@ -82,7 +94,20 @@ export function findCollageDaisy(frame: HTMLElement): CollageDaisy | undefined {
     };
   });
 
-  return best;
+  if (best) return best;
+
+  const margin = 40;
+  const x = frameX + between(-0.3, 0.3) * window.innerWidth;
+  return {
+    radius: 21,
+    squash: 0.9,
+    turn: -0.2,
+    petals: 19,
+    centre: "mid",
+    x: Math.min(window.innerWidth - margin, Math.max(margin, x)),
+    y: window.innerHeight + 44,
+    pick() {},
+  };
 }
 
 function shape(points: Point[], fill: string, strokeWidth: number): SVGPolygonElement {

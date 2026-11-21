@@ -240,13 +240,9 @@ export default function ProfilePicture(): React.ReactElement {
         cues.push({
           at: mouthAt,
           run: async () => {
-            // The daisy has to be one that is on screen in the footer strip.
-            // If there is none (strip not drawn yet, or scrolled away) just
-            // open the mouth; daisyDue stays true for the next visit.
-            const picked = daisyDue ? findCollageDaisy(container) : undefined;
-            if (!picked) return moveMouth();
+            if (!daisyDue) return moveMouth();
             visitsUntilDaisy = DAISY_EVERY - 1;
-            await blowDaisy(picked);
+            await blowDaisy(findCollageDaisy(container));
           },
         });
       }
