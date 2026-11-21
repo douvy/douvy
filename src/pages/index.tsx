@@ -179,7 +179,7 @@ export default function Home(): React.ReactElement {
               </div>
               <div className="clear-both w-full"></div>
               <p
-                className={`pt-2 mt-4 leading-8 text-[15px] sm:text-[17px] italic ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
+                className={`pt-2 mt-4 md:mt-10 leading-8 text-[15px] sm:text-[17px] italic ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
               >
                 Design engineer, 8+ years in crypto. I prototype and ship
                 interfaces directly in the browser, concept through
