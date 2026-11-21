@@ -59,6 +59,18 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: "cantoscan",
+    name: "Cantoscan",
+    categories: ["Tools"],
+    description: [
+      "Blockchain explorer with real-time transaction, address, and contract indexing. Built in two weeks. Grand Prize, Canto Hackathon Ch.1, S5.",
+    ],
+    images: [
+      { src: "/img/cantoscan.jpg", alt: "cantoscan" },
+      { src: "/img/cantoscan-1.jpg", alt: "cantoscan" },
+    ],
+  },
+  {
     id: "dgenesis",
     name: "dGenesis",
     categories: ["NFT"],
@@ -69,29 +81,6 @@ export const PROJECTS: Project[] = [
     images: [
       { src: "/img/automatons.jpg", alt: "automatons" },
       { src: "/img/drips.jpg", alt: "drips" },
-    ],
-  },
-  {
-    id: "propix",
-    name: "Propix Agent",
-    categories: ["AI"],
-    description: [
-      "Autonomous agent for NFL/NBA prop picks. Pulls projections, injuries, news, DK lines. Claude synthesizes and only bets when it's confident. Kelly sizing that tightens during drawdowns.",
-      "49-30. 62% win rate. +16% ROI.",
-    ],
-    images: [{ src: "/img/propix.jpg", alt: "Propix Agent" }],
-  },
-  {
-    id: "remilianet",
-    name: "RemiliaNET Stats",
-    url: "https://remiliastats.com/",
-    categories: ["Tools"],
-    description: [
-      "Analytics and leaderboard for RemiliaNET. Real-time rankings and user profiles.",
-    ],
-    images: [
-      { src: "/img/remilianet-1.jpg", alt: "RemiliaNET" },
-      { src: "/img/remilianet-2.jpg", alt: "RemiliaNET" },
     ],
   },
   {
@@ -108,6 +97,19 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: "remilianet",
+    name: "RemiliaNET Stats",
+    url: "https://remiliastats.com/",
+    categories: ["Tools"],
+    description: [
+      "Analytics and leaderboard for RemiliaNET. Real-time rankings and user profiles.",
+    ],
+    images: [
+      { src: "/img/remilianet-1.jpg", alt: "RemiliaNET" },
+      { src: "/img/remilianet-2.jpg", alt: "RemiliaNET" },
+    ],
+  },
+  {
     id: "shishi",
     name: "Shishi",
     url: "https://shishi520.io/",
@@ -121,16 +123,14 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    id: "cantoscan",
-    name: "Cantoscan",
-    categories: ["Tools"],
+    id: "propix",
+    name: "Propix Agent",
+    categories: ["AI"],
     description: [
-      "Blockchain explorer with real-time transaction, address, and contract indexing. Built in two weeks. Grand Prize, Canto Hackathon Ch.1, S5.",
+      "Autonomous agent for NFL/NBA prop picks. Pulls projections, injuries, news, DK lines. Claude synthesizes and only bets when it's confident. Kelly sizing that tightens during drawdowns.",
+      "49-30. 62% win rate. +16% ROI.",
     ],
-    images: [
-      { src: "/img/cantoscan.jpg", alt: "cantoscan" },
-      { src: "/img/cantoscan-1.jpg", alt: "cantoscan" },
-    ],
+    images: [{ src: "/img/propix.jpg", alt: "Propix Agent" }],
   },
   {
     id: "zaarflip",
