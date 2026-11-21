@@ -3,26 +3,35 @@ import Image from 'next/image';
 
 type Look = 'normal' | 'glasses' | 'halo';
 
-// Avatar animation frames
-const LOOKS: Record<Look, { open: string; blink: string }> = {
-  normal: { open: '/img/milady-no-bg.png', blink: '/img/milady-blink.png' },
-  glasses: { open: '/img/milady-glasses.png', blink: '/img/milady-glasses-blink.png' },
-  halo: { open: '/img/milady-halo.png', blink: '/img/milady-blink-halo.png' },
+interface LookConfig {
+  open: string;
+  /** Omitted for looks that hide the eyes. */
+  blink?: string;
+  /** How long the look stays before sliding to the next one (ms). */
+  dwell: number;
+  next: Look;
+}
+
+// The cycle: normal -> glasses -> halo -> normal. The first change comes
+// early so visitors who only stay a few seconds still see one.
+const LOOKS: Record<Look, LookConfig> = {
+  normal: { open: '/img/milady-no-bg.png', blink: '/img/milady-blink.png', dwell: 6000, next: 'glasses' },
+  // No blink frame: the eyes are behind opaque lenses
+  glasses: { open: '/img/milady-glasses.png', dwell: 14000, next: 'halo' },
+  halo: { open: '/img/milady-halo.png', blink: '/img/milady-blink-halo.png', dwell: 10000, next: 'normal' },
 };
 const normalSrc = LOOKS.normal.open;
 const mouthOpenSrc = '/img/milady-mouth-open.png';
 
-const allSrcs = [...Object.values(LOOKS).flatMap((look) => [look.open, look.blink]), mouthOpenSrc];
+const allSrcs = [
+  ...Object.values(LOOKS).flatMap((look) => (look.blink ? [look.open, look.blink] : [look.open])),
+  mouthOpenSrc,
+];
 
-const BLINK_EVERY = 3500;
 const SLIDE_OUT_MS = 800;
 const SLIDE_IN_MS = 700;
-// Slides start at these points in the cycle; blinks that would land on one are skipped
-const SLIDES: { at: number; to: Look }[] = [
-  { at: 15000, to: 'glasses' },
-  { at: 35000, to: 'halo' },
-  { at: 45000, to: 'normal' }, // back to the start; the cycle then repeats
-];
+
+const between = (min: number, max: number): number => min + Math.random() * (max - min);
 
 export default function ProfilePicture(): React.ReactElement {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -46,7 +55,11 @@ export default function ProfilePicture(): React.ReactElement {
     const imgs = Array.from(pfp.querySelectorAll('img'));
     let look: Look = 'normal';
     let timer: ReturnType<typeof setTimeout> | undefined;
+    let endSleep: (() => void) | undefined;
     let slide: Animation | undefined;
+    let sliding = false;
+    // Set by a click/tap: cut the current look short and slide to the next
+    let skipRequested = false;
 
     const show = (src: string): void => {
       imgs.forEach((img) => {
@@ -56,9 +69,12 @@ export default function ProfilePicture(): React.ReactElement {
 
     // After cleanup these promises never settle, which parks the script for good.
     const sleep = (ms: number): Promise<void> =>
-      new Promise((resolve) => {
-        timer = setTimeout(resolve, ms);
-      });
+      skipRequested
+        ? Promise.resolve()
+        : new Promise((resolve) => {
+            endSleep = resolve;
+            timer = setTimeout(resolve, ms);
+          });
 
     // Only animate while the picture is on screen in a visible tab
     let inView = true;
@@ -83,15 +99,23 @@ export default function ProfilePicture(): React.ReactElement {
       isActive() ? Promise.resolve() : new Promise((resolve) => { wake = resolve; });
 
     const blink = async (): Promise<void> => {
-      show(LOOKS[look].blink);
+      const { open, blink: closed } = LOOKS[look];
+      if (!closed) return;
+      show(closed);
       await sleep(200); // 200ms reads as a natural blink
-      show(LOOKS[look].open);
+      show(open);
+    };
+
+    const doubleBlink = async (): Promise<void> => {
+      await blink();
+      await sleep(120);
+      await blink();
     };
 
     const moveMouth = async (): Promise<void> => {
       show(mouthOpenSrc);
       await sleep(800);
-      show(normalSrc);
+      show(LOOKS[look].open);
     };
 
     // Slide down out of the frame, swap the look while hidden, bounce back in
@@ -101,6 +125,7 @@ export default function ProfilePicture(): React.ReactElement {
         imgs.forEach((img) => { img.style.border = value; });
       };
 
+      sliding = true;
       setBorder('none'); // the image border looks wrong while it moves
       slide = pfp.animate(
         [{ transform: 'translateY(0)' }, { transform: 'translateY(100%)' }],
@@ -121,40 +146,66 @@ export default function ProfilePicture(): React.ReactElement {
 
       slide.cancel(); // resting position comes from the inline style again
       setBorder('');
+      sliding = false;
     };
 
-    type Cue = { at: number; run: () => Promise<void> };
-    const slideEnd = SLIDE_OUT_MS + 50 + SLIDE_IN_MS;
-    const cues: Cue[] = [
-      { at: 6000, run: moveMouth },
-      { at: 10000, run: moveMouth },
-      ...SLIDES.map(({ at, to }) => ({ at, run: () => slideTo(to) })),
-    ];
-    for (let at = 0; at < 45000; at += BLINK_EVERY) {
-      const duringSlide = SLIDES.some((s) => at >= s.at && at < s.at + slideEnd);
-      if (!duringSlide) cues.push({ at, run: blink });
-    }
-    cues.sort((a, b) => a.at - b.at);
+    // Hold the current look for its dwell time, blinking at irregular
+    // intervals (a fixed interval looks mechanical). Returns early on skip.
+    const dwell = async (): Promise<void> => {
+      skipRequested = false;
+      const { dwell: duration, blink: canBlink } = LOOKS[look];
+
+      type Cue = { at: number; run: () => Promise<void> };
+      const cues: Cue[] = [{ at: duration, run: async () => {} }];
+      const mouthAt = look === 'normal' ? 3000 : undefined;
+      if (mouthAt !== undefined) cues.push({ at: mouthAt, run: moveMouth });
+      if (canBlink) {
+        for (let at = between(800, 1800); at < duration - 500; at += between(2000, 6000)) {
+          // Keep blinks from butting up against the mouth movement
+          if (mouthAt !== undefined && at > mouthAt - 500 && at < mouthAt + 1300) continue;
+          cues.push({ at, run: Math.random() < 0.2 ? doubleBlink : blink });
+        }
+      }
+      cues.sort((a, b) => a.at - b.at);
+
+      let start = performance.now();
+      for (const cue of cues) {
+        await sleep(start + cue.at - performance.now());
+        if (skipRequested) return;
+        await whenActive();
+
+        // After a pause (off screen, background tab) push the rest of the
+        // dwell back instead of replaying the missed cues in a burst
+        const late = performance.now() - (start + cue.at);
+        if (late > 1000) start += late;
+
+        await cue.run();
+        if (skipRequested) return;
+      }
+    };
 
     const run = async (): Promise<void> => {
       for (;;) {
-        // Small delay before each cycle so everything is settled
-        await sleep(2000);
-        let start = performance.now();
-
-        for (const cue of cues) {
-          await sleep(start + cue.at - performance.now());
-          await whenActive();
-
-          // After a pause (off screen, background tab) push the rest of the
-          // cycle back instead of replaying the missed cues in a burst
-          const late = performance.now() - (start + cue.at);
-          if (late > 1000) start += late;
-
-          await cue.run();
-        }
+        await dwell();
+        await slideTo(LOOKS[look].next);
       }
     };
+
+    // Click, tap, Enter or Space jumps straight to the next look
+    const skip = (): void => {
+      if (sliding) return;
+      skipRequested = true;
+      clearTimeout(timer);
+      endSleep?.();
+    };
+    const onKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault(); // Space would scroll the page
+        skip();
+      }
+    };
+    container.addEventListener('click', skip);
+    container.addEventListener('keydown', onKeyDown);
 
     // Cancelling a slide in cleanup rejects its `finished` promise
     run().catch(() => {});
@@ -163,6 +214,8 @@ export default function ProfilePicture(): React.ReactElement {
       clearTimeout(timer);
       observer.disconnect();
       document.removeEventListener('visibilitychange', onActivityChange);
+      container.removeEventListener('click', skip);
+      container.removeEventListener('keydown', onKeyDown);
       slide?.cancel();
       imgs.forEach((img) => { img.style.border = ''; });
       show(normalSrc);
@@ -171,13 +224,19 @@ export default function ProfilePicture(): React.ReactElement {
 
   return (
     <div
-      className="hero-image relative"
+      className="hero-image relative cursor-pointer"
+      role="button"
+      tabIndex={0}
+      aria-label="Change douvy's look"
       style={{
         backgroundImage: "url('/img/milady-bg.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center center",
         position: "relative",
-        overflow: "hidden"
+        overflow: "hidden",
+        // No grey flash or double-tap zoom delay when tapped on mobile
+        WebkitTapHighlightColor: "transparent",
+        touchAction: "manipulation"
       }}
     >
       <div
@@ -209,6 +268,7 @@ export default function ProfilePicture(): React.ReactElement {
             // Decode with the paint: async decoding can show the background
             // for a frame the first time a hidden frame becomes visible
             decoding="sync"
+            draggable={false}
             style={{ opacity: src === normalSrc ? 1 : 0 }}
             onLoad={() => handleFrameSettled(src)}
             onError={() => handleFrameSettled(src)}
