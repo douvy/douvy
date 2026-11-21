@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 
@@ -7,9 +6,8 @@ export default function Footer(): React.ReactElement {
   return (
     <footer className="py-4">
       <div className="flex flex-wrap justify-between mx-auto max-w-screen-xl w-full md:w-10/12 lg:w-8/12 px-4">
-        <span>
-          <Link href="#" className="hover:underline"></Link>
-        </span>
+        {/* Empty left column keeps the links right-aligned (justify-between) */}
+        <span></span>
         <ul className="flex flex-wrap text-right items-center sm:mt-0 text-sm">
           <li>
             <span className="sm:text-right">
