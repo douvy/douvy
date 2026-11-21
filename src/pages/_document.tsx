@@ -34,54 +34,11 @@ export default function Document(): React.ReactElement {
           crossOrigin="anonymous"
         />
 
-        {/* Preload critical images */}
-        <link
-          rel="preload"
-          href="/img/milady-no-bg.png"
-          as="image"
-          fetchPriority="high"
-        />
-        <link
-          rel="preload"
-          href="/img/milady-blink.png"
-          as="image"
-          fetchPriority="high"
-        />
-        {/* Background image has maximum priority - it should NEVER be changed during animations */}
+        {/* The profile picture's CSS background. No crossOrigin: the CSS
+            request is no-cors, and a mismatched preload is fetched twice. */}
         <link
           rel="preload"
           href="/img/milady-bg.jpg"
-          as="image"
-          fetchPriority="high"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/img/milady-mouth-open.png"
-          as="image"
-          fetchPriority="high"
-        />
-        <link
-          rel="preload"
-          href="/img/milady-glasses.png"
-          as="image"
-          fetchPriority="high"
-        />
-        <link
-          rel="preload"
-          href="/img/milady-glasses-blink.png"
-          as="image"
-          fetchPriority="high"
-        />
-        <link
-          rel="preload"
-          href="/img/zaar-flip.jpg"
-          as="image"
-          fetchPriority="high"
-        />
-        <link
-          rel="preload"
-          href="/img/zaar-flip-1.jpg"
           as="image"
           fetchPriority="high"
         />

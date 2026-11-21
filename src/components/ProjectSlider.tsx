@@ -97,8 +97,6 @@ export default function ProjectSlider({ images, id }: ProjectSliderProps): React
                 className="w-full h-auto object-contain block cursor-pointer"
                 width={450}
                 height={280}
-                priority={index === 0} // Only prioritize first image in each slider
-                quality={90}
                 style={{
                   objectFit: "contain",
                   width: "100%",
