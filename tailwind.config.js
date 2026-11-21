@@ -75,13 +75,7 @@ module.exports = {
       boxShadow: {
         project: "5px 5px 0 hsla(219, 90%, 60%, 0.15)",
         "project-hover":
-          "6px 6px 0 hsla(219, 93%, 60%, 0.15), -6px -6px 0 hsla(219, 93%, 80%, 0.08)",
-        gallery: "11px 11px 48px rgba(0, 0, 0, 0.12)",
-      },
-      spacing: {
-        section: "70px",
-        "section-mobile": "12px",
-      },
+          "6px 6px 0 hsla(219, 93%, 60%, 0.15), -6px -6px 0 hsla(219, 93%, 80%, 0.08)",      },
       zIndex: {
         "-1": "-1",
       },

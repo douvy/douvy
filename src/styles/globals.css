@@ -61,16 +61,8 @@
     }
     
     /* Hero section */
-    .hero i {
-        @apply opacity-60 text-xs;
-    }
     .hero img {
         @apply w-[180px] h-[180px] rounded-[3px] float-right border border-outline top-0;
-    }
-    
-    /* Project image styles */
-    #automatons, #drips {
-        @apply rounded-[2px] opacity-100;
     }
 
     /* Portfolio section styles */
@@ -82,32 +74,12 @@
         @apply border-gray-400/60;
     }
     
-    #portfolio .home-teaser-list {
-        @apply border-t border-divider pt-section;
-    }
-    
-    #portfolio .hero-image-home-link-block {
-        @apply max-w-[450px] ml-0 flex items-center h-full;
-    }
-    
     #portfolio p {
         @apply mt-6 leading-[26px] text-base;
     }
     
     #portfolio .project-preview-item {
         @apply p-0 ml-2;
-    }
-    
-    #project-last .home-teaser-list {
-        @apply mt-[30px] border-t-0 border-b border-divider pb-[120px];
-    }
-    
-    .light #project-last .home-teaser-list {
-        @apply border-[#dde9f8];
-    }
-    
-    #project-last img {
-        @apply rounded-[2px];
     }
     
     /* Footer components */
@@ -152,11 +124,6 @@
         .hero img {
             @apply w-full h-full max-w-[130px];
         }
-        
-        /* Fix spacing for project containers */
-        #portfolio .relative.border.default-border-color {
-            @apply mt-[25px] clear-both;
-        }
     }
     
     @media (max-width: 768px) {
@@ -166,17 +133,9 @@
         .hero p {
             @apply text-[15px] leading-[28px] mt-5;
         }
-        
-        #portfolio .home-teaser-list {
-            @apply pt-section-mobile;
-        }
-        
+
         #portfolio .project-description p {
             @apply mt-[13px];
-        }
-        
-        #project-last .home-teaser-list {
-            @apply mt-16 pb-[90px];
         }
          /* Footer components */
         footer {
@@ -193,11 +152,6 @@
             @apply mt-[15px] leading-[26px] text-base max-w-[425px];
         }
     }
-}
-
-/* Gallery-specific styles */
-#gallery img {
-    @apply border-2 border-white rounded-[24px] shadow-gallery;
 }
 
 /* Custom intro styles */

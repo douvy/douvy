@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ScrollIndicator from "@/components/ScrollIndicator";
 import ProfilePicture from "@/components/ProfilePicture";
 import ProjectCard from "@/components/ProjectCard";
 import StripedFrame from "@/components/StripedFrame";
@@ -142,8 +141,6 @@ export default function Home(): React.ReactElement {
       </Head>
 
       <Header isProfilePictureVisible={isProfilePictureVisible} />
-      <ScrollIndicator />
-
       {/* Hero Section */}
       <div className="hero px-2.5 mt-36 sm:mt-40 mb-6">
         <div className="flex flex-col items-center">
