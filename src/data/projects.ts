@@ -59,6 +59,20 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: "dgenesis",
+    name: "dGenesis",
+    url: "https://dgenesis.io/",
+    categories: ["NFT"],
+    description: [
+      "Co-founded project featuring community-owned generative art that sold out in two hours.",
+      "First L2 bridgeable NFT on Arbitrum.",
+    ],
+    images: [
+      { src: "/img/automatons.jpg", alt: "automatons" },
+      { src: "/img/drips.jpg", alt: "drips" },
+    ],
+  },
+  {
     id: "cantoscan",
     name: "Cantoscan",
     categories: ["Tools"],
@@ -68,19 +82,6 @@ export const PROJECTS: Project[] = [
     images: [
       { src: "/img/cantoscan.jpg", alt: "cantoscan" },
       { src: "/img/cantoscan-1.jpg", alt: "cantoscan" },
-    ],
-  },
-  {
-    id: "dgenesis",
-    name: "dGenesis",
-    categories: ["NFT"],
-    description: [
-      "Co-founded project featuring community-owned generative art that sold out in two hours.",
-      "First L2 bridgeable NFT on Arbitrum.",
-    ],
-    images: [
-      { src: "/img/automatons.jpg", alt: "automatons" },
-      { src: "/img/drips.jpg", alt: "drips" },
     ],
   },
   {
