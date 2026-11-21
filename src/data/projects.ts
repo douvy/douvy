@@ -103,7 +103,7 @@ export const PROJECTS: Project[] = [
     url: "https://remiliastats.com/",
     categories: ["Tools"],
     description: [
-      "Analytics and leaderboard for RemiliaNET. Real-time rankings and user profiles.",
+      "Leaderboard with a profile page for every user. Syncs the full user base in the background, around the API's rate limits, and serves search and rankings from a Redis cache.",
     ],
     images: [
       { src: "/img/remilianet-1.jpg", alt: "RemiliaNET" },
