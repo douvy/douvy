@@ -26,7 +26,7 @@ export default function ProjectSlider({ images, id }: ProjectSliderProps): React
           
           const swiper = new SwiperClass(swiperElRef.current, {
             direction: 'horizontal',
-            loop: true,
+            loop: images.length > 1, // looping a single slide only logs a warning
             grabCursor: true,
             slidesPerView: 1,
             spaceBetween: 0,
