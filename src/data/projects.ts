@@ -77,7 +77,7 @@ export const PROJECTS: Project[] = [
     name: "Cantoscan",
     categories: ["Tools"],
     description: [
-      "Built in two weeks. Grand Prize, Canto Hackathon. Blockchain explorer: look up any transaction, address, or contract as it lands.",
+      "Won the grand prize at the Canto Hackathon. Built in two weeks. Blockchain explorer: look up any transaction, address, or contract as it lands.",
     ],
     images: [
       { src: "/img/cantoscan.jpg", alt: "cantoscan" },
