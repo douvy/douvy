@@ -146,7 +146,7 @@ export default function Home(): React.ReactElement {
 
       <Header isProfilePictureVisible={isProfilePictureVisible} />
       {/* Hero Section */}
-      <div className="hero px-2.5 mt-36 sm:mt-40 mb-6">
+      <div className="hero px-2.5 mt-36 mb-6">
         <div className="flex flex-col items-center">
           <div className="w-full md:w-10/12 lg:w-8/12 px-4">
             <div className="intro relative">
