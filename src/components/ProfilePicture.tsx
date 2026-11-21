@@ -71,6 +71,9 @@ export default function ProfilePicture(): React.ReactElement {
     // Set by a click/tap: cut the current look short and slide to the next
     let skipRequested = false;
     let daisy: BlowDaisy | undefined;
+    // True while the daisy hangs in front of her, waiting to be blown
+    let daisyWaiting = false;
+    let blowNow = false;
     let visitsUntilDaisy = 0;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -137,37 +140,36 @@ export default function ProfilePicture(): React.ReactElement {
     const blowDaisy = async (from: CollageDaisy): Promise<void> => {
       const flower = createBlowDaisy(container, from);
       daisy = flower;
+      blowNow = false;
       try {
         const rising = flower.rise();
-        rising.catch(() => {}); // may be abandoned below without being awaited
         // The climb takes a few seconds; she keeps blinking while it comes
         await sleep(1700);
-        if (skipRequested) return;
         await blink();
         await sleep(2600);
-        if (skipRequested) return;
         await blink();
         await rising;
-        if (skipRequested) return;
 
-        // It hangs in front of her for a few seconds before she decides to blow
+        // It hangs in front of her for a few seconds before she decides to
+        // blow. A click/tap during the wait makes her blow right away.
         flower.hover();
+        daisyWaiting = true;
         await sleep(1500);
-        if (skipRequested) return;
-        await blink();
-        await sleep(1300);
-        if (skipRequested) return;
+        if (!blowNow) await blink();
+        if (!blowNow) await sleep(1300);
+        daisyWaiting = false;
+
         show(mouthOpenSrc);
         const scattered = flower.scatter();
-        scattered.catch(() => {}); // may be abandoned below without being awaited
+        scattered.catch(() => {}); // settles after leave(); handled by the await below
         await sleep(850);
         show(LOOKS[look].open);
-        if (skipRequested) return;
         await flower.leave();
         await scattered;
       } catch {
-        // Cancelled mid-animation
+        // Removed mid-animation (the component unmounted)
       } finally {
+        daisyWaiting = false;
         flower.remove();
         daisy = undefined;
       }
@@ -280,11 +282,20 @@ export default function ProfilePicture(): React.ReactElement {
       }
     };
 
-    // Click, tap, Enter or Space jumps straight to the next look
+    // Click, tap, Enter or Space jumps straight to the next look - except
+    // while the daisy is playing, which a click must never cut short. Then it
+    // does nothing, or, if the daisy is waiting in front of her, makes her blow.
     const skip = (): void => {
       if (sliding) return;
+      if (daisy) {
+        if (daisyWaiting) {
+          blowNow = true;
+          clearTimeout(timer);
+          endSleep?.();
+        }
+        return;
+      }
       skipRequested = true;
-      daisy?.remove();
       clearTimeout(timer);
       endSleep?.();
     };
