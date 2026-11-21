@@ -7,7 +7,7 @@ export default function Document(): React.ReactElement {
       <Head>
         <meta charSet="utf-8" />
         <meta
-          content="I'm a designer, front-end dev and open-source contributor with 6 years experience in the cryptocurrency space."
+          content="I'm a designer, front-end dev and open-source contributor with 8+ years experience in the cryptocurrency space."
           name="description"
         />
         <meta content="douvy · website" property="og:title" />
