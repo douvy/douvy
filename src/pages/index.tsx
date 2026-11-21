@@ -183,14 +183,15 @@ export default function Home(): React.ReactElement {
               >
                 Design engineer, 8+ years in crypto. I prototype and ship
                 interfaces directly in the browser, concept through
-                production. We can build protocols that are better solutions
-                than financial institutions.
+                production. We can build protocols that work better than
+                financial institutions.
               </p>
               <p
                 className={`mt-8 leading-8 text-[15px] sm:text-[17px] italic mb-8 sm:mb-0 ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
               >
-                I build with agents daily. Active in crypto and AI through trading,
-                learning, exploring, and posting on Twitter.
+                I build with agents daily. Active in crypto and AI through learning,
+                exploring, trading, and posting on Twitter. I want to join a
+                startup, or the right established company, and give it my all.
               </p>
               <p className="flex items-center flex-wrap mt-10 mb-4">
                 <a
