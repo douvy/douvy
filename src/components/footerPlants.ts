@@ -67,13 +67,16 @@ const polygon = (points: Point[]): string =>
 //  - outlines are bold and steady, with only slight changes in weight
 //  - colour sits a touch off-register from its outline, as in a screen print
 /**
- * Layers of plants covering `width` px, back to front, for a strip `HEIGHT`
- * px tall. Plants grow or shrink with the height; the arches and the pebble
- * bed along the ground stay the same size, so a shorter strip is the same
+ * Layers of plants covering `width` px, back to front, on a canvas `HEIGHT`
+ * px tall with the ground along its bottom edge.
+ *
+ * `plantHeightAt(x)` says how tall the planting should be at x, which lets
+ * it stand taller in some places than others. The arches and the pebble bed
+ * stay the same size whatever the height, so a shorter planting is the same
  * ground with shorter plants on it.
  */
-export function buildPlants(width: number, HEIGHT: number): Plant[][] {
-  const grow = HEIGHT / DESIGN_HEIGHT;
+export function buildPlants(width: number, HEIGHT: number, plantHeightAt: (x: number) => number): Plant[][] {
+  const growAt = (x: number): number => plantHeightAt(x) / DESIGN_HEIGHT;
   const random = seededRandom(11);
   const between = (min: number, max: number): number => min + random() * (max - min);
   const jitter = (amount: number): number => between(-amount, amount);
@@ -195,7 +198,7 @@ export function buildPlants(width: number, HEIGHT: number): Plant[][] {
 
   // A stem from below the ground line that bows; `at` locates points along it
   const stalk = (x: number, designHeight: number, lean: number): { points: Point[]; at: (t: number) => Point } => {
-    const height = designHeight * grow;
+    const height = designHeight * growAt(x);
     const bow = between(-7, 7);
     const at = (t: number): Point => [
       x + lean * Math.pow(t, 1.6) + bow * Math.sin(Math.PI * t),
@@ -262,7 +265,7 @@ export function buildPlants(width: number, HEIGHT: number): Plant[][] {
     const count = 2 + Math.floor(random() * 3);
     for (let i = 0; i < count; i++) {
       const bx = x + between(-10, 10);
-      const height = tall ? between(44, 140) * grow : between(12, 42);
+      const height = tall ? between(44, 140) * growAt(x) : between(12, 42);
       const lean = between(-16, 16);
       // Solid ink blades among the tall ones read as shadow
       const colour = tall
@@ -545,7 +548,7 @@ export function buildPlants(width: number, HEIGHT: number): Plant[][] {
   // out to each tooth
   const toothedLeaf = (x: number): Plant => {
     const plant = draw();
-    const height = between(104, 218) * grow;
+    const height = between(104, 218) * growAt(x);
     const lean = between(-34, 34);
     const half = between(11, 20);
     const flip = random() < 0.5 ? -1 : 1; // which side carries the teeth
@@ -661,7 +664,7 @@ export function buildPlants(width: number, HEIGHT: number): Plant[][] {
   // slivers and shards rather than round dots - and the odd four-point star
   const stipple = (x: number): Plant => {
     const plant = draw();
-    const cy = HEIGHT - between(70, 204) * grow;
+    const cy = HEIGHT - between(70, 204) * growAt(x);
     const bits: Point[][] = [];
     const count = 5 + Math.floor(random() * 10);
     for (let i = 0; i < count; i++) {
@@ -732,15 +735,15 @@ export function buildPlants(width: number, HEIGHT: number): Plant[][] {
   for (let x = 6; x < width; x += between(20, 38)) back.push(grassTuft(x, true));
 
   const middle: Plant[] = [];
-  for (let x = between(20, 50); x < width; x += between(30, 62)) {
+  for (let x = between(20, 50); x < width; x += between(26, 54)) {
     const kind = random();
-    if (kind < 0.42) middle.push(daisy(x));
-    else if (kind < 0.53) middle.push(laurel(x));
-    else if (kind < 0.64) middle.push(fern(x));
-    else if (kind < 0.73) middle.push(bigLeaf(x));
-    else if (kind < 0.81) middle.push(curlBlade(x));
-    else if (kind < 0.88) middle.push(buds(x));
-    else if (kind < 0.94) middle.push(fiddlehead(x));
+    if (kind < 0.5) middle.push(daisy(x));
+    else if (kind < 0.6) middle.push(laurel(x));
+    else if (kind < 0.69) middle.push(fern(x));
+    else if (kind < 0.77) middle.push(bigLeaf(x));
+    else if (kind < 0.84) middle.push(curlBlade(x));
+    else if (kind < 0.9) middle.push(buds(x));
+    else if (kind < 0.95) middle.push(fiddlehead(x));
     else if (kind < 0.97) middle.push(sprig(x));
     else middle.push(reed(x));
   }

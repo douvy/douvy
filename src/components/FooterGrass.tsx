@@ -39,11 +39,17 @@ type Phase = "intro" | "hidden" | "end";
 
 // The strip is drawn to fit the visitor's window. At the top of the page it
 // rises to just under the hero's buttons, with only its lowest part - the
-// flat pebble bed - below the window, so the arches and the flowers both show.
+// pebble bed and the foot of the arches - below the window, so the tops of the
+// arches show under a full stand of flowers.
 // Its full height is therefore the room under the buttons plus that part.
-const BELOW_WINDOW_AT_TOP = 40;
+const BELOW_WINDOW_AT_TOP = 62;
+// In the page margins, beside the text column, there is nothing for the
+// plants to cover, so there they grow this much taller
+const SIDE_BOOST = 1.7;
+// ...easing up to that over this many px out from the column's edge
+const SIDE_RAMP = 120;
 const MIN_HEIGHT = 150;
-const MAX_HEIGHT = 270;
+const MAX_HEIGHT = 300;
 // Used when the hero leaves no room at all (most phones), where the strip
 // only appears at the end of the page
 const DEFAULT_HEIGHT = 200;
@@ -86,7 +92,7 @@ export default function FooterGrass(): React.ReactElement {
   const [room, setRoom] = useState<number>(measureRoom);
 
   // Drawn once, for the window as it was on load
-  const { width, height, layers } = useMemo(() => {
+  const { width, height, canvas, layers } = useMemo(() => {
     // Screen width, not window width, so widening the window never runs out
     const width = Math.min(MAX_WIDTH, Math.max(window.innerWidth, window.screen.width) + 80);
     const initialRoom = measureRoom();
@@ -94,11 +100,27 @@ export default function FooterGrass(): React.ReactElement {
       initialRoom < MIN_ROOM
         ? DEFAULT_HEIGHT
         : Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, initialRoom + BELOW_WINDOW_AT_TOP));
-    return { width, height, layers: buildPlants(width, height) };
+
+    // The canvas is taller than the planting in the middle, to hold the tall
+    // plants at the sides
+    const canvas = Math.round(height * SIDE_BOOST);
+    const column = document.querySelector(".hero > div > div")?.getBoundingClientRect();
+    const columnLeft = column ? column.left : 0;
+    const columnRight = column ? column.right : window.innerWidth;
+    // The drawing is wider than the window and centered on it
+    const overhang = (width - window.innerWidth) / 2;
+    const plantHeightAt = (x: number): number => {
+      const windowX = x - overhang;
+      const outside = Math.max(columnLeft - windowX, windowX - columnRight, 0);
+      const t = Math.min(1, outside / SIDE_RAMP);
+      return height * (1 + (SIDE_BOOST - 1) * t * t * (3 - 2 * t));
+    };
+    return { width, height, canvas, layers: buildPlants(width, canvas, plantHeightAt) };
   }, []);
 
-  // How much of it shows at the top of the page
-  const peek = room < MIN_ROOM ? 0 : Math.min(height, room);
+  // How much of the planting shows at the top of the page. The lowest part
+  // always stays below the window there, even when there's room to spare.
+  const peek = room < MIN_ROOM ? 0 : Math.min(height - BELOW_WINDOW_AT_TOP, room);
 
   // ~1,000 paths that never change. Memoised so a phase or theme change only
   // touches the wrapper (the colours are CSS variables set on it).
@@ -106,8 +128,8 @@ export default function FooterGrass(): React.ReactElement {
     () => (
       <svg
         width={width}
-        height={height}
-        viewBox={`0 0 ${width} ${height}`}
+        height={canvas}
+        viewBox={`0 0 ${width} ${canvas}`}
         className="absolute bottom-0 left-1/2 max-w-none"
         style={{ marginLeft: -width / 2 }}
       >
@@ -123,7 +145,7 @@ export default function FooterGrass(): React.ReactElement {
                     ? undefined
                     : {
                         // Each plant sways from its own root, out of phase with its neighbours
-                        transformOrigin: `${n(plant.x)}px ${height}px`,
+                        transformOrigin: `${n(plant.x)}px ${canvas}px`,
                         animationDuration: `${n(plant.duration)}s`,
                         animationDelay: `-${n(plant.delay)}s`,
                       }
@@ -143,7 +165,7 @@ export default function FooterGrass(): React.ReactElement {
         ))}
       </svg>
     ),
-    [layers, width, height]
+    [layers, width, canvas]
   );
 
   useEffect(() => {
@@ -174,8 +196,9 @@ export default function FooterGrass(): React.ReactElement {
 
   // React's style type doesn't know about CSS variables, hence the wider type
   const style: React.CSSProperties & Record<`--${string}`, string> = {
-    height,
-    // How far down the strip sits while peeking (see globals.css)
+    height: canvas,
+    // How far down the strip sits while peeking (see globals.css). The extra
+    // canvas above the planting doesn't change this: it is bottom-anchored.
     "--peek-offset": `${height - peek}px`,
     ...PALETTES[theme],
   };
