@@ -1,16 +1,8 @@
 import React from "react";
-import dynamic from "next/dynamic";
+import ProjectSlider from "@/components/ProjectSlider";
 import StripedFrame from "@/components/StripedFrame";
 import { useTheme } from "@/contexts/ThemeContext";
 import type { Project } from "@/data/projects";
-
-// Below-the-fold content - skip SSR and show a placeholder while loading
-const ProjectSlider = dynamic(() => import("@/components/ProjectSlider"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-[280px] bg-gray-800 animate-pulse"></div>
-  ),
-});
 
 interface ProjectCardProps {
   project: Project;

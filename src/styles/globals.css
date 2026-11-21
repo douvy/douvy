@@ -176,6 +176,15 @@
     @apply float-right mr-2.5;
 }
 
+/* Project sliders scroll sideways natively; the scrollbar would only be noise */
+.slider-track {
+    scrollbar-width: none;
+}
+
+.slider-track::-webkit-scrollbar {
+    display: none;
+}
+
 /* Footer plants: each one rocks a couple of degrees around its root */
 @keyframes plant-sway {
     from { transform: rotate(-2deg); }

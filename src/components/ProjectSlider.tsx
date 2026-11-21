@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-// Import Swiper styles
-import 'swiper/css';
-import type Swiper from 'swiper';
 import { ProjectImage } from '@/types';
 
 interface ProjectSliderProps {
@@ -47,7 +44,7 @@ function LazyVideo({ src, id, label, width, height }: LazyVideoProps): React.Rea
       src={isNear ? src : undefined}
       id={id}
       aria-label={label}
-      className="w-full h-auto object-contain block cursor-pointer"
+      className="w-full h-auto object-contain block"
       // width/height reserve the right aspect ratio before the file loads
       width={width}
       height={height}
@@ -68,94 +65,62 @@ function LazyVideo({ src, id, label, width, height }: LazyVideoProps): React.Rea
 }
 
 export default function ProjectSlider({ images, id }: ProjectSliderProps): React.ReactElement {
-  const swiperElRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const hasSeveral = images.length > 1;
 
-  useEffect(() => {
-    // Import Swiper dynamically to avoid SSR issues
-    const loadSwiper = async (): Promise<(() => void) | undefined> => {
-      if (typeof window !== 'undefined') {
-        try {
-          const swiperModule = await import('swiper');
-          const SwiperClass = swiperModule.default || swiperModule.Swiper;
-          
-          // Initialize swiper with more configuration options
-          if (!swiperElRef.current) return undefined;
-          
-          const swiper = new SwiperClass(swiperElRef.current, {
-            direction: 'horizontal',
-            loop: images.length > 1, // looping a single slide only logs a warning
-            grabCursor: true,
-            slidesPerView: 1,
-            spaceBetween: 0,
-            autoHeight: false,     // Since images are now the same height
-            updateOnWindowResize: true,
-            watchSlidesProgress: true,
-            observer: true,
-            observeParents: true
-          });
-          
-          return () => {
-            swiper.destroy();
-          };
-        } catch (error) {
-          console.error('Error loading Swiper:', error);
-          return undefined;
-        }
-      }
-      return undefined;
-    };
-    
-    const cleanupFn = loadSwiper();
-    
-    return () => {
-      cleanupFn?.then(cleanup => cleanup?.());
-    };
-  }, []);
+  // Native scrolling does the sliding: one slide per screenful, snapping into
+  // place. Touch and trackpad swipes work without any script; a click (there
+  // is no drag-to-scroll with a mouse) moves to the next slide and wraps.
+  const showNext = (): void => {
+    const track = trackRef.current;
+    if (!track) return;
+    const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    track.scrollTo({ left: atEnd ? 0 : track.scrollLeft + track.clientWidth, behavior: 'smooth' });
+  };
 
   return (
-    <div 
-      className="swiper-container cursor-pointer" 
-      ref={swiperElRef}
+    <div
+      ref={trackRef}
+      className={`slider-track flex overflow-x-auto snap-x snap-mandatory ${hasSeveral ? 'cursor-pointer' : ''}`}
       role="region"
       aria-label={`${id} project image gallery`}
+      onClick={hasSeveral ? showNext : undefined}
     >
-      <div className="swiper-wrapper">
-        {images.map((image, index) => (
-          <div 
-            className="swiper-slide flex items-center justify-center cursor-pointer" 
-            key={index}
-            aria-roledescription="slide"
-            aria-label={`${index + 1} of ${images.length}`}
-          >
-            {image.src.endsWith('.mp4') ? (
-              <LazyVideo
-                src={image.src}
-                id={image.id || `${id}-${index}`}
-                label={image.alt || `${id} project video ${index + 1}`}
-                width={image.width}
-                height={image.height}
-              />
-            ) : (
-              <Image
-                src={image.src}
-                id={image.id || `${id}-${index}`}
-                alt={image.alt || `${id} project image ${index + 1}`}
-                className="w-full h-auto object-contain block cursor-pointer"
-                width={450}
-                height={280}
-                style={{
-                  objectFit: "contain",
-                  width: "100%",
-                  height: "auto",
-                  margin: 0,
-                  padding: 0,
-                  display: "block"
-                }}
-              />
-            )}
-          </div>
-        ))}
+      {images.map((image, index) => (
+      <div
+        className="snap-start shrink-0 w-full flex items-center justify-center"
+        key={index}
+        aria-roledescription="slide"
+        aria-label={`${index + 1} of ${images.length}`}
+      >
+        {image.src.endsWith('.mp4') ? (
+          <LazyVideo
+            src={image.src}
+            id={image.id || `${id}-${index}`}
+            label={image.alt || `${id} project video ${index + 1}`}
+            width={image.width}
+            height={image.height}
+          />
+        ) : (
+          <Image
+            src={image.src}
+            id={image.id || `${id}-${index}`}
+            alt={image.alt || `${id} project image ${index + 1}`}
+            className="w-full h-auto object-contain block"
+            width={450}
+            height={280}
+            style={{
+              objectFit: "contain",
+              width: "100%",
+              height: "auto",
+              margin: 0,
+              padding: 0,
+              display: "block"
+            }}
+          />
+        )}
       </div>
+      ))}
     </div>
   );
 }
