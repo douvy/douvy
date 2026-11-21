@@ -1,5 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { useTheme } from '@/contexts/ThemeContext';
+
+const normalSrc = '/img/milady-no-bg.png';
+const blinkSrc = '/img/milady-blink.png';
+const mogSrc = '/img/milady-mog.png';
+const logoSrcs = [normalSrc, blinkSrc, mogSrc];
 
 interface HeaderProps {
   isProfilePictureVisible: boolean;
@@ -9,7 +15,10 @@ export default function Header({ isProfilePictureVisible }: HeaderProps): React.
   const { theme, toggleTheme } = useTheme();
   const [isBlinking, setIsBlinking] = useState(false);
   const [hasMogged, setHasMogged] = useState(false);
-  const [isSliding, setIsSliding] = useState(false);
+  const hasMoggedRef = useRef(false);
+  const logoRef = useRef<HTMLDivElement>(null);
+
+  const currentSrc = hasMogged ? mogSrc : isBlinking ? blinkSrc : normalSrc;
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent): void => {
@@ -32,80 +41,71 @@ export default function Header({ isProfilePictureVisible }: HeaderProps): React.
     };
   }, [toggleTheme]);
 
-  // Separate effect for managing blinking when milady becomes visible/hidden
+  // Blink while the header milady is showing and hasn't mogged yet
   useEffect(() => {
-    if (isProfilePictureVisible || hasMogged) {
-      // If profile picture is visible OR we're in mog state, don't blink
-      // Also ensure blinking state is cleared when hidden
-      setIsBlinking(false);
-      return;
-    }
+    if (isProfilePictureVisible || hasMogged) return;
 
-    // Start blinking when milady becomes visible and not in mog state
-    const blinkInterval = setInterval(() => {
+    let reopen: ReturnType<typeof setTimeout> | undefined;
+    const blink = (): void => {
       setIsBlinking(true);
-      setTimeout(() => {
-        setIsBlinking(false);
-      }, 150);
-    }, 3500);
+      reopen = setTimeout(() => setIsBlinking(false), 150);
+    };
 
-    // Initial blink
-    setTimeout(() => {
-      setIsBlinking(true);
-      setTimeout(() => {
-        setIsBlinking(false);
-      }, 150);
-    }, 200);
+    const firstBlink = setTimeout(blink, 200);
+    const blinkInterval = setInterval(blink, 3500);
 
     return () => {
+      clearTimeout(firstBlink);
+      clearTimeout(reopen);
       clearInterval(blinkInterval);
+      setIsBlinking(false);
     };
   }, [isProfilePictureVisible, hasMogged]);
 
-  // Separate effect for the main animation sequence (only runs once)
+  // Mog transition: after the header milady has been showing for 25s, slide
+  // it out, swap to the mog frame, and bounce it back in. Happens once.
   useEffect(() => {
-    // Don't start the main sequence if profile picture is visible initially
-    if (isProfilePictureVisible) {
-      return;
-    }
+    const logo = logoRef.current;
+    // hasMoggedRef (not the state) guards this so that setting hasMogged
+    // mid-slide doesn't re-run the effect and cancel the bounce back in.
+    if (isProfilePictureVisible || hasMoggedRef.current || !logo) return;
 
-    // Mog transition after 25 seconds with slide animation
-    const mogTimeout = setTimeout(() => {
-      setIsSliding(true);
-      setIsBlinking(false); // Stop any current blink
-      
-      // Slide animation sequence
-      const logoElement = document.querySelector('#header-logo') as HTMLElement;
-      if (logoElement) {
-        // Slide down
-        logoElement.style.transition = 'transform 0.8s cubic-bezier(0.42, 0, 0.58, 1)';
-        logoElement.style.transform = 'translateY(100%)';
-        
-        setTimeout(() => {
-          // Move up out of view and switch to mog
-          logoElement.style.transition = 'none';
-          logoElement.style.transform = 'translateY(-100%)';
-          setHasMogged(true);
-          
-          // Force reflow
-          logoElement.offsetHeight;
-          
-          // Bounce back in with mog
-          logoElement.style.transition = 'transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-          
-          setTimeout(() => {
-            logoElement.style.transform = 'translateY(0)';
-            
-            setTimeout(() => {
-              setIsSliding(false);
-            }, 700);
-          }, 50);
-        }, 800);
-      }
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const later = (fn: () => void, ms: number): void => {
+      timers.push(setTimeout(fn, ms));
+    };
+
+    later(() => {
+      // Slide down
+      logo.style.transition = 'transform 0.8s cubic-bezier(0.42, 0, 0.58, 1)';
+      logo.style.transform = 'translateY(100%)';
+
+      later(() => {
+        // Move up out of view and switch to mog
+        logo.style.transition = 'none';
+        logo.style.transform = 'translateY(-100%)';
+        hasMoggedRef.current = true;
+        setHasMogged(true);
+
+        // Force reflow so the position change applies before animating back in
+        logo.offsetHeight;
+
+        // Bounce back in with mog
+        logo.style.transition = 'transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+
+        later(() => {
+          logo.style.transform = 'translateY(0)';
+          // Hand transitions back to the stylesheet (opacity fade)
+          later(() => { logo.style.transition = ''; }, 700);
+        }, 50);
+      }, 800);
     }, 25000);
 
     return () => {
-      clearTimeout(mogTimeout);
+      timers.forEach(clearTimeout);
+      // If interrupted mid-slide, don't leave the logo parked out of view
+      logo.style.transition = '';
+      logo.style.transform = 'translateY(0)';
     };
   }, [isProfilePictureVisible]);
 
@@ -129,25 +129,31 @@ export default function Header({ isProfilePictureVisible }: HeaderProps): React.
               className="flex items-center transition-opacity duration-200 ease-in-out hover:opacity-75 overflow-hidden"
               aria-label="douvy - Home"
             >
-              <img
+              <div
+                ref={logoRef}
                 id="header-logo"
-                src={
-                  hasMogged 
-                    ? "/img/milady-mog.png" 
-                    : isBlinking 
-                      ? "/img/milady-blink.png" 
-                      : "/img/milady-no-bg.png"
-                }
-                alt="douvy logo"
-                className="h-8 w-auto sm:h-10 transition-all duration-300 ease-in-out ml-1 sm:ml-0"
-                width="32"
-                height="32"
-                style={{ 
+                className="relative h-8 w-8 sm:h-10 sm:w-10 transition-all duration-300 ease-in-out ml-1 sm:ml-0"
+                style={{
                   transform: 'translateY(0)',
                   opacity: isProfilePictureVisible ? 0 : 1,
                   visibility: isProfilePictureVisible ? 'hidden' : 'visible'
                 }}
-              />
+              >
+                {/* Frames stay mounted and stacked; only opacity flips, so
+                    blinking never refetches or flashes. */}
+                {logoSrcs.map((src) => (
+                  <Image
+                    key={src}
+                    src={src}
+                    alt={src === normalSrc ? "douvy logo" : ""}
+                    aria-hidden={src !== normalSrc}
+                    fill
+                    sizes="40px"
+                    loading="eager"
+                    style={{ opacity: src === currentSrc ? 1 : 0 }}
+                  />
+                ))}
+              </div>
             </a>
             <button
               onClick={toggleTheme}
