@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
-type Look = 'normal' | 'glasses' | 'halo';
+type Look = 'normal' | 'glasses';
 
 interface LookConfig {
   open: string;
@@ -12,13 +12,12 @@ interface LookConfig {
   next: Look;
 }
 
-// The cycle: normal -> glasses -> halo -> normal. The first change comes
+// The cycle: normal -> glasses -> normal. The first change comes
 // early so visitors who only stay a few seconds still see one.
 const LOOKS: Record<Look, LookConfig> = {
   normal: { open: '/img/milady-no-bg.png', blink: '/img/milady-blink.png', dwell: 6000, next: 'glasses' },
   // No blink frame: the eyes are behind opaque lenses
-  glasses: { open: '/img/milady-glasses.png', dwell: 14000, next: 'halo' },
-  halo: { open: '/img/milady-halo.png', blink: '/img/milady-blink-halo.png', dwell: 10000, next: 'normal' },
+  glasses: { open: '/img/milady-glasses.png', dwell: 14000, next: 'normal' },
 };
 const normalSrc = LOOKS.normal.open;
 const mouthOpenSrc = '/img/milady-mouth-open.png';
