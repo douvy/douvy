@@ -164,6 +164,10 @@ export default function ProfilePicture(): React.ReactElement {
         scattered.catch(() => {}); // settles after leave(); handled by the await below
         await sleep(850);
         show(LOOKS[look].open);
+        // She watches what's left wobble to a stop before it sinks away
+        await sleep(900);
+        await blink();
+        await sleep(1100);
         await flower.leave();
         await scattered;
       } catch {

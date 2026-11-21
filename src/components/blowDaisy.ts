@@ -193,7 +193,7 @@ export function createBlowDaisy(frame: HTMLElement, from: CollageDaisy): BlowDai
 
   // Petals: narrow, blunt-ended, each cut a little differently
   const petalGroup = document.createElementNS(SVG_NS, "g");
-  const petals: { node: SVGPolygonElement; angle: number }[] = [];
+  const petals: { node: SVGPolygonElement; angle: number; middle: Point }[] = [];
   const core = radius * 0.34;
   const step = Math.PI / from.petals;
   for (let i = 0; i < from.petals; i++) {
@@ -215,7 +215,7 @@ export function createBlowDaisy(frame: HTMLElement, from: CollageDaisy): BlowDai
     const [mx, my] = at((core + reach) / 2, angle);
     node.style.transformOrigin = `${mx}px ${my}px`;
     petalGroup.appendChild(node);
-    petals.push({ node, angle });
+    petals.push({ node, angle, middle: [mx, my] });
   }
   flower.appendChild(petalGroup);
 
@@ -363,21 +363,68 @@ export function createBlowDaisy(frame: HTMLElement, from: CollageDaisy): BlowDai
       hovering?.cancel();
       svg.appendChild(petalGroup);
 
-      // Bent over by the breath, then swings most of the way upright
+      // Bent right over by the breath, then it springs back and wobbles to a
+      // stop like a plucked reed
       track(
         flower.animate(
-          [{ transform: "rotate(0deg)" }, { transform: "rotate(11deg)", offset: 0.35 }, { transform: "rotate(3deg)" }],
-          { duration: 1100, easing: "ease-out", fill: "forwards" }
+          [
+            { transform: "rotate(0deg)", easing: "cubic-bezier(0.2, 0.8, 0.3, 1)" },
+            { transform: "rotate(14deg)", offset: 0.13, easing: "ease-in-out" },
+            { transform: "rotate(-6deg)", offset: 0.34, easing: "ease-in-out" },
+            { transform: "rotate(4deg)", offset: 0.54, easing: "ease-in-out" },
+            { transform: "rotate(-2deg)", offset: 0.72, easing: "ease-in-out" },
+            { transform: "rotate(1deg)", offset: 0.87, easing: "ease-in-out" },
+            { transform: "rotate(0deg)" },
+          ],
+          { duration: 2400, fill: "forwards" }
         )
       );
 
-      const flights = petals.map(({ node, angle }) => {
+      // Wind streaks: a few inked lines that shoot out past the flower and
+      // are gone. They move on a handful of held frames (steps), the way
+      // hand-drawn effects animation does.
+      const streaks = [-0.55, 0.05, 0.6].map((offset, i) => {
+        const y = cy + radius * offset;
+        const x0 = cx + radius * between(0.7, 1);
+        const length = radius * between(2.4, 3.6);
+        const lift = radius * between(0.15, 0.5) * (offset < 0 ? -1 : offset > 0.3 ? 0.6 : -0.3);
+        const d = `M${x0} ${y}Q${x0 + length * 0.5} ${y + lift * 0.4} ${x0 + length} ${y + lift}`;
+        const group = document.createElementNS(SVG_NS, "g");
+        [
+          [INK, 4.6],
+          [CREAM, 2.2],
+        ].forEach(([colour, strokeWidth]) => {
+          const line = document.createElementNS(SVG_NS, "path");
+          line.setAttribute("d", d);
+          line.setAttribute("fill", "none");
+          line.setAttribute("stroke", String(colour));
+          line.setAttribute("stroke-width", String(strokeWidth));
+          line.setAttribute("stroke-linecap", "round");
+          // pathLength 1 lets the dash offsets below be fractions of the line
+          line.setAttribute("pathLength", "1");
+          line.setAttribute("stroke-dasharray", "0.45 1");
+          group.appendChild(line);
+        });
+        svg.insertBefore(group, flower);
+        return track(
+          group.animate(
+            [
+              { strokeDashoffset: 0.45, opacity: 1 },
+              { strokeDashoffset: -0.3, opacity: 1, offset: 0.6 },
+              { strokeDashoffset: -1, opacity: 0 },
+            ],
+            { duration: 520, delay: 40 + i * 70, easing: "steps(6, end)", fill: "both" }
+          )
+        ).finished;
+      });
+
+      const flights = petals.map(async ({ node, angle, middle }) => {
         const dx = between(width * 0.7, width * 2.6);
         const dy = between(-height * 0.95, height * 0.25);
         const spin = between(180, 620) * (Math.random() < 0.5 ? -1 : 1);
         // Her mouth is to the left: the left-hand petals (cos = -1) go first
         const delay = ((Math.cos(angle) + 1) / 2) * 420 + between(0, 140);
-        return track(
+        await track(
           node.animate(
             [
               { transform: "translate(0, 0) rotate(0deg)", opacity: 1 },
@@ -387,21 +434,57 @@ export function createBlowDaisy(frame: HTMLElement, from: CollageDaisy): BlowDai
                 opacity: 1,
                 offset: 0.5,
               },
+              // Stays solid almost to the end; the star takes over from there
+              { transform: `translate(${dx * 0.94}px, ${dy * 0.94}px) rotate(${spin * 0.94}deg)`, opacity: 1, offset: 0.9 },
               { transform: `translate(${dx}px, ${dy}px) rotate(${spin}deg)`, opacity: 0 },
             ],
             { duration: between(1400, 2300), delay, easing: "cubic-bezier(0.2, 0.6, 0.35, 1)", fill: "forwards" }
           )
         ).finished;
+
+        // Most petals end in a small four-point star that pops and winks out,
+        // again on held frames
+        if (Math.random() < 0.3) return;
+        const sx = middle[0] + dx;
+        const sy = middle[1] + dy;
+        const size = between(4.5, 9.5);
+        const points: Point[] = [];
+        for (let k = 0; k < 8; k++) {
+          const a = (k / 8) * Math.PI * 2;
+          const r = k % 2 ? size * 0.28 : size * between(0.85, 1.15);
+          points.push([sx + Math.cos(a) * r, sy + Math.sin(a) * r]);
+        }
+        const star = shape(points, CREAM, 1.2);
+        star.style.transformOrigin = `${sx}px ${sy}px`;
+        svg.appendChild(star);
+        await track(
+          star.animate(
+            [
+              { transform: "scale(0) rotate(0deg)" },
+              { transform: "scale(1.25) rotate(20deg)", offset: 0.35 },
+              { transform: "scale(0.8) rotate(45deg)", offset: 0.7 },
+              { transform: "scale(0) rotate(70deg)" },
+            ],
+            { duration: between(420, 620), easing: "steps(6, end)", fill: "both" }
+          )
+        ).finished;
       });
-      await Promise.all(flights);
+      await Promise.all([...flights, ...streaks]);
     },
 
     async leave() {
-      // Sinks straight down behind the bottom edge
+      // Sags a little, as if giving up, then sinks slowly behind the bottom
+      // edge, rocking as it goes
       await track(
         flower.animate(
-          [{ transform: "translateY(0px) rotate(3deg)" }, { transform: `translateY(${height * 0.75}px) rotate(-2deg)` }],
-          { duration: 1100, easing: "cubic-bezier(0.5, 0, 0.8, 0.4)", fill: "forwards" }
+          [
+            { transform: "translateY(0px) rotate(0deg)", easing: "ease-in-out" },
+            { transform: `translateY(${height * 0.03}px) rotate(5deg)`, offset: 0.18, easing: "cubic-bezier(0.45, 0, 0.6, 1)" },
+            { transform: `translateY(${height * 0.3}px) rotate(-3deg)`, offset: 0.55, easing: "ease-in-out" },
+            { transform: `translateY(${height * 0.56}px) rotate(3deg)`, offset: 0.8, easing: "ease-in" },
+            { transform: `translateY(${height * 0.78}px) rotate(0deg)` },
+          ],
+          { duration: 3400, fill: "forwards" }
         )
       ).finished;
     },
