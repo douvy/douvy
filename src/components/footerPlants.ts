@@ -649,17 +649,18 @@ export function buildPlants(
       };
 
       // Pebbles are laid in rows that follow the arc, starting right under
-      // the rim and stepping down, so the mound is packed to the top instead
-      // of leaving a black gap under the curve. They stop where the flat
-      // pebble bed along the ground takes over.
+      // the rim and stepping down to the bottom edge, so each mound is one
+      // continuous fill. (A separate flat band of pebbles along the ground
+      // used to take over near the bottom; the seam between the two read as
+      // a second layer underneath.)
       const byColour: Record<string, Point[][]> = {};
       const pitch = 7.7;
-      for (let depth = rim / 2 + 5.2; depth < rise + 10; depth += pitch) {
+      for (let depth = rim / 2 + 5.2; depth < rise + archBase + 8; depth += pitch) {
         for (let px = x + between(4, 9); px < x + span - 4; ) {
           const rx = random() < 0.14 ? between(8.5, 12.5) : between(3, 8);
           px += rx;
           const py = arcY(px) + depth + jitter(0.7);
-          if (py < HEIGHT - 28) {
+          if (py < HEIGHT + 4) {
             const colour = pick(["mid", "deep", "pale", "olive", "mid", "pale", "mid"] as const);
             // Tilted to lie along the curve at this point
             const slope = Math.atan2(arcY(px + 3) - arcY(px - 3), 6);
@@ -720,27 +721,6 @@ export function buildPlants(
     return { x, shapes: plant.shapes, still: true, duration: 0, delay: 0 };
   };
 
-  // The ground: a band of ink packed with pebble shapes of mixed sizes
-  const pebbleBed = (): Plant => {
-    const plant = draw();
-    const top: Point[] = [];
-    for (let x = -10; x <= width + 30; x += between(18, 34)) top.push([x, HEIGHT - between(27, 33)]);
-    plant.fill([[...top, [width + 30, HEIGHT + 6], [-10, HEIGHT + 6]]], "ink");
-
-    const byColour: Record<string, Point[][]> = {};
-    [6, 14.5, 23].forEach((rise) => {
-      for (let x = between(-6, 4); x < width; ) {
-        const rx = between(3.2, 10.5);
-        x += rx;
-        const colour = pick(["mid", "mid", "pale", "olive", "mid", "pale"] as const);
-        (byColour[colour] ??= []).push(oval([x, HEIGHT - rise + jitter(1)], rx, between(2.5, 3.9), jitter(0.22)));
-        x += rx + between(2, 3.6);
-      }
-    });
-    (Object.keys(byColour) as Colour[]).forEach((colour) => plant.fill(byColour[colour], colour));
-    return { x: 0, shapes: plant.shapes, still: true, duration: 0, delay: 0 };
-  };
-
   // --- Layers, back to front ---------------------------------------------
 
   const dots: Plant[] = [];
@@ -769,5 +749,5 @@ export function buildPlants(
   const front: Plant[] = [];
   for (let x = 12; x < width; x += between(30, 60)) front.push(grassTuft(x, false));
 
-  return [backdrop, dots, back, mounds(), middle, [pebbleBed()], front];
+  return [backdrop, dots, back, mounds(), middle, front];
 }
