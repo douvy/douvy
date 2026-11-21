@@ -52,7 +52,7 @@ const MIN_HEIGHT = 150;
 const MAX_HEIGHT = 300;
 // Used when the hero leaves no room at all (most phones), where the strip
 // only appears at the end of the page
-const DEFAULT_HEIGHT = 230;
+const DEFAULT_HEIGHT = 290;
 // Less room than this would show only a sliver of leaf tips, so show nothing
 const MIN_ROOM = 28;
 
@@ -115,7 +115,10 @@ export default function FooterGrass(): React.ReactElement {
       const t = Math.min(1, outside / SIDE_RAMP);
       return height * (1 + (SIDE_BOOST - 1) * t * t * (3 - 2 * t));
     };
-    return { width, height, canvas, layers: buildPlants(width, canvas, plantHeightAt) };
+    // On phones the strip is narrow and one arch fills most of it, so there
+    // the arches sit a little lower and leave more of the height to the plants
+    const archBase = initialRoom < MIN_ROOM ? 22 : 34;
+    return { width, height, canvas, layers: buildPlants(width, canvas, plantHeightAt, archBase) };
   }, []);
 
   // How much of the planting shows at the top of the page. The lowest part

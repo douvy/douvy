@@ -75,7 +75,13 @@ const polygon = (points: Point[]): string =>
  * stay the same size whatever the height, so a shorter planting is the same
  * ground with shorter plants on it.
  */
-export function buildPlants(width: number, HEIGHT: number, plantHeightAt: (x: number) => number): Plant[][] {
+export function buildPlants(
+  width: number,
+  HEIGHT: number,
+  plantHeightAt: (x: number) => number,
+  /** How far above the ground the arches spring from; lower makes them shorter. */
+  archBase = 34
+): Plant[][] {
   const growAt = (x: number): number => plantHeightAt(x) / DESIGN_HEIGHT;
   const random = seededRandom(11);
   const between = (min: number, max: number): number => min + random() * (max - min);
@@ -617,7 +623,7 @@ export function buildPlants(width: number, HEIGHT: number, plantHeightAt: (x: nu
     const result: Plant[] = [];
     // Where the arcs spring from. Raising this lifts every arch without
     // touching the plants, which are sized from the strip's height.
-    const baseY = HEIGHT - 34;
+    const baseY = HEIGHT - archBase;
     for (let x = between(-200, -60); x < width; ) {
       const plant = draw();
       const span = between(260, 520);
