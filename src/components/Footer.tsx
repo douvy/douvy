@@ -1,9 +1,18 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import { useTheme } from "@/contexts/ThemeContext";
+
+// Decorative and ~150KB as markup, so it is drawn in the browser rather than
+// shipped in the HTML. The placeholder keeps the page height stable.
+const FooterGrass = dynamic(() => import("@/components/FooterGrass"), {
+  ssr: false,
+  loading: () => <div style={{ height: 180 }} />,
+});
 
 export default function Footer(): React.ReactElement {
   const { theme } = useTheme();
   return (
+    <>
     <footer className="py-4">
       <div className="flex flex-wrap justify-between mx-auto max-w-screen-xl w-full md:w-10/12 lg:w-8/12 px-4">
         {/* Empty left column keeps the links right-aligned (justify-between) */}
@@ -35,5 +44,10 @@ export default function Footer(): React.ReactElement {
       </div>
       <div className="pb-20"></div>
     </footer>
+    {/* Pulled up over the footer's bottom margin so it sits on the page edge */}
+    <div className="-mt-20">
+      <FooterGrass />
+    </div>
+    </>
   );
 }

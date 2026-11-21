@@ -170,3 +170,40 @@
 .intro img {
     @apply float-right mr-2.5;
 }
+
+/* Footer plants: each one rocks a couple of degrees around its root */
+@keyframes plant-sway {
+    from { transform: rotate(-2deg); }
+    to { transform: rotate(2deg); }
+}
+
+.footer-grass {
+    transition: transform 0.7s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.footer-grass .sway {
+    animation: plant-sway 7s ease-in-out infinite alternate;
+}
+
+/* Top of the page: only the upper half shows, so it doesn't sit on the content */
+.footer-grass.is-peeking {
+    transform: translateY(45%);
+}
+
+/* Scrolled away from the top: slid below the window, and not animating while out of sight */
+.footer-grass.is-hidden {
+    transform: translateY(105%);
+    /* Leaves quickly; the default 0.7s is for coming back */
+    transition-duration: 0.45s;
+    transition-timing-function: ease-in;
+}
+
+.footer-grass.is-hidden .sway {
+    animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .footer-grass .sway {
+        animation: none;
+    }
+}
