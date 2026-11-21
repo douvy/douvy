@@ -64,7 +64,7 @@ export const PROJECTS: Project[] = [
     url: "https://dgenesis.io/",
     categories: ["NFT"],
     description: [
-      "Co-founded a collection of community-owned generative art. It sold out in two hours with no marketing.",
+      "Co-founded a collection of community-owned generative art. It sold out in two hours by word of mouth.",
       "First L2 bridgeable NFT on Arbitrum.",
     ],
     images: [
