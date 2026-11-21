@@ -128,7 +128,7 @@ export const PROJECTS: Project[] = [
     name: "Propix Agent",
     categories: ["AI"],
     description: [
-      "I wanted to build my own autonomous AI agent with data I understand well, so it makes NFL/NBA prop picks. Pulls projections, injuries, news, DK lines. Claude synthesizes and only bets when it's confident. Kelly sizing that tightens during drawdowns.",
+      "I wanted to build my own autonomous AI agent with data I understand well, so it makes NFL/NBA prop picks. Pulls projections, injuries, news, DraftKings lines. Claude synthesizes and only bets when it's confident. Kelly sizing that tightens during drawdowns.",
       "49-30. 62% win rate. +16% ROI.",
     ],
     images: [{ src: "/img/propix.jpg", alt: "Propix Agent" }],
