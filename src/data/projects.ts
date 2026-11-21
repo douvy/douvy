@@ -47,7 +47,7 @@ export const PROJECTS: Project[] = [
     url: "https://howagentsthink.com/",
     categories: ["AI"],
     description: [
-      "A fun and simplified way to follow and actually learn about how an AI agent works. You can play through clean runs to see the agentic loop, watch what happens when a plan fails, and see when memory fills up.",
+      "A fun and simple way to follow and actually learn about how an AI agent works. Watch one work through a task, then see what it does when the plan fails or it runs out of memory.",
     ],
     images: [
       {
