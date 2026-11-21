@@ -24,6 +24,10 @@ export default function Header({ isProfilePictureVisible }: HeaderProps): React.
     const handleKeyDown = (event: KeyboardEvent): void => {
       if (
         !(
+          // Leave browser shortcuts alone (Cmd+L is the address bar, Cmd+D bookmarks)
+          event.metaKey ||
+          event.ctrlKey ||
+          event.altKey ||
           event.target instanceof HTMLInputElement ||
           event.target instanceof HTMLTextAreaElement ||
           event.target instanceof HTMLSelectElement

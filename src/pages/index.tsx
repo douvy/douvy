@@ -115,6 +115,10 @@ export default function Home(): React.ReactElement {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent): void => {
       if (
+        // Leave browser shortcuts alone (Cmd+G is find-next, not GitHub)
+        event.metaKey ||
+        event.ctrlKey ||
+        event.altKey ||
         event.target instanceof HTMLInputElement ||
         event.target instanceof HTMLTextAreaElement ||
         event.target instanceof HTMLSelectElement
