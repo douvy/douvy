@@ -34,6 +34,11 @@
         font-style: normal;
         @apply text-primary bg-dark text-xs;
     }
+    /* Light-theme visitors: content stays hidden until React has switched the
+       dark server render over (see ThemeContext) */
+    .theme-pending #__next {
+        visibility: hidden;
+    }
     .light body {
         @apply text-[#4c5461] bg-[#f5f5f3];
     }

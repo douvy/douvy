@@ -1,11 +1,20 @@
 import React from "react";
 import { Html, Head, Main, NextScript } from "next/document";
+import { THEME_PENDING_CLASS, THEME_STORAGE_KEY } from "@/contexts/ThemeContext";
+
+// Runs before first paint. If the visitor's theme is light (their stored
+// choice, else their system setting) it puts the light background up
+// immediately and hides the dark server-rendered content until React has
+// switched it - see ThemeContext. The timeout is a safety net: if React never
+// takes over, the content still appears.
+const themeScript = `(function(){try{var t=localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)});if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}if(t==='light'){var c=document.documentElement.classList;c.add('light',${JSON.stringify(THEME_PENDING_CLASS)});setTimeout(function(){c.remove(${JSON.stringify(THEME_PENDING_CLASS)})},3000)}}catch(e){}})();`;
 
 export default function Document(): React.ReactElement {
   return (
     <Html lang="en">
       <Head>
         <meta charSet="utf-8" />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <meta
           content="Design engineer, 8+ years in crypto. I prototype and ship interfaces directly in the browser, concept through production."
           name="description"
