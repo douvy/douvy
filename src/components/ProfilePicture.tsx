@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { createBlowDaisy, findCollageDaisy, type BlowDaisy, type CollageDaisy } from '@/components/blowDaisy';
 
 type Look = 'normal' | 'glasses';
 
@@ -27,8 +28,18 @@ const allSrcs = [
   mouthOpenSrc,
 ];
 
-const SLIDE_OUT_MS = 800;
-const SLIDE_IN_MS = 700;
+// A daisy from the footer strip floats up to her the first time she shows the
+// normal look, then every Nth time after - every cycle would wear thin
+const DAISY_EVERY = 3;
+// How long she is on screen before the daisy lifts off. It crosses the bio
+// on its way up, so it waits until a visitor has had time to read the name
+// and the first paragraph (about 30 words).
+const DAISY_STARTS_AT = 8000;
+
+const SLIDE_OUT_MS = 1150;
+const SLIDE_IN_MS = 1100;
+// Beat with the frame empty between sliding out and dropping back in
+const SLIDE_GAP_MS = 220;
 
 const between = (min: number, max: number): number => min + Math.random() * (max - min);
 
@@ -59,6 +70,9 @@ export default function ProfilePicture(): React.ReactElement {
     let sliding = false;
     // Set by a click/tap: cut the current look short and slide to the next
     let skipRequested = false;
+    let daisy: BlowDaisy | undefined;
+    let visitsUntilDaisy = 0;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const show = (src: string): void => {
       imgs.forEach((img) => {
@@ -117,6 +131,48 @@ export default function ProfilePicture(): React.ReactElement {
       show(LOOKS[look].open);
     };
 
+    // A daisy floats up from the footer strip to her mouth, she blows, the
+    // petals fly off. A skip or unmount removes the daisy, which rejects
+    // whatever is awaited.
+    const blowDaisy = async (from: CollageDaisy): Promise<void> => {
+      const flower = createBlowDaisy(container, from);
+      daisy = flower;
+      try {
+        const rising = flower.rise();
+        rising.catch(() => {}); // may be abandoned below without being awaited
+        // The climb takes a few seconds; she keeps blinking while it comes
+        await sleep(1700);
+        if (skipRequested) return;
+        await blink();
+        await sleep(2600);
+        if (skipRequested) return;
+        await blink();
+        await rising;
+        if (skipRequested) return;
+
+        // It hangs in front of her for a few seconds before she decides to blow
+        flower.hover();
+        await sleep(1500);
+        if (skipRequested) return;
+        await blink();
+        await sleep(1300);
+        if (skipRequested) return;
+        show(mouthOpenSrc);
+        const scattered = flower.scatter();
+        scattered.catch(() => {}); // may be abandoned below without being awaited
+        await sleep(850);
+        show(LOOKS[look].open);
+        if (skipRequested) return;
+        await flower.leave();
+        await scattered;
+      } catch {
+        // Cancelled mid-animation
+      } finally {
+        flower.remove();
+        daisy = undefined;
+      }
+    };
+
     // Slide down out of the frame, swap the look while hidden, bounce back in
     // from the top. Web Animations keep the transform on the compositor.
     const slideTo = async (next: Look): Promise<void> => {
@@ -126,19 +182,30 @@ export default function ProfilePicture(): React.ReactElement {
 
       sliding = true;
       setBorder('none'); // the image border looks wrong while it moves
+      // Out: a small lift first, like winding up, then the drop
       slide = pfp.animate(
-        [{ transform: 'translateY(0)' }, { transform: 'translateY(100%)' }],
-        { duration: SLIDE_OUT_MS, easing: 'cubic-bezier(0.42, 0, 0.58, 1)', fill: 'forwards' }
+        [
+          { transform: 'translateY(0)', easing: 'ease-out' },
+          { transform: 'translateY(-4%)', offset: 0.2, easing: 'cubic-bezier(0.55, 0, 0.75, 0.3)' },
+          { transform: 'translateY(100%)' },
+        ],
+        { duration: SLIDE_OUT_MS, fill: 'forwards' }
       );
       await slide.finished;
 
       look = next;
       show(LOOKS[look].open);
 
+      // In: drops from above, lands a little past rest, and settles back
       const slideOut = slide;
       slide = pfp.animate(
-        [{ transform: 'translateY(-100%)' }, { transform: 'translateY(0)' }],
-        { duration: SLIDE_IN_MS, delay: 50, easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'both' }
+        [
+          { transform: 'translateY(-100%)', easing: 'cubic-bezier(0.3, 0.6, 0.35, 1)' },
+          { transform: 'translateY(5%)', offset: 0.6, easing: 'ease-in-out' },
+          { transform: 'translateY(-1.5%)', offset: 0.82, easing: 'ease-in-out' },
+          { transform: 'translateY(0)' },
+        ],
+        { duration: SLIDE_IN_MS, delay: SLIDE_GAP_MS, fill: 'both' }
       );
       slideOut.cancel();
       await slide.finished;
@@ -152,16 +219,39 @@ export default function ProfilePicture(): React.ReactElement {
     // intervals (a fixed interval looks mechanical). Returns early on skip.
     const dwell = async (): Promise<void> => {
       skipRequested = false;
-      const { dwell: duration, blink: canBlink } = LOOKS[look];
+      const { blink: canBlink } = LOOKS[look];
+
+      // The normal look gets one mouth event: usually a brief open mouth,
+      // sometimes the daisy
+      const daisyDue = look === 'normal' && !reducedMotion && visitsUntilDaisy <= 0;
+      if (look === 'normal' && !daisyDue) visitsUntilDaisy--;
+      const mouthAt = look === 'normal' ? (daisyDue ? DAISY_STARTS_AT : 3000) : undefined;
+      // No scheduled blinks during the daisy; it does its own
+      const mouthLasts = daisyDue ? 14000 : 1300;
+      // A daisy visit lasts until the daisy is done (cues run one at a time,
+      // so the closing cue simply waits its turn)
+      const duration = daisyDue ? DAISY_STARTS_AT + 500 : LOOKS[look].dwell;
 
       type Cue = { at: number; run: () => Promise<void> };
       const cues: Cue[] = [{ at: duration, run: async () => {} }];
-      const mouthAt = look === 'normal' ? 3000 : undefined;
-      if (mouthAt !== undefined) cues.push({ at: mouthAt, run: moveMouth });
+      if (mouthAt !== undefined) {
+        cues.push({
+          at: mouthAt,
+          run: async () => {
+            // The daisy has to be one that is on screen in the footer strip.
+            // If there is none (strip not drawn yet, or scrolled away) just
+            // open the mouth; daisyDue stays true for the next visit.
+            const picked = daisyDue ? findCollageDaisy(container) : undefined;
+            if (!picked) return moveMouth();
+            visitsUntilDaisy = DAISY_EVERY - 1;
+            await blowDaisy(picked);
+          },
+        });
+      }
       if (canBlink) {
         for (let at = between(800, 1800); at < duration - 500; at += between(2000, 6000)) {
           // Keep blinks from butting up against the mouth movement
-          if (mouthAt !== undefined && at > mouthAt - 500 && at < mouthAt + 1300) continue;
+          if (mouthAt !== undefined && at > mouthAt - 500 && at < mouthAt + mouthLasts) continue;
           cues.push({ at, run: Math.random() < 0.2 ? doubleBlink : blink });
         }
       }
@@ -194,6 +284,7 @@ export default function ProfilePicture(): React.ReactElement {
     const skip = (): void => {
       if (sliding) return;
       skipRequested = true;
+      daisy?.remove();
       clearTimeout(timer);
       endSleep?.();
     };
@@ -216,6 +307,7 @@ export default function ProfilePicture(): React.ReactElement {
       container.removeEventListener('click', skip);
       container.removeEventListener('keydown', onKeyDown);
       slide?.cancel();
+      daisy?.remove();
       imgs.forEach((img) => { img.style.border = ''; });
       show(normalSrc);
     };

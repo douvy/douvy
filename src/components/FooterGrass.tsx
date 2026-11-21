@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import type { DaisyShape } from "@/components/blowDaisy";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const HEIGHT = 180;
@@ -61,6 +62,11 @@ interface Plant {
   shapes: Shape[];
   /** Mushrooms and dots stay put */
   still?: boolean;
+  /**
+   * Set on daisies, so the profile picture's animation can pick one (see
+   * blowDaisy.ts). `headFrom` is the index of the first shape of the head.
+   */
+  daisy?: DaisyShape & { headFrom: number };
   duration: number;
   delay: number;
 }
@@ -358,7 +364,13 @@ function buildPlants(width: number): Plant[][] {
     const colour = pick(["mid", "olive", "mid"] as const);
     plant.inked([ringOf(core, 0)], colour, 2);
     plant.inked([ringOf(core * between(0.42, 0.55), jitter(core * 0.18))], colour === "mid" ? "pale" : "cream", 1.2);
-    return { x, shapes: plant.shapes, ...sway() };
+    return {
+      x,
+      shapes: plant.shapes,
+      ...sway(),
+      // Shapes 0-1 are the stem; everything after is the head
+      daisy: { radius, squash, turn, petals: count, centre: colour, headFrom: 2 },
+    };
   };
 
   // One large leaf on a line stem, with a centre line and chevron veins
@@ -793,6 +805,7 @@ export default function FooterGrass(): React.ReactElement {
               <g
                 key={plant.x}
                 className={plant.still ? undefined : "sway"}
+                data-daisy={plant.daisy ? JSON.stringify(plant.daisy) : undefined}
                 style={
                   plant.still
                     ? undefined
@@ -805,7 +818,12 @@ export default function FooterGrass(): React.ReactElement {
                 }
               >
                 {plant.shapes.map((shape, index) => (
-                  <path key={index} d={shape.d} fill={`var(--${shape.colour})`} />
+                  <path
+                    key={index}
+                    d={shape.d}
+                    fill={`var(--${shape.colour})`}
+                    data-head={plant.daisy && index >= plant.daisy.headFrom ? "" : undefined}
+                  />
                 ))}
               </g>
             ))}
