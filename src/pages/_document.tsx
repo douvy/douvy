@@ -7,16 +7,24 @@ export default function Document(): React.ReactElement {
       <Head>
         <meta charSet="utf-8" />
         <meta
-          content="I'm a designer, front-end dev and open-source contributor with 8+ years experience in the cryptocurrency space."
+          content="Design engineer, 8+ years in crypto. I prototype and ship interfaces directly in the browser, concept through production."
           name="description"
         />
-        <meta content="douvy · website" property="og:title" />
+
+        {/* Link previews. twitter:card is what makes Twitter show the large
+            image; it reads the title, description and image from the og tags. */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.douvy.com/" />
+        <meta property="og:title" content="douvy · website" />
         <meta
-          content="https://www.douvy.com/img/milady-border.jpg"
-          property="og:image"
+          property="og:description"
+          content="Design engineer, 8+ years in crypto. I prototype and ship interfaces directly in the browser, concept through production."
         />
-        <meta property="og:image:width" content="512" />
-        <meta property="og:image:height" content="512" />
+        <meta property="og:image" content="https://www.douvy.com/img/og.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:creator" content="@douvy_" />
 
         {/* Preload critical fonts */}
         <link
