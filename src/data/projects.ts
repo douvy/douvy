@@ -34,7 +34,7 @@ export const PROJECTS: Project[] = [
     url: "https://arriba.com/",
     categories: ["DeFi"],
     description: [
-      "Crypto trading platform. Trade spot or with leverage, or put money in automated funds paying 5.25% APY. Deposit and withdraw in crypto or fiat, and watch the orderbook update live.",
+      "Designed and built the interface for a crypto trading platform. Trade spot or with leverage, or put money in automated funds paying 5.25% APY. Deposit and withdraw in crypto or fiat, and watch the orderbook update live.",
     ],
     images: [
       { src: "/img/arriba.jpg", alt: "Arriba" },
