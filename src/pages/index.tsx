@@ -190,8 +190,8 @@ export default function Home(): React.ReactElement {
                 className={`mt-8 leading-8 text-[15px] sm:text-[17px] italic mb-8 sm:mb-0 ${theme === "dark" ? "text-muted" : "text-[#4c5461]"}`}
               >
                 I build with agents daily. Active in crypto and AI through learning,
-                exploring, trading, and posting on twitter. I want to join a
-                startup, or the right established company, and give it my all.
+                exploring, trading, and posting on twitter. Looking for a team I
+                believe in to go all in with.
               </p>
               <p className="flex items-center flex-wrap mt-10 mb-4">
                 <a
