@@ -116,7 +116,7 @@ export const PROJECTS: Project[] = [
     url: "https://shishi520.io/",
     categories: ["NFT"],
     description: [
-      "Fully hand-crafted site for a neochibi NFT collection. Built an interactive dress-up tool where users swap outfits on their doll and save it as an image. Randomized traits drawn from net art and Y2K fashion.",
+      "Fully hand-crafted site for a neochibi NFT collection inspired by net art and Y2K fashion. Built a dress-up tool where you swap outfits on your doll and save it as an image.",
     ],
     images: [
       { src: "/img/shishi.jpg", alt: "shishi" },
