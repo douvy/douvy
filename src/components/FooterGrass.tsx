@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import Butterfly from "@/components/Butterfly";
 import { buildPlants, n } from "@/components/footerPlants";
 import { useTheme } from "@/contexts/ThemeContext";
 
@@ -260,6 +261,8 @@ export default function FooterGrass(): React.ReactElement {
   // React's style type doesn't know about CSS variables, hence the wider type
   const style: React.CSSProperties & Record<`--${string}`, string> = {
     height: canvas,
+    // Height of the planting itself, which the butterfly flies relative to
+    "--planting": `${height}px`,
     // How far down the strip sits while peeking (see globals.css). The extra
     // canvas above the planting doesn't change this: it is bottom-anchored.
     "--peek-offset": `${height - peek + sunk * (peek + 12)}px`,
@@ -278,6 +281,7 @@ export default function FooterGrass(): React.ReactElement {
         style={style}
       >
         {drawing}
+        <Butterfly />
       </div>
     </div>
   );

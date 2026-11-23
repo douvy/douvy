@@ -232,6 +232,42 @@
     animation-play-state: paused;
 }
 
+/* Butterfly: sits still among the flowers. Every so often its wings close a
+   little and reopen, twice, then it is still again. */
+@keyframes butterfly-twitch {
+    0%, 86% { transform: scaleX(1); }
+    89% { transform: scaleX(0.74); }
+    92% { transform: scaleX(1); }
+    95% { transform: scaleX(0.84); }
+    100% { transform: scaleX(1); }
+}
+
+.footer-grass .butterfly {
+    position: absolute;
+    /* Left of centre, away from the daisy that lifts off under the picture */
+    left: 30vw;
+    /* A single warm accent, used nowhere else in the strip */
+    --accent: #e2683f;
+    /* Measured down from the top of the planting, so it sits among the
+       flower heads whatever the strip's height */
+    bottom: calc(var(--planting) - 100px);
+    transform: rotate(-17deg);
+}
+
+.footer-grass .butterfly-wing {
+    animation: butterfly-twitch 9s ease-in-out infinite;
+}
+
+.footer-grass.is-hidden .butterfly-wing {
+    animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .footer-grass .butterfly-wing {
+        animation: none;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .footer-grass .sway {
         animation: none;
