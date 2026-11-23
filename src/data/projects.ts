@@ -103,7 +103,7 @@ export const PROJECTS: Project[] = [
     url: "https://remiliastats.com/",
     categories: ["Tools"],
     description: [
-      "Social identity platform leaderboard with a profile page for every user. Syncs the full user base in the background, around the API's rate limits. Search and rankings load from Redis.",
+      "Leaderboard for a social identity platform, with a profile page for every user. Syncs the full user base in the background, around the API's rate limits. Search and rankings load from Redis.",
     ],
     images: [
       { src: "/img/remilianet-1.jpg", alt: "RemiliaNET" },
