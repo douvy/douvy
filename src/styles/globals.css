@@ -244,14 +244,16 @@
 
 .footer-grass .butterfly {
     position: absolute;
-    /* Left of centre, away from the daisy that lifts off under the picture */
-    left: 30vw;
+    /* Far left, clear of the text column and of the daisy that lifts off
+       under the picture */
+    left: clamp(10px, 9vw, 150px);
+    /* Low, just above the arches. Measured from the ground, so on phones -
+       where only the top of the strip shows at the top of the page - it stays
+       below the screen there and doesn't sit on the bio. */
+    bottom: 76px;
+    transform: rotate(-17deg);
     /* A single warm accent, used nowhere else in the strip */
     --accent: #e2683f;
-    /* Measured down from the top of the planting, so it sits among the
-       flower heads whatever the strip's height */
-    bottom: calc(var(--planting) - 100px);
-    transform: rotate(-17deg);
 }
 
 .footer-grass .butterfly-wing {

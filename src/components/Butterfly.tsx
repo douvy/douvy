@@ -225,7 +225,7 @@ function Wings({ side }: { side: typeof RIGHT }): React.ReactElement {
 function Butterfly(): React.ReactElement {
   return (
     <div className="butterfly" aria-hidden="true">
-      <svg width="92" height="70" viewBox="-66 -48 132 100" style={{ overflow: "visible", display: "block" }}>
+      <svg width="64" height="48" viewBox="-66 -48 132 100" style={{ overflow: "visible", display: "block" }}>
         <Wings side={RIGHT} />
         {/* The far side: mirrored, drawn with its own errors, and a touch
             narrower, as if the butterfly is turned slightly away */}
