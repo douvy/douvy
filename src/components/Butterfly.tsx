@@ -122,7 +122,9 @@ function buildWing(spec: WingSpec, random: () => number): Wing {
   let ink = "";
 
   // Veins: heavier at the root, fine at the margin
-  for (let i = 0; i <= last; i++) ink += stroke(bowed(hub(i), margin[i], 1.6), 1.9, 0.7);
+  // (Weights are in drawing units; the butterfly is shown at roughly a third
+  // of that size, so they are heavier here than they end up on screen.)
+  for (let i = 0; i <= last; i++) ink += stroke(bowed(hub(i), margin[i], 1.6), 2.5, 1);
 
   for (let i = 0; i < last; i++) {
     panels.push({ d: pts([hub(i), hub(i + 1), inner(i + 1), inner(i)]), colour: spec.panels[i % spec.panels.length] });
@@ -134,7 +136,7 @@ function buildWing(spec: WingSpec, random: () => number): Wing {
     [0.33, 0.57, 0.78].forEach((t) => {
       if (random() < 0.12) return;
       const at = t + wobble(0.05);
-      ink += stroke(bowed(lerp(hub(i), inner(i), at), lerp(hub(i + 1), inner(i + 1), at + wobble(0.04)), 0.7), 0.9, 0.7);
+      ink += stroke(bowed(lerp(hub(i), inner(i), at), lerp(hub(i + 1), inner(i + 1), at + wobble(0.04)), 0.7), 1.2, 0.95);
     });
   }
 
@@ -149,13 +151,13 @@ function buildWing(spec: WingSpec, random: () => number): Wing {
     const b = outline[(i + 1) % count];
     const length = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
     pressure = Math.min(1, Math.max(0, pressure + wobble(0.3)));
-    const half = (2.3 * (0.72 + 0.56 * pressure)) / 2;
+    const half = (3 * (0.72 + 0.56 * pressure)) / 2;
     outerLoop.push([point[0] - ((b[1] - a[1]) / length) * half, point[1] + ((b[0] - a[0]) / length) * half]);
     innerLoop.push([point[0] + ((b[1] - a[1]) / length) * half, point[1] - ((b[0] - a[0]) / length) * half]);
   });
   ink += path(outerLoop) + path(innerLoop.reverse());
   // The cell's own edge
-  ink += stroke([...cell, cell[0]], 1.2, 1.2);
+  ink += stroke([...cell, cell[0]], 1.6, 1.6);
 
   return { outline: pts(outline), cell: pts(cell), panels, border, spots, ink };
 }
@@ -225,7 +227,7 @@ function Wings({ side }: { side: typeof RIGHT }): React.ReactElement {
 function Butterfly(): React.ReactElement {
   return (
     <div className="butterfly" aria-hidden="true">
-      <svg width="64" height="48" viewBox="-66 -48 132 100" style={{ overflow: "visible", display: "block" }}>
+      <svg width="48" height="36" viewBox="-66 -48 132 100" style={{ overflow: "visible", display: "block" }}>
         <Wings side={RIGHT} />
         {/* The far side: mirrored, drawn with its own errors, and a touch
             narrower, as if the butterfly is turned slightly away */}
